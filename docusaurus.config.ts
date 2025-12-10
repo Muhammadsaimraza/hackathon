@@ -11,11 +11,11 @@ const config: Config = {
   url: 'https://muhammadsaimraza.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/robolearn/',
+  baseUrl: '/physical-and-robotic-ai/',
 
   // GitHub pages deployment config.
   organizationName: 'Muhammadsaimraza', // Usually your GitHub org/user name.
-  projectName: 'robolearn', // Usually your repo name.
+  projectName: 'physical-and-robotic-ai', // Usually your repo name.
  
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
