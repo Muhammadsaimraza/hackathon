@@ -16,11 +16,10 @@ const config: Config = {
   // GitHub pages deployment config.
   organizationName: 'Muhammadsaimraza', // Usually your GitHub org/user name.
   projectName: 'robolearn', // Usually your repo name.
-  deploymentBranch: 'gh-pages',
-  trailingSlash: false,
+ 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  
+
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
