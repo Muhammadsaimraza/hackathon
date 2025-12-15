@@ -70,12 +70,12 @@
 اب آپ ان انٹرفیسز کو اپنے پائتھن پیکیج میں استعمال کر سکتے ہیں۔
 
 1.  **انحصار شامل کریں:** اپنے my_first_package/package.xml میں، اپنے نئے انٹرفیس پیکیج پر ایک انحصار شامل کریں۔
-    `xml
+    ```xml
     <depend>my_custom_interfaces</depend>
-    `
+    ```
 
 2.  **امپورٹ اور استعمال:** اب آپ Person اور SendPerson کو کسی بھی دوسرے پیغام یا سروس کی قسم کی طرح امپورٹ کر سکتے ہیں۔
-    `python
+    ```python
     # اپنے پائتھن نوڈ میں
     from my_custom_interfaces.msg import Person
     from my_custom_interfaces.srv import SendPerson
@@ -96,7 +96,7 @@
     self.get_logger().info(f'Received person: {request.person_to_send.first_name}')
     response.success = True
     return response
-    `
+    ```
 
 ## بنائیں اور چلائیں
 
