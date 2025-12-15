@@ -1,10 +1,10 @@
-# Lesson 13.2: Building the Simulation
+# سبق 13.2: سیمولیشن کی تعمیر
 
-This lesson involves assembling the pieces of the simulation based on our specification. You will create the world, ensure your URDF is complete, and write the final launch file.
+یہ سبق ہماری تفصیلات کی بنیاد پر سیمولیشن کے ٹکڑوں کو جمع کرنے پر مشتمل ہے۔ آپ دنیا بنائیں گے، اپنی URDF کی مکمل تصدیق کریں گے، اور حتمی لانچ فائل لکھیں گے۔
 
-## 1. Create the World
+## 1. دنیا بنائیں
 
-Create a new world file, `worlds/wall_follower_world.sdf`. This world needs a wall for the robot to follow. A simple box is sufficient.
+ایک نئی ورلڈ فائل بنائیں، `worlds/wall_follower_world.sdf`۔ اس دنیا میں روبوٹ کے لیے ایک دیوار ہونی چاہیے۔ ایک سادہ باکس کافی ہے۔
 
 ```xml
 <?xml version="1.0" ?>
@@ -41,23 +41,23 @@ Create a new world file, `worlds/wall_follower_world.sdf`. This world needs a wa
   </world>
 </sdf>
 ```
-This creates a long, thin box to act as a wall at `y=5`.
+یہ `y=5` پر ایک دیوار کے طور پر کام کرنے کے لیے ایک لمبا، پتلا باکس بناتا ہے۔
 
-## 2. Update the Robot URDF
+## 2. روبوٹ URDF کو اپ ڈیٹ کریں
 
-Ensure your `two_wheeled_robot.urdf` from the previous chapters is complete and matches the specification. It must include:
-*   The `chassis`, `left_wheel`, and `right_wheel` links with `<visual>`, `<collision>`, and `<inertial>` tags.
-*   The `DiffDrive` plugin configured to listen on `/cmd_vel`.
-*   A `lidar_link` and `lidar_joint`.
-*   The `gpu_lidar` sensor plugin attached to the `lidar_link` and configured to publish on `/scan`.
+یقینی بنائیں کہ پچھلے ابواب سے آپ کی `two_wheeled_robot.urdf` مکمل ہے اور تفصیلات سے ملتی ہے۔ اس میں شامل ہونا چاہیے:
+*   `chassis`، `left_wheel`، اور `right_wheel` لنکس جن میں `<visual>`، `<collision>`، اور `<inertial>` ٹیگز ہوں۔
+*   `DiffDrive` پلگ ان `/cmd_vel` ٹاپک پر سننے کے لیے ترتیب دیا گیا ہو۔
+*   ایک `lidar_link` اور `lidar_joint`۔
+*   `lidar_link` سے منسلک `gpu_lidar` سینسر پلگ ان اور `/scan` پر شائع کرنے کے لیے ترتیب دیا گیا ہو۔
 
-## 3. Implement the Wall Follower Node
+## 3. وال فالور نوڈ کو نافذ کریں
 
-This is the `wall_follower.py` node you wrote in the previous chapter. Ensure it is complete and correctly implements the logic from the specification. Make sure it declares and uses the required parameters.
+یہ `wall_follower.py` نوڈ ہے جسے آپ نے پچھلے باب میں لکھا تھا۔ یقینی بنائیں کہ یہ مکمل ہے اور تفصیلات سے منطق کو صحیح طریقے سے نافذ کرتا ہے۔ یقینی بنائیں کہ یہ مطلوبہ پیرامیٹرز کا اعلان اور استعمال کرتا ہے۔
 
-## 4. Create the Capstone Launch File
+## 4. کیپسٹون لانچ فائل بنائیں
 
-Create `launch/module2_capstone.launch.py`. This file will integrate all the components.
+`launch/module2_capstone.launch.py` بنائیں۔ یہ فائل تمام اجزاء کو مربوط کرے گی۔
 
 ```python
 import os
@@ -71,13 +71,13 @@ def generate_launch_description():
     world_file = os.path.join(pkg_share, 'worlds', 'wall_follower_world.sdf')
     urdf_file = os.path.join(pkg_share, 'urdf', 'two_wheeled_robot.urdf')
 
-    # 1. Launch Gazebo
+    # 1. Gazebo لانچ کریں
     gz_sim = ExecuteProcess(
         cmd=['gz', 'sim', '-r', world_file],
         output='screen'
     )
 
-    # 2. Spawn the robot
+    # 2. روبوٹ کو اسپان کریں
     spawn_robot = Node(
         package='ros_gz_sim',
         executable='create',
@@ -91,10 +91,10 @@ def generate_launch_description():
         output='screen',
     )
     
-    # 3. Start the Wall Follower Node
+    # 3. وال فالور نوڈ شروع کریں
     wall_follower = Node(
-        package='my_first_package', # Assuming the node is in this package
-        executable='wall_follower', # The name from your setup.py
+        package='my_first_package', # فرض کرتے ہوئے کہ نوڈ اس پیکیج میں ہے
+        executable='wall_follower', # setup.py سے نام
         name='wall_follower_node',
         output='screen',
         parameters=[
@@ -111,13 +111,13 @@ def generate_launch_description():
     ])
 ```
 
-## 5. Build and Run
+## 5. بنائیں اور چلائیں
 
-1.  Make sure all your nodes (`wall_follower`) are correctly registered in their respective `setup.py` files and all dependencies are in `package.xml`.
+1.  یقینی بنائیں کہ آپ کے تمام نوڈس (`wall_follower`) ان کی متعلقہ `setup.py` فائلوں میں صحیح طریقے سے رجسٹرڈ ہیں اور تمام انحصار `package.xml` میں ہیں۔
 2.  `colcon build`
 3.  `source install/setup.bash`
 4.  `ros2 launch urdf_tutorial module2_capstone.launch.py`
 
-When you launch the system, you should see Gazebo open, the world with the wall appear, your robot spawn, and the robot should immediately start moving and trying to follow the wall.
+جب آپ سسٹم لانچ کریں گے، تو آپ کو Gazebo کھلتا ہوا نظر آئے گا، دیوار والی دنیا ظاہر ہوگی، آپ کا روبوٹ اسپان ہوگا، اور روبوٹ کو فوری طور پر حرکت کرنا اور دیوار کے ساتھ چلنے کی کوشش کرنا شروع کر دینا چاہیے۔
 
-You have now built an integrated, closed-loop robotics simulation. In the final lesson, you will formally test it.
+اب آپ نے ایک مربوط، کلوزڈ-لوپ روبوٹکس سیمولیشن بنائی ہے۔ آخری سبق میں، آپ اسے باضابطہ طور پر جانچیں گے۔

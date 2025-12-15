@@ -4,15 +4,15 @@
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "RoboLearn Logo",
+    "message": "روبولرن لوگو",
     "description": "The alt text of navbar logo"
   },
-  "item.label.Textbook": {
-    "message": "Textbook",
-    "description": "Navbar item with label Textbook"
+  "item.label.Learn Free": {
+    "message": "مفت سیکھیں",
+    "description": "Navbar item with label Learn Free"
   },
   "item.label.GitHub": {
-    "message": "GitHub",
+    "message": "گٹ ہب",
     "description": "Navbar item with label GitHub"
   }
 }

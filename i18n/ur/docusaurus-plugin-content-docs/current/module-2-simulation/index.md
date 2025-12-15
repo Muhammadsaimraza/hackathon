@@ -1,23 +1,23 @@
-# Module 2: Simulation
+# ماڈیول 2: سیمولیشن
 
-Welcome to Module 2. In the first module, you mastered the "nervous system" of your robot with ROS 2. Now, you will give that nervous system a body and a world to live in—a **Digital Twin**.
+ماڈیول 2 میں خوش آمدید۔ پہلے ماڈیول میں، آپ نے ROS 2 کے ساتھ اپنے روبوٹ کے "نروس سسٹم" میں مہارت حاصل کی۔ اب، آپ اس نروس سسٹم کو ایک جسم اور رہنے کے لیے ایک دنیا دیں گے — ایک **ڈیجیٹل ٹوئن**۔
 
-Simulation is the single most important accelerator in modern robotics. It allows you to develop, test, and iterate on your robot's software thousands of times faster and cheaper than you could with a physical robot. In this module, you will learn why simulation is a cornerstone of Physical AI, how to describe a robot's physical form, and how to build and interact with a simulated world using Gazebo.
+سیمولیشن جدید روبوٹکس میں سب سے اہم ایکسلریٹر ہے۔ یہ آپ کو اپنے روبوٹ کے سافٹ ویئر کو جسمانی روبوٹ کے مقابلے میں ہزاروں گنا تیز اور سستا تیار کرنے، جانچنے اور دہرانے کی اجازت دیتا ہے۔ اس ماڈیول میں، آپ سیکھیں گے کہ سیمولیشن فزیکل اے آئی کا سنگ بنیاد کیوں ہے، روبوٹ کی جسمانی شکل کو کیسے بیان کیا جائے، اور Gazebo کا استعمال کرتے ہوئے ایک سمیولیٹڈ دنیا کو کیسے بنایا اور اس کے ساتھ تعامل کیا جائے۔
 
-## Learning Objectives
-By the end of this module, you will be able to:
+## سیکھنے کے مقاصد
+اس ماڈیول کے اختتام تک، آپ اس قابل ہو جائیں گے:
 
-*   Explain the concept of a Digital Twin and the "Simulation-First" development workflow.
-*   Author a URDF file to describe the kinematics of a robot.
-*   Build a world in Gazebo using the SDF format.
-*   Add simulated sensors (cameras, LiDAR) to your robot and visualize their data in ROS 2.
-*   Integrate a ROS 2 controller with a simulated robot in Gazebo.
-*   Build and test a complete, closed-loop control system for a simulated mobile robot.
+*   ڈیجیٹل ٹوئن کے تصور اور "سیمولیشن-فرسٹ" ڈویلپمنٹ ورک فلو کی وضاحت کریں۔
+*   ایک روبوٹ کی کائیمیٹکس کو بیان کرنے کے لیے URDF فائل لکھیں۔
+*   SDF فارمیٹ کا استعمال کرتے ہوئے Gazebo میں ایک دنیا بنائیں۔
+*   اپنے روبوٹ میں سمیولیٹڈ سینسرز (کیمرے، LiDAR) شامل کریں اور ROS 2 میں ان کے ڈیٹا کو تصور کریں۔
+*   Gazebo میں ایک سمیولیٹڈ روبوٹ کے ساتھ ROS 2 کنٹرولر کو مربوط کریں۔
+*   ایک سمیولیٹڈ موبائل روبوٹ کے لیے ایک مکمل، کلوزڈ-لوپ کنٹرول سسٹم بنائیں اور جانچیں۔
 
-## Chapters
-*   **Chapter 8: Why Simulate?**
-*   **Chapter 9: Robot Description Formats**
-*   **Chapter 10: Building in Simulation**
-*   **Chapter 11: Sensors in Simulation**
-*   **Chapter 12: ROS 2 + Gazebo Integration**
-*   **Chapter 13: Module 2 Capstone**
+## ابواب
+*   **باب 8: سیمولیشن کیوں؟**
+*   **باب 9: روبوٹ کی تفصیل کے فارمیٹس**
+*   **باب 10: سیمولیشن میں تعمیر**
+*   **باب 11: سیمولیشن میں سینسرز**
+*   **باب 12: ROS 2 + Gazebo انٹیگریشن**
+*   **باب 13: ماڈیول 2 کیپسٹون**

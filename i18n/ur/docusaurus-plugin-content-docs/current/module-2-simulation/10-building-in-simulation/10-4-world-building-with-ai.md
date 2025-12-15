@@ -1,56 +1,56 @@
-# Lesson 10.4: World Building with AI
+# سبق 10.4: اے آئی کے ساتھ دنیا کی تعمیر
 
-Just as with URDF, writing complex SDF world files by hand can be tedious. You can use an AI assistant to quickly generate interesting and complex worlds for your robot to train and test in.
+بالکل URDF کی طرح، پیچیدہ SDF ورلڈ فائلیں ہاتھ سے لکھنا بورنگ ہو سکتا ہے۔ آپ اپنے روبوٹ کو تربیت دینے اور جانچنے کے لیے دلچسپ اور پیچیدہ دنیاؤں کو تیزی سے تیار کرنے کے لیے ایک اے آئی اسسٹنٹ استعمال کر سکتے ہیں۔
 
-## Using AI for World Generation
+## دنیا کی جنریشن کے لیے اے آئی کا استعمال
 
-Let's ask an LLM to create a world with a few obstacles.
+آئیے ایک LLM سے کچھ رکاوٹوں والی دنیا بنانے کے لیے کہتے ہیں۔
 
 ---
-**Prompt:**
+**پرامپٹ:**
 
-> "You are an expert Gazebo and ROS 2 developer. Please generate a complete SDF world file named `obstacle_course.sdf`.
+> "آپ ایک ماہر Gazebo اور ROS 2 ڈویلپر ہیں۔ براہ کرم `obstacle_course.sdf` نامی ایک مکمل SDF ورلڈ فائل تیار کریں۔
 >
-> The world should contain:
-> 1. A ground plane.
-> 2. A sun for lighting.
-> 3. A "Construction Cone" model from the OpenRobotics Fuel marketplace at pose (3, 3, 0).
-> 4. A "Jersey Barrier" model from the OpenRobotics Fuel marketplace at pose (5, -2, 0).
-> 5. A simple box shape with size 1x5x1 meters at pose (0, 7, 0.5) to act as a wall.
+> دنیا میں یہ چیزیں شامل ہونی چاہئیں:
+> 1. ایک گراؤنڈ پلین۔
+> 2. روشنی کے لیے ایک سورج۔
+> 3. پوز (3, 3, 0) پر OpenRobotics فیول مارکیٹ پلیس سے ایک "کنسٹرکشن کون" ماڈل۔
+> 4. پوز (5, -2, 0) پر OpenRobotics فیول مارکیٹ پلیس سے ایک "جرسی بیریئر" ماڈل۔
+> 5. پوز (0, 7, 0.5) پر 1x5x1 میٹر کے سائز کا ایک سادہ باکس شکل، جو دیوار کے طور پر کام کرے۔
 >
-> The SDF should be version 1.7, well-formatted, and commented."
+> SDF ورژن 1.7 ہونا چاہیے، اچھی طرح فارمیٹ شدہ اور تبصرہ شدہ۔"
 
 ---
 
-**Review the Output:**
-The AI should generate a complete `.sdf` file.
-*   Does it include the `ground_plane` and `sun`?
-*   Does it correctly include the two models from the Fuel marketplace with the correct poses?
-*   Does it create a new model for the box wall? A primitive shape like a box must be contained within a `<model>` tag, which contains `<link>`, `<collision>`, and `<visual>` tags, just like in URDF. Did the AI do this correctly?
+**آؤٹ پٹ کا جائزہ لیں:**
+اے آئی کو ایک مکمل `.sdf` فائل تیار کرنی چاہیے۔
+*   کیا اس میں `ground_plane` اور `sun` شامل ہے؟
+*   کیا اس میں فیول مارکیٹ پلیس سے دو ماڈلز کو درست پوز کے ساتھ شامل کیا گیا ہے؟
+*   کیا یہ باکس دیوار کے لیے ایک نیا ماڈل بناتا ہے؟ ایک پرائمیٹیو شکل جیسے باکس کو `<model>` ٹیگ کے اندر ہونا چاہیے، جس میں `<link>`، `<collision>`، اور `<visual>` ٹیگز شامل ہوں، بالکل URDF کی طرح۔ کیا اے آئی نے یہ صحیح کیا؟
 
-## Iterating with AI
+## اے آئی کے ساتھ اعادہ کرنا
 
-This generated world can be a great starting point. You can now iterate on it.
-
----
-**Follow-up Prompt:**
-
-> "Thank you. Now, please add a second box wall to the `obstacle_course.sdf` file. It should be perpendicular to the first one, at pose (7, 4.5, 0.5)."
+یہ تیار کردہ دنیا ایک بہترین نقطہ آغاز ہو سکتی ہے۔ اب آپ اس پر اعادہ کر سکتے ہیں۔
 
 ---
+**فالو اپ پرامپٹ:**
 
-The AI should be able to take the previous context and add the new model to it, generating a complete, updated file.
+> "شکریہ۔ اب، براہ کرم `obstacle_course.sdf` فائل میں ایک دوسری باکس دیوار شامل کریں۔ یہ پہلی والی کے عمودی ہونی چاہیے، پوز (7, 4.5, 0.5) پر۔"
 
-## Your Role as a World Builder
+---
 
-This AI-assisted workflow is extremely powerful for creating test environments. You can quickly generate dozens of different worlds to test your robot's navigation and perception algorithms.
+اے آئی کو پچھلے سیاق و سباق کو لے کر اس میں نیا ماڈل شامل کرنے کے قابل ہونا چاہیے، جس سے ایک مکمل، اپ ڈیٹ شدہ فائل تیار ہو۔
 
-Your role is to:
-1.  **Design the scenario:** What do you want to test? Obstacle avoidance? Navigating a maze? Finding a specific object?
-2.  **Prompt the AI:** Give the AI a clear, high-level description of the world you want to create.
-3.  **Validate and Refine:** Load the generated world in Gazebo. Does it look right? Are the objects in the correct places? Are there any errors in the console?
-4.  **Integrate:** Use your generated world files in your launch scripts to run your tests.
+## ایک ورلڈ بلڈر کے طور پر آپ کا کردار
 
-By leveraging AI, you can spend more time thinking about *what* to test and less time on the tedious mechanics of writing XML.
+یہ اے آئی سے مدد یافتہ ورک فلو ٹیسٹ ماحول بنانے کے لیے انتہائی طاقتور ہے۔ آپ اپنے روبوٹ کے نیویگیشن اور پرسیپشن الگورتھم کو جانچنے کے لیے درجنوں مختلف دنیاؤں کو تیزی سے تیار کر سکتے ہیں۔
 
-This concludes Chapter 10. You can now create simulated worlds, populate them with objects, and spawn your robot into them. In the next chapter, we will give your simulated robot the ability to see by adding simulated sensors.
+آپ کا کردار یہ ہے کہ:
+1.  **منظر نامہ ڈیزائن کریں:** آپ کیا جانچنا چاہتے ہیں؟ رکاوٹوں سے بچنا؟ ایک بھولبلییا میں نیویگیٹ کرنا؟ ایک مخصوص چیز تلاش کرنا؟
+2.  **اے آئی کو پرامپٹ کریں:** اے آئی کو اس دنیا کی واضح، اعلیٰ سطحی تفصیل دیں جو آپ بنانا چاہتے ہیں۔
+3.  **تصدیق اور بہتر بنائیں:** تیار کردہ دنیا کو Gazebo میں لوڈ کریں۔ کیا یہ صحیح لگتی ہے؟ کیا اشیاء صحیح جگہوں پر ہیں؟ کیا کنسول میں کوئی غلطیاں ہیں؟
+4.  **مربوط کریں:** اپنے ٹیسٹ چلانے کے لیے اپنی لانچ سکرپٹس میں تیار کردہ ورلڈ فائلوں کا استعمال کریں۔
+
+اے آئی کا فائدہ اٹھا کر، آپ XML لکھنے کی بورنگ میکینکس پر کم وقت اور *کیا* جانچنا ہے اس پر زیادہ وقت صرف کر سکتے ہیں۔
+
+یہ باب 10 کا اختتام کرتا ہے۔ اب آپ سمیولیٹڈ دنیاؤں کو بنا سکتے ہیں، انہیں اشیاء سے آباد کر سکتے ہیں، اور اپنے روبوٹ کو ان میں اسپان کر سکتے ہیں۔ اگلے باب میں، ہم سمیولیٹڈ سینسرز کو شامل کر کے اپنے سمیولیٹڈ روبوٹ کو دیکھنے کی صلاحیت دیں گے۔

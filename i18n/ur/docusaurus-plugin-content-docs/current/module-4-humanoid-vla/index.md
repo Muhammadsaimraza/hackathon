@@ -1,22 +1,22 @@
-# Module 4: Humanoid VLA Systems
+# ماڈیول 4: ہیومنائڈ VLA سسٹمز
 
-Welcome to the final and most advanced module of this course. You have built the nervous system (ROS 2), the body and world (Gazebo), and the AI brain (Isaac). Now, you will put them all together to create a **Vision-Language-Action (VLA)** system for a humanoid robot.
+کورس کے آخری اور سب سے جدید ماڈیول میں خوش آمدید۔ آپ نے نروس سسٹم (ROS 2)، جسم اور دنیا (Gazebo)، اور اے آئی دماغ (Isaac) بنا لیا ہے۔ اب، آپ ان سب کو ایک ساتھ ملا کر ایک ہیومنائڈ روبوٹ کے لیے **ویژن-لینگویج-ایکشن (VLA)** سسٹم بنائیں گے۔
 
-This module represents the frontier of modern robotics: the convergence of large language models with physical embodiment. You will learn how to give a robot the ability to understand natural language commands, to reason about the physical world, and to translate its intentions into motion.
+یہ ماڈیول جدید روبوٹکس کی سرحد کی نمائندگی کرتا ہے: بڑے لسانی ماڈلز کا جسمانی مظہر کے ساتھ ہم آہنگی۔ آپ سیکھیں گے کہ روبوٹ کو قدرتی زبان کے احکامات کو سمجھنے، طبعی دنیا کے بارے میں استدلال کرنے، اور اس کے ارادوں کو حرکت میں ترجمہ کرنے کی صلاحیت کیسے دی جائے۔
 
-You will learn the principles of humanoid kinematics and motion planning, and you will build a complete system that can take a voice command like "bring me the apple" and turn it into a sequence of navigation and manipulation actions.
+آپ ہیومنائڈ کائیمیٹکس اور موشن پلاننگ کے اصول سیکھیں گے، اور آپ ایک مکمل نظام بنائیں گے جو "مجھے سیب لاؤ" جیسے صوتی کمانڈ کو نیویگیشن اور مینیپولیشن کے اعمال کے سلسلے میں تبدیل کر سکتا ہے۔
 
-## Learning Objectives
-By the end of this module, you will be able to:
+## سیکھنے کے مقاصد
+اس ماڈیول کے اختتام تک، آپ اس قابل ہو جائیں گے:
 
-*   Understand the principles of humanoid kinematics and dynamics.
-*   Use a motion planning library like MoveIt2 to plan and execute arm movements.
-*   Build a "Voice-to-Action" pipeline using a speech-to-text engine and a Large Language Model (LLM).
-*   Integrate navigation, perception, and manipulation into a single, cohesive system.
-*   Complete a capstone project that demonstrates a voice-commanded humanoid performing a fetch task.
+*   ہیومنائڈ کائیمیٹکس اور ڈائنامکس کے اصولوں کو سمجھیں۔
+*   بازو کی حرکات کی منصوبہ بندی اور ان پر عمل درآمد کے لیے MoveIt2 جیسی موشن پلاننگ لائبریری کا استعمال کریں۔
+*   اسپیچ-ٹو-ٹیکسٹ انجن اور ایک بڑے لسانی ماڈل (LLM) کا استعمال کرتے ہوئے "وائس-ٹو-ایکشن" پائپ لائن بنائیں۔
+*   نیویگیشن، پرسیپشن، اور مینیپولیشن کو ایک واحد، مربوط نظام میں مربوط کریں۔
+*   ایک کیپسٹون پروجیکٹ مکمل کریں جو صوتی کمانڈ سے چلنے والے ہیومنائڈ کو فیچ ٹاسک انجام دیتے ہوئے ظاہر کرتا ہے۔
 
-## Chapters
-*   **Chapter 18: Humanoid Kinematics & Dynamics**
-*   **Chapter 19: Motion Planning for Manipulation**
-*   **Chapter 20: Conversational Robotics & VLAs**
-*   **Chapter 21: Module 4 Capstone**
+## ابواب
+*   **باب 18: ہیومنائڈ کائیمیٹکس اور ڈائنامکس**
+*   **باب 19: مینیپولیشن کے لیے موشن پلاننگ**
+*   **باب 20: بات چیت والی روبوٹکس اور VLAs**
+*   **باب 21: ماڈیول 4 کیپسٹون**

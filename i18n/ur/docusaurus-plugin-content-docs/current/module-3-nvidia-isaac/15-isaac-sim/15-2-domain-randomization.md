@@ -1,45 +1,45 @@
-# Lesson 15.2: Domain Randomization
+# سبق 15.2: ڈومین رینڈمائزیشن
 
-If you train an AI model exclusively on perfectly clean, beautifully rendered synthetic data, it will perform very well *in the simulator*. But when you deploy it to a physical robot in the real world, it will likely fail. This is the **"sim-to-real" gap**.
+اگر آپ ایک AI ماڈل کو خصوصی طور پر مکمل طور پر صاف، خوبصورتی سے رینڈر کیے گئے مصنوعی ڈیٹا پر تربیت دیتے ہیں، تو یہ سمیلیٹر میں بہت اچھی کارکردگی کا مظاہرہ کرے گا۔ لیکن جب آپ اسے حقیقی دنیا میں ایک جسمانی روبوٹ پر تعینات کرتے ہیں، تو یہ شاید ناکام ہو جائے گا۔ یہ **"سم-ٹو-ریئل" گیپ** ہے۔
 
-The real world is messy. Lighting is unpredictable, textures are varied, and objects are never in the exact same place twice. The model trained on perfect data has "overfit" to the simulation; it has learned to rely on simulation-specific cues that don't exist in reality.
+حقیقی دنیا گندی ہے۔ روشنی غیر متوقع ہے، بناوٹ مختلف ہیں، اور اشیاء کبھی بھی دو بار ایک ہی جگہ پر نہیں ہوتیں۔ کامل ڈیٹا پر تربیت یافتہ ماڈل نے سیمولیشن کے مخصوص خواص کو "اوور فٹ" کر دیا ہے؛ اس نے سیمولیشن-مخصوص اشاروں پر انحصار کرنا سیکھ لیا ہے جو حقیقت میں موجود نہیں ہیں۔
 
-**Domain Randomization (DR)** is a powerful technique to combat this. The core idea is counter-intuitive: instead of trying to make your simulation a perfect copy of reality, you should make it a *less* perfect, more varied collection of many different realities.
+**ڈومین رینڈمائزیشن (DR)** اس کا مقابلہ کرنے کے لیے ایک طاقتور تکنیک ہے۔ بنیادی خیال متضاد ہے: اپنی سیمولیشن کو حقیقت کی کامل نقل بنانے کی کوشش کرنے کے بجائے، آپ کو اسے بہت سی مختلف حقیقتوں کا ایک *کم* کامل، زیادہ متنوع مجموعہ بنانا چاہیے۔
 
-## How it Works
+## یہ کیسے کام کرتا ہے۔
 
-With Domain Randomization, you intentionally vary the non-essential parameters of your simulation for every frame you render.
+ڈومین رینڈمائزیشن کے ساتھ، آپ ہر فریم کے لیے اپنی سیمولیشن کے غیر ضروری پیرامیٹرز کو جان بوجھ کر مختلف کرتے ہیں جو آپ رینڈر کرتے ہیں۔
 
-In Isaac Sim's Replicator, you can easily randomize:
-*   **Lighting:** The position, orientation, color, and intensity of all lights in the scene.
-*   **Object Pose:** The position and orientation of all objects of interest.
-*   **Textures:** The materials and textures applied to your objects, walls, and floors. You can have a library of hundreds of different textures (wood, metal, carpet, etc.) and randomly apply one for each frame.
-*   **Camera Pose:** The exact position and angle of the camera can be slightly perturbed for each frame.
+Isaac Sim کے ریپلیکیٹر میں، آپ آسانی سے رینڈمائز کر سکتے ہیں:
+*   **روشنی:** منظر میں تمام لائٹس کی پوزیشن، واقفیت، رنگ، اور شدت۔
+*   **آبجیکٹ پوز:** دلچسپی کی تمام اشیاء کی پوزیشن اور واقفیت۔
+*   **بناوٹ:** آپ کی اشیاء، دیواروں، اور فرش پر لاگو مواد اور بناوٹ۔ آپ کے پاس سینکڑوں مختلف بناوٹ (لکڑی، دھات، قالین، وغیرہ) کی لائبریری ہو سکتی ہے اور ہر فریم کے لیے تصادفی طور پر ایک کو لاگو کر سکتے ہیں۔
+*   **کیمرہ پوز:** کیمرہ کی درست پوزیشن اور زاویہ ہر فریم کے لیے تھوڑا سا پریشان کیا جا سکتا ہے۔
 
-## Why it Works: Forcing the Model to Generalize
+## یہ کیوں کام کرتا ہے: ماڈل کو جنرلائز کرنے پر مجبور کرنا
 
-By showing the model thousands of images with different lighting, textures, and poses, you are forcing it to learn the *true, essential features* of the object it is trying to detect.
+ماڈل کو مختلف روشنی، بناوٹ، اور پوز والی ہزاروں تصاویر دکھا کر، آپ اسے اس آبجیکٹ کی *حقیقی، ضروری خصوصیات* کو سیکھنے پر مجبور کر رہے ہیں جس کا وہ پتہ لگانے کی کوشش کر رہا ہے۔
 
-*   If the model sees a coffee mug with 50 different textures, it learns that the texture is not what defines a mug. It learns to focus on the shape: the cylindrical body and the C-shaped handle.
-*   If the model sees the mug under 100 different lighting conditions, it learns that the specific shadows and highlights are not important. It learns to recognize the object's form regardless of the lighting.
+*   اگر ماڈل 50 مختلف بناوٹ والے کافی مگ کو دیکھتا ہے، تو اسے معلوم ہوتا ہے کہ بناوٹ وہ نہیں ہے جو ایک مگ کی وضاحت کرتی ہے۔ یہ شکل پر توجہ مرکوز کرنا سیکھتا ہے: بیلناکار جسم اور C-کی شکل والا ہینڈل۔
+*   اگر ماڈل مگ کو 100 مختلف روشنی کی حالتوں میں دیکھتا ہے، تو اسے معلوم ہوتا ہے کہ مخصوص سائے اور ہائی لائٹس اہم نہیں ہیں۔ یہ روشنی سے قطع نظر آبجیکٹ کی شکل کو پہچاننا سیکھتا ہے۔
 
-The real world, with its specific lighting and textures, simply looks like "just another variation" to the model. The sim-to-real gap is not crossed; it is filled in by the sheer variety of the training data.
+حقیقی دنیا، اپنی مخصوص روشنی اور بناوٹ کے ساتھ، ماڈل کو "صرف ایک اور تغیر" کی طرح لگتی ہے۔ سم-ٹو-ریئل گیپ کو عبور نہیں کیا جاتا؛ یہ تربیت کے ڈیٹا کی sheer variety سے پر کیا جاتا ہے۔
 
-## DR in a Replicator Script
+## DR ایک ریپلیکیٹر اسکرپٹ میں
 
-This is an extension of the script from the previous lesson.
+یہ پچھلے سبق سے اسکرپٹ کی توسیع ہے۔
 
 ```python
 import omni.replicator.core as rep
 
-# ... (define sphere, cube, camera, etc.) ...
+# ... (sphere، cube، camera، وغیرہ کی وضاحت کریں) ...
 
-# Define randomization for textures
-# Assume we have a folder of texture images
+# بناوٹ کے لیے رینڈمائزیشن کی وضاحت کریں
+# فرض کریں ہمارے پاس ٹیکسچر امیجز کا ایک فولڈر ہے
 textures = ["/path/to/texture1.png", "/path/to/texture2.png", ...]
 
 def randomize_textures():
-    # Get all the prims that look like a "cube"
+    # تمام پریمز حاصل کریں جو ایک "مکعب" کی طرح نظر آتے ہیں
     cubes = rep.get.prims(semantics=[('class', 'cube')])
     with cubes:
         rep.modify.material(
@@ -47,7 +47,7 @@ def randomize_textures():
         )
     return cubes.get_output()
     
-# Define randomization for lights
+# لائٹس کے لیے رینڈمائزیشن کی وضاحت کریں
 lights = rep.get.prims(semantics=[('class', 'light')])
 def randomize_lights():
     with lights:
@@ -59,14 +59,15 @@ def randomize_lights():
         )
     return lights.get_output()
 
-# Register the randomizers
+# رینڈمائزرز کو رجسٹر کریں
 rep.randomizer.register(randomize_textures)
 rep.randomizer.register(randomize_lights)
-# ... (and the sphere position randomizer from before) ...
+# ... (اور پہلے سے sphere پوزیشن رینڈمائزر) ...
 
-# Run the replicator
-with rep.trigger.on_frame(num_frames=1000): # Generate more frames for DR
+# ریپلیکیٹر چلائیں
+with rep.trigger.on_frame(num_frames=1000): # DR کے لیے مزید فریم تیار کریں
     rep.randomizer.randomize()
 ```
 
-Domain Randomization is one of the most important techniques in modern, AI-driven robotics. It is the key that unlocks the power of synthetic data, allowing us to train robust perception models that work reliably in the complex, messy real world.
+ڈومین رینڈمائزیشن جدید، AI پر مبنی روبوٹکس میں سب سے اہم تکنیکوں میں سے ایک ہے۔ یہ مصنوعی ڈیٹا کی طاقت کو کھولتا ہے، جس سے ہمیں مضبوط پرسیپشن ماڈلز کو تربیت دینے کی اجازت ملتی ہے جو پیچیدہ، گندی حقیقی دنیا میں قابل اعتماد طریقے سے کام کرتے ہیں۔
+

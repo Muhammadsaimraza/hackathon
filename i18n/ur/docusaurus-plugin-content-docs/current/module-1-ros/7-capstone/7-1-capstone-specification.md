@@ -1,35 +1,35 @@
-# Lesson 7.1: The Specification
+# سبق 7.1: تفصیلات
 
-Before writing a single line of code for a complex system, a good engineer writes a specification. A specification is a detailed description of *what* the system should do, not *how* it should do it. It defines the components, their interfaces, and their expected behavior.
+ایک پیچیدہ نظام کے لیے کوڈ کی ایک بھی لائن لکھنے سے پہلے، ایک اچھا انجینئر ایک تفصیلات لکھتا ہے۔ ایک تفصیلات اس بات کی تفصیلی وضاحت ہے کہ سسٹم کو *کیا* کرنا چاہیے، نہ کہ *کیسے* کرنا چاہیے۔ یہ اجزاء، ان کے انٹرفیس، اور ان کے متوقع رویے کی وضاحت کرتی ہے۔
 
-For this capstone, we will design a system that commands a turtle in the Turtlesim simulator to draw a shape.
+اس کیپسٹون کے لیے، ہم ایک ایسا نظام ڈیزائن کریں گے جو ٹرٹل سم سمیلیٹر میں ایک کچھوے کو شکل بنانے کا حکم دیتا ہے۔
 
-## High-Level Requirements
+## اعلیٰ سطحی ضروریات
 
-1.  The system shall be able to command a turtle to draw a polygon (e.g., a square).
-2.  The shape's size (edge length) and drawing speed shall be configurable.
-3.  The drawing process shall be triggered by a service call.
-4.  The system shall be started with a single launch file.
+1.  سسٹم کو ایک کچھوے کو کثیرالضلعی (مثلاً، ایک مربع) بنانے کا حکم دینے کے قابل ہونا چاہیے۔
+2.  شکل کا سائز (کنارے کی لمبائی) اور ڈرائنگ کی رفتار قابل ترتیب ہونی چاہیے۔
+3.  ڈرائنگ کا عمل سروس کال کے ذریعے شروع ہونا چاہیے۔
+4.  سسٹم کو ایک ہی لانچ فائل سے شروع کیا جانا چاہیے۔
 
-## System Components
+## سسٹم کے اجزاء
 
-Based on these requirements, we can identify the need for at least two nodes:
+ان ضروریات کی بنیاد پر، ہم کم از کم دو نوڈس کی ضرورت کی شناخت کر سکتے ہیں:
 
-1.  **A Controller Node:** This node will be responsible for the "business logic" of drawing the shape. It will translate the high-level goal ("draw a square") into a sequence of low-level velocity commands.
-2.  **A Turtlesim Node:** The simulator itself, which we will launch as part of our system.
+1.  **ایک کنٹرولر نوڈ:** یہ نوڈ شکل بنانے کی "کاروباری منطق" کے لیے ذمہ دار ہوگا۔ یہ اعلیٰ سطحی مقصد ("ایک مربع بنائیں") کو نچلی سطح کی رفتار کے کمانڈز کی ترتیب میں ترجمہ کرے گا۔
+2.  **ایک ٹرٹل سم نوڈ:** سمیلیٹر خود، جسے ہم اپنے سسٹم کے حصے کے طور پر لانچ کریں گے۔
 
-## Interface Design (The "API")
+## انٹرفیس ڈیزائن ("API")
 
-How will our nodes communicate?
+ہمارے نوڈس کیسے مواصلات کریں گے؟
 
-1.  **Controller → Turtlesim:** The controller needs to send velocity commands to the simulator. We will use the standard `/turtle1/cmd_vel` topic with `geometry_msgs/msg/Twist` messages, just as `turtle_teleop_key` did.
-2.  **User → Controller:** The user needs a way to trigger the drawing process. A service is a perfect fit for this. We will create a service that the user can call to start the drawing.
+1.  **کنٹرولر → ٹرٹل سم:** کنٹرولر کو سمیلیٹر کو رفتار کے کمانڈ بھیجنے کی ضرورت ہے۔ ہم معیاری `/turtle1/cmd_vel` ٹاپک کو `geometry_msgs/msg/Twist` پیغامات کے ساتھ استعمال کریں گے، جیسا کہ `turtle_teleop_key` نے کیا تھا۔
+2.  **صارف → کنٹرولر:** صارف کو ڈرائنگ کے عمل کو شروع کرنے کے لیے ایک طریقے کی ضرورت ہے۔ اس کے لیے ایک سروس بہترین ہے۔ ہم ایک سروس بنائیں گے جسے صارف ڈرائنگ شروع کرنے کے لیے کال کر سکتا ہے۔
 
-Let's define our service. We'll need a custom service type.
+آئیے اپنی سروس کی وضاحت کریں۔ ہمیں ایک کسٹم سروس کی قسم کی ضرورت ہوگی۔
 
-### Custom Service: `DrawShape.srv`
+### کسٹم سروس: `DrawShape.srv`
 
-Let's create this in our `my_custom_interfaces` package.
+آئیے اسے اپنے `my_custom_interfaces` پیکیج میں بنائیں۔
 ```
 # srv/DrawShape.srv
 float32 edge_length
@@ -37,44 +37,44 @@ int32 sides
 ---
 bool success
 ```
-*   **Request:** `edge_length` defines the size of the shape, and `sides` defines how many sides the polygon has (e.g., 4 for a square).
-*   **Response:** A simple boolean to indicate if the drawing was completed successfully.
+*   **درخواست:** `edge_length` شکل کا سائز بیان کرتا ہے، اور `sides` بیان کرتا ہے کہ کثیرالضلعی کے کتنے اطراف ہیں (مثلاً، ایک مربع کے لیے 4)۔
+*   **جواب:** ایک سادہ بولین یہ بتانے کے لیے کہ ڈرائنگ کامیابی سے مکمل ہوئی یا نہیں۔
 
-## Node-by-Node Specification
+## نوڈ بہ نوڈ تفصیلات
 
 ### 1. `shape_drawer_node`
 
-*   **Node Name:** `shape_drawer_node`
-*   **Purpose:** Provides a service to draw a shape and publishes the necessary velocity commands.
-*   **Parameters:**
-    *   `linear_velocity` (float, default: 1.0): The forward speed of the turtle while drawing.
-    *   `angular_velocity` (float, default: 1.0): The turning speed of the turtle at the corners.
-*   **Services Provided:**
-    *   `/draw_shape` (`my_custom_interfaces/srv/DrawShape`): Receives a request to draw a shape.
-*   **Topics Published:**
-    *   `/turtle1/cmd_vel` (`geometry_msgs/msg/Twist`): Publishes velocity commands to move the turtle.
-*   **Behavior:**
-    1.  When the `/draw_shape` service is called, the node receives the `edge_length` and `sides`.
-    2.  It calculates the required turning angle for the corners (360 / sides).
-    3.  It enters a loop that repeats for the number of sides.
-    4.  In each loop iteration, it:
-        a.  Publishes a `Twist` message with `linear.x` set to the `linear_velocity` parameter for a duration of (`edge_length` / `linear_velocity`) seconds.
-        b.  Publishes a `Twist` message with `angular.z` set to the `angular_velocity` parameter for a duration of (`turn_angle` / `angular_velocity`) seconds.
-    5.  After the loop completes, it publishes a zero-velocity `Twist` message to stop the turtle.
-    6.  It returns `success: true` in the service response.
+*   **نوڈ کا نام:** `shape_drawer_node`
+*   **مقصد:** شکل بنانے کے لیے ایک سروس فراہم کرتا ہے اور ضروری رفتار کے کمانڈز شائع کرتا ہے۔
+*   **پیرامیٹرز:**
+    *   `linear_velocity` (فلوٹ، ڈیفالٹ: 1.0): ڈرائنگ کے دوران کچھوے کی آگے کی رفتار۔
+    *   `angular_velocity` (فلوٹ، ڈیفالٹ: 1.0): کونوں پر کچھوے کی موڑ کی رفتار۔
+*   **فراہم کردہ خدمات:**
+    *   `/draw_shape` (`my_custom_interfaces/srv/DrawShape`): شکل بنانے کی درخواست وصول کرتا ہے۔
+*   **شائع کردہ ٹاپکس:**
+    *   `/turtle1/cmd_vel` (`geometry_msgs/msg/Twist`): کچھوے کو حرکت دینے کے لیے رفتار کے کمانڈز شائع کرتا ہے۔
+*   **رویہ:**
+    1.  جب `/draw_shape` سروس کال کی جاتی ہے، تو نوڈ `edge_length` اور `sides` وصول کرتا ہے۔
+    2.  یہ کونوں کے لیے مطلوبہ موڑ کا زاویہ شمار کرتا ہے (360 / اطراف)۔
+    3.  یہ ایک لوپ میں داخل ہوتا ہے جو اطراف کی تعداد کے لیے دہراتا ہے۔
+    4.  ہر لوپ تکرار میں، یہ:
+        a.  (`edge_length` / `linear_velocity`) سیکنڈ کی مدت کے لیے `linear.x` کو `linear_velocity` پیرامیٹر پر سیٹ کر کے ایک `Twist` پیغام شائع کرتا ہے۔
+        b.  (`turn_angle` / `angular_velocity`) سیکنڈ کی مدت کے لیے `angular.z` کو `angular_velocity` پیرامیٹر پر سیٹ کر کے ایک `Twist` پیغام شائع کرتا ہے۔
+    5.  لوپ مکمل ہونے کے بعد، یہ کچھوے کو روکنے کے لیے صفر-رفتار والا `Twist` پیغام شائع کرتا ہے۔
+    6.  یہ سروس جواب میں `success: true` واپس کرتا ہے۔
 
 ### 2. `turtlesim_node`
 
-*   This is the standard node from the `turtlesim` package. We don't need to write it, just launch it.
+*   یہ `turtlesim` پیکیج سے معیاری نوڈ ہے۔ ہمیں اسے لکھنے کی ضرورت نہیں، صرف لانچ کرنا ہے۔
 
-## Launch File Specification
+## لانچ فائل کی تفصیلات
 
-*   **Name:** `capstone.launch.py`
-*   **Actions:**
-    1.  Start the `turtlesim_node` from the `turtlesim` package.
-    2.  Start our `shape_drawer_node`.
-    3.  Pass default parameter values to the `shape_drawer_node` (e.g., `linear_velocity: 0.5`, `angular_velocity: 0.5`).
+*   **نام:** `capstone.launch.py`
+*   **اعمال:**
+    1.  `turtlesim` پیکیج سے `turtlesim_node` شروع کریں۔
+    2.  ہمارا `shape_drawer_node` شروع کریں۔
+    3.  `shape_drawer_node` کو ڈیفالٹ پیرامیٹر کی قدریں پاس کریں (مثلاً، `linear_velocity: 0.5`، `angular_velocity: 0.5`)۔
 
 ---
 
-With this specification, we have a complete and unambiguous plan. We know exactly what to build, how the components will interact, and what the final behavior should be. In the next lesson, you will implement this plan.
+اس تفصیلات کے ساتھ، ہمارے پاس ایک مکمل اور غیر مبہم منصوبہ ہے۔ ہم بالکل جانتے ہیں کہ کیا بنانا ہے، اجزاء کیسے تعامل کریں گے، اور حتمی رویہ کیا ہونا چاہیے۔ اگلے سبق میں، آپ اس منصوبے کو نافذ کریں گے۔

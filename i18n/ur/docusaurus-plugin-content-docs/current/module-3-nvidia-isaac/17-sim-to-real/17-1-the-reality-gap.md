@@ -1,28 +1,28 @@
-# Lesson 17.1: The Reality Gap
+# سبق 17.1: حقیقت کا فرق
 
-You have trained a brilliant object detection model on 1 million synthetic images from Isaac Sim. It achieves 99.9% accuracy in the simulator. You deploy it to your physical robot, point it at a real coffee mug, and... it sees nothing. What happened?
+آپ نے Isaac Sim سے 1 ملین مصنوعی تصاویر پر ایک شاندار آبجیکٹ ڈیٹیکشن ماڈل کی تربیت دی ہے۔ یہ سمیلیٹر میں 99.9% درستگی حاصل کرتا ہے۔ آپ اسے اپنے جسمانی روبوٹ پر تعینات کرتے ہیں، اسے ایک حقیقی کافی مگ کی طرف اشارہ کرتے ہیں، اور... اسے کچھ نظر نہیں آتا۔ کیا ہوا؟
 
-You have just fallen into the **"Reality Gap"**.
+آپ ابھی **"حقیقت کا فرق"** میں گر گئے ہیں۔
 
-The reality gap is the collection of all the subtle and not-so-subtle differences between your simulation and the real world. A model that has only ever seen the simulation has "overfit" to its specific properties and is not able to generalize to the different properties of the real world.
+حقیقت کا فرق آپ کی سیمولیشن اور حقیقی دنیا کے درمیان تمام لطیف اور غیر لطیف اختلافات کا مجموعہ ہے۔ ایک ماڈل جس نے صرف سیمولیشن کو دیکھا ہے اس نے اپنی مخصوص خصوصیات کو "اوور فٹ" کر دیا ہے اور وہ حقیقی دنیا کی مختلف خصوصیات کو جنرلائز کرنے کے قابل نہیں ہے۔
 
-## Sources of the Reality Gap
+## حقیقت کے فرق کے ذرائع
 
-### 1. Visual Differences
-This is the most obvious gap.
-*   **Lighting:** Real-world lighting is infinitely complex, with soft shadows, indirect bounces, and specular reflections that even a photorealistic, ray-traced simulator cannot perfectly replicate.
-*   **Textures:** The texture of a real-world object has subtle imperfections, dust, and wear-and-tear that are not present in a clean CAD model.
-*   **Sensor Noise:** A real camera produces images with noise, lens distortion, and color imbalances that are difficult to model perfectly. A simulated camera is often too perfect.
+### 1. بصری اختلافات
+یہ سب سے واضح فرق ہے۔
+*   **روشنی:** حقیقی دنیا کی روشنی لامحدود طور پر پیچیدہ ہے، جس میں نرم سائے، بالواسطہ اچھال، اور سپیکولر ریفلیکشن شامل ہیں جنہیں ایک فوٹو ریئلسٹک، رے ٹریسڈ سمیلیٹر بھی مکمل طور پر نقل نہیں کر سکتا۔
+*   **بناوٹ:** ایک حقیقی دنیا کی آبجیکٹ کی بناوٹ میں لطیف نقائص، دھول، اور ٹوٹ پھوٹ شامل ہیں جو ایک صاف CAD ماڈل میں موجود نہیں ہیں۔
+*   **سینسر شور:** ایک حقیقی کیمرہ شور، لینس کی خرابی، اور رنگین عدم توازن کے ساتھ تصاویر تیار کرتا ہے جنہیں مکمل طور پر ماڈل کرنا مشکل ہے۔ ایک سمیولیٹڈ کیمرہ اکثر بہت کامل ہوتا ہے۔
 
-### 2. Physics Differences
-No physics engine is perfect.
-*   **Friction:** The friction between a robot's wheel and the floor is an incredibly complex interaction that depends on the material properties of both surfaces, the temperature, and even the humidity. A simulator uses a simplified friction model with a few coefficients.
-*   **Contact Dynamics:** How objects react when they collide is very hard to model accurately, especially for non-rigid objects.
-*   **Actuator Delays:** A real motor has delays and response curves that are not always perfectly captured in the simulation model.
+### 2. فزکس کے اختلافات
+کوئی بھی فزکس انجن کامل نہیں ہے۔
+*   **رگڑ:** روبوٹ کے پہیے اور فرش کے درمیان رگڑ ایک ناقابل یقین حد تک پیچیدہ تعامل ہے جو دونوں سطحوں کی مادی خصوصیات، درجہ حرارت، اور یہاں تک کہ نمی پر بھی منحصر ہے۔ ایک سمیلیٹر چند گتانکوں کے ساتھ ایک سادہ رگڑ ماڈل استعمال کرتا ہے۔
+*   **کانٹیکٹ ڈائنامکس:** جب اشیاء ٹکراتی ہیں تو وہ کیسے رد عمل ظاہر کرتی ہیں اس کی درست طریقے سے ماڈلنگ کرنا بہت مشکل ہے، خاص طور پر غیر ریجڈ اشیاء کے لیے۔
+*   **ایکچوایٹر تاخیر:** ایک حقیقی موٹر میں تاخیر اور رد عمل کی منحنی خطوط ہوتے ہیں جو ہمیشہ سیمولیشن ماڈل میں مکمل طور پر حاصل نہیں ہوتے۔
 
-### 3. The "Content" Gap
-Your simulation only contains the objects you put in it. The real world contains a near-infinite variety of objects in cluttered and unexpected arrangements. If your simulation only ever shows the robot a single type of coffee mug, it may fail when it sees a mug of a different shape or color.
+### 3. "مواد" کا فرق
+آپ کی سیمولیشن میں صرف وہ اشیاء شامل ہیں جو آپ اس میں ڈالتے ہیں۔ حقیقی دنیا میں بے ترتیب اور غیر متوقع انتظامات میں تقریباً لامحدود قسم کی اشیاء شامل ہیں۔ اگر آپ کی سیمولیشن روبوٹ کو صرف ایک قسم کا کافی مگ دکھاتی ہے، تو یہ ناکام ہو سکتی ہے جب وہ ایک مختلف شکل یا رنگ کا مگ دیکھے۔
 
-Because of this gap, a model trained *only* on synthetic data will almost always perform worse than a model trained on real-world data. However, collecting and labeling real-world data is slow and expensive. The goal of sim-to-real is to get the best of both worlds: the scale and low cost of simulation, and the accuracy of the real world.
+اس فرق کی وجہ سے، ایک ماڈل جسے *صرف* مصنوعی ڈیٹا پر تربیت دی گئی ہے وہ تقریباً ہمیشہ حقیقی دنیا کے ڈیٹا پر تربیت یافتہ ماڈل سے بدتر کارکردگی کا مظاہرہ کرے گا۔ تاہم، حقیقی دنیا کا ڈیٹا جمع کرنا اور لیبل کرنا سست اور مہنگا ہے۔ سم-ٹو-ریئل کا مقصد دونوں جہانوں کا بہترین حاصل کرنا ہے: سیمولیشن کا پیمانہ اور کم لاگت، اور حقیقی دنیا کی درستگی۔
 
-In the next lesson, we will explore the techniques used to bridge this gap.
+اگلے سبق میں، ہم اس فرق کو ختم کرنے کے لیے استعمال ہونے والی تکنیکوں کو دریافت کریں گے۔

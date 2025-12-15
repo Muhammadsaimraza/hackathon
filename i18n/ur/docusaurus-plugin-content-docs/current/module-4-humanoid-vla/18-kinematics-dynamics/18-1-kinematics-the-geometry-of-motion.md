@@ -1,33 +1,33 @@
-# Lesson 18.1: Kinematics: The Geometry of Motion
+# سبق 18.1: کائیمیٹکس: حرکت کی جیومیٹری
 
-Kinematics is the "geometry of motion." It's a mathematical framework for describing the position, orientation, and velocity of the robot's body parts without considering the forces involved. For a robot arm or leg, there are two fundamental kinematic problems.
+کائیمیٹکس "حرکت کی جیومیٹری" ہے۔ یہ روبوٹ کے جسم کے حصوں کی پوزیشن، واقفیت، اور رفتار کو بیان کرنے کے لیے ایک ریاضیاتی فریم ورک ہے، جس میں شامل قوتوں پر غور نہیں کیا جاتا۔ ایک روبوٹ بازو یا ٹانگ کے لیے، دو بنیادی کائیمیٹک مسائل ہیں۔
 
-## 1. Forward Kinematics (FK)
+## 1. فارورڈ کائیمیٹکس (FK)
 
-**The Question:** "Given a set of joint angles, where is the robot's hand?"
+**سوال:** "جوائنٹ زاویوں کا ایک سیٹ دیا گیا ہے، روبوٹ کا ہاتھ کہاں ہے؟"
 
-This is the "easy" problem. Your URDF file is essentially a description of the forward kinematics of your robot. It defines the length of each link and the position and orientation of each joint.
+یہ "آسان" مسئلہ ہے۔ آپ کی URDF فائل بنیادی طور پر آپ کے روبوٹ کے فارورڈ کائیمیٹکس کی وضاحت ہے۔ یہ ہر لنک کی لمبائی اور ہر جوائنٹ کی پوزیشن اور واقفیت کی وضاحت کرتی ہے۔
 
-If you know the angle of the shoulder joint, the elbow joint, and the wrist joint, you can use a series of matrix multiplications (one for each link's transform) to calculate the exact 3D position and orientation of the robot's hand (its "end-effector") relative to its base.
+اگر آپ کندھے کے جوائنٹ، کہنی کے جوائنٹ، اور کلائی کے جوائنٹ کے زاویے جانتے ہیں، تو آپ میٹرکس ضربوں کی ایک سیریز (ہر لنک کے ٹرانسفارم کے لیے ایک) کا استعمال کرکے روبوٹ کے ہاتھ (اس کے "اینڈ-ایفیکٹر") کی درست 3D پوزیشن اور واقفیت کا حساب اس کے بیس کے لحاظ سے لگا سکتے ہیں۔
 
-The ROS `robot_state_publisher` node does this continuously. It reads the joint angles from the `/joint_states` topic, performs the forward kinematics calculation, and publishes the resulting link poses as a TF tree. This is how RViz knows where to draw your robot.
+ROS `robot_state_publisher` نوڈ یہ مسلسل کرتا ہے۔ یہ `/joint_states` ٹاپک سے جوائنٹ زاویے پڑھتا ہے، فارورڈ کائیمیٹکس کا حساب لگاتا ہے، اور نتیجے میں آنے والی لنک پوز کو ایک TF ٹری کے طور پر شائع کرتا ہے۔ اس طرح RViz جانتا ہے کہ آپ کے روبوٹ کو کہاں کھینچنا ہے۔
 
-## 2. Inverse Kinematics (IK)
+## 2. انورس کائیمیٹکس (IK)
 
-**The Question:** "If I want to place the robot's hand at a specific target position, what should the joint angles be?"
+**سوال:** "اگر میں روبوٹ کے ہاتھ کو ایک مخصوص ہدف پوزیشن پر رکھنا چاہتا ہوں، تو جوائنٹ زاویے کیا ہونے چاہئیں؟"
 
-This is the "hard" problem. It is the inverse of the FK problem, and it is much more difficult to solve.
+یہ "مشکل" مسئلہ ہے۔ یہ FK مسئلہ کا الٹا ہے، اور اسے حل کرنا کہیں زیادہ مشکل ہے۔
 
-*   **Multiple Solutions:** For a typical robot arm with 6 or 7 joints, there are often multiple, and sometimes infinite, possible sets of joint angles that will result in the same end-effector position. Think about touching your nose: you can do it with your elbow high or your elbow low. Both are valid IK solutions.
-*   **No Solution:** If you try to reach for a target that is outside the robot's workspace, there is no solution.
-*   **Computational Cost:** Solving the IK equations can be computationally expensive, and it needs to be done very quickly for real-time control.
+*   **متعدد حل:** 6 یا 7 جوائنٹس والے ایک عام روبوٹ بازو کے لیے، اکثر متعدد، اور کبھی کبھی لامحدود، جوائنٹ زاویوں کے ممکنہ سیٹ ہوتے ہیں جو ایک ہی اینڈ-ایفیکٹر پوزیشن کا نتیجہ ہوں گے۔ اپنی ناک کو چھونے کے بارے میں سوچیں: آپ اسے اپنی کہنی اونچی یا اپنی کہنی نیچی کر کے کر سکتے ہیں۔ دونوں درست IK حل ہیں۔
+*   **کوئی حل نہیں:** اگر آپ ایک ایسے ہدف تک پہنچنے کی کوشش کرتے ہیں جو روبوٹ کے ورک اسپیس سے باہر ہے، تو کوئی حل نہیں ہے۔
+*   **کمپیوٹیشنل لاگت:** IK مساواتوں کو حل کرنا کمپیوٹیشنل طور پر مہنگا ہو سکتا ہے، اور اسے ریئل ٹائم کنٹرول کے لیے بہت تیزی سے کرنے کی ضرورت ہے۔
 
-## The IK Solver
+## IK سولور
 
-Because this problem is so hard, we don't solve it ourselves. We use a specialized piece of software called an **IK solver**.
+چونکہ یہ مسئلہ بہت مشکل ہے، ہم اسے خود حل نہیں کرتے۔ ہم ایک خاص سافٹ ویئر استعمال کرتے ہیں جسے **IK سولور** کہا جاتا ہے۔
 
-An IK solver is a library that takes a target pose for the end-effector and the robot's URDF as input, and it calculates a valid set of joint angles as output.
+ایک IK سولور ایک لائبریری ہے جو اینڈ-ایفیکٹر کے لیے ایک ہدف پوز اور روبوٹ کی URDF کو ان پٹ کے طور پر لیتی ہے، اور یہ آؤٹ پٹ کے طور پر جوائنٹ زاویوں کا ایک درست سیٹ کا حساب لگاتی ہے۔
 
-ROS has a standard framework for motion planning called **MoveIt**, which has a pluggable architecture for IK solvers. You can choose from a variety of different solvers based on your robot and your needs.
+ROS میں موشن پلاننگ کے لیے ایک معیاری فریم ورک ہے جسے **MoveIt** کہا جاتا ہے، جس میں IK سولورز کے لیے ایک پلگ ایبل آرکیٹیکچر ہے۔ آپ اپنے روبوٹ اور اپنی ضروریات کے لحاظ سے مختلف سولورز میں سے انتخاب کر سکتے ہیں۔
 
-When you use a motion planner to say "move the arm to this target," the first thing the planner does is call the IK solver to find out what the final joint angles need to be. The planner then creates a trajectory through the joint space to move from the current angles to the target angles while avoiding collisions.
+جب آپ موشن پلانر کا استعمال کرتے ہوئے "بازو کو اس ہدف پر منتقل کریں" کہتے ہیں، تو پلانر سب سے پہلے IK سولور کو کال کرتا ہے تاکہ یہ معلوم ہو سکے کہ حتمی جوائنٹ زاویے کیا ہونے چاہئیں۔ پلانر پھر موجودہ زاویوں سے ہدف زاویوں تک پہنچنے کے لیے جوائنٹ اسپیس کے ذریعے ایک ٹراجیکٹری بناتا ہے جبکہ تصادم سے بچتا ہے۔

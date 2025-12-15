@@ -1,50 +1,50 @@
-# Lesson 21.3: Testing & Validation
+# سبق 21.3: جانچ اور توثیق
 
-Testing an autonomous humanoid robot system, especially one driven by natural language and AI, is a complex undertaking. It requires a systematic approach to ensure all components are functioning correctly and that the integrated system meets its high-level requirements.
+ایک خود مختار ہیومنائڈ روبوٹ سسٹم کی جانچ، خاص طور پر ایک جو قدرتی زبان اور AI سے چلتا ہے، ایک پیچیدہ کام ہے۔ اس کے لیے ایک منظم طریقہ کار کی ضرورت ہے تاکہ یہ یقینی بنایا جا سکے کہ تمام اجزاء صحیح طریقے سے کام کر رہے ہیں اور مربوط نظام اپنی اعلیٰ سطحی ضروریات کو پورا کرتا ہے۔
 
-## 1. Unit Testing Individual Components
+## 1. انفرادی اجزاء کی یونٹ ٹیسٹنگ
 
-Before integrating, ensure each individual component works in isolation.
+انٹیگریٹ کرنے سے پہلے، یقینی بنائیں کہ ہر انفرادی جزو تنہائی میں کام کرتا ہے۔
 
-*   **Speech-to-Text:** Test with various audio inputs (clear speech, noisy environments, different accents). Verify that the `voice_command_text` topic publishes accurate transcripts.
-*   **LLM Planner:** Test with a wide range of natural language commands. Verify that the `robot_plan` topic publishes syntactically correct and semantically appropriate JSON plans. Pay close attention to edge cases and ambiguous commands.
-*   **Navigation:** Test with a simulated robot. Can it navigate to all specified locations? Does it avoid dynamic obstacles?
-*   **Perception:** Test the object detection model. Does it correctly identify and locate target objects under various lighting conditions and occlusions in Isaac Sim?
-*   **Manipulation:** Test individual arm movements and grasping in isolation using MoveIt2.
+*   **اسپیچ-ٹو-ٹیکسٹ:** مختلف آڈیو ان پٹس (واضح تقریر، شور والے ماحول، مختلف لہجے) کے ساتھ ٹیسٹ کریں۔ تصدیق کریں کہ `voice_command_text` ٹاپک درست ٹرانسکرپٹ شائع کرتا ہے۔
+*   **LLM پلانر:** قدرتی زبان کے کمانڈز کی وسیع رینج کے ساتھ ٹیسٹ کریں۔ تصدیق کریں کہ `robot_plan` ٹاپک نحو کے لحاظ سے درست اور معنوی طور پر مناسب JSON پلانز شائع کرتا ہے۔ ایج کیسز اور مبہم کمانڈز پر خاص توجہ دیں۔
+*   **نیویگیشن:** ایک سمیولیٹڈ روبوٹ کے ساتھ ٹیسٹ کریں۔ کیا یہ تمام مخصوص مقامات پر نیویگیٹ کر سکتا ہے؟ کیا یہ متحرک رکاوٹوں سے بچتا ہے؟
+*   **پرسیپشن:** آبجیکٹ ڈیٹیکشن ماڈل کو ٹیسٹ کریں۔ کیا یہ Isaac Sim میں مختلف روشنی کی حالتوں اور رکاوٹوں کے تحت ہدف آبجیکٹس کی صحیح شناخت اور ان کا پتہ لگاتا ہے؟
+*   **مینیپولیشن:** MoveIt2 کا استعمال کرتے ہوئے انفرادی بازو کی حرکات اور گرفت کو تنہائی میں ٹیسٹ کریں۔
 
-## 2. Integration Testing in Simulation
+## 2. سیمولیشن میں انٹیگریشن ٹیسٹنگ
 
-Once individual components are robust, connect them in simulation (Isaac Sim).
+ایک بار جب انفرادی اجزاء مضبوط ہو جائیں، تو انہیں سیمولیشن (Isaac Sim) میں جوڑیں۔
 
-*   **Launch File Validation:** Ensure your `humanoid_vla_capstone.launch.py` successfully starts all necessary nodes and services without errors. Use `ros2 node list`, `ros2 topic list`, and `rqt_graph` to verify the ROS graph.
-*   **End-to-End Scenario Testing:**
-    *   **Simple Fetch:** "Rosie, pick up the blue cube from the table."
-    *   **Complex Navigation:** "Go to the kitchen, find the red mug, and bring it to me."
-    *   **Failure Modes:** What happens if the object is not found? What if the path is blocked? Does the robot report an error or get stuck?
-*   **Metrics:** Monitor key performance indicators (KPIs) in simulation:
-    *   **Task Completion Rate:** How often does the robot successfully complete the task?
-    *   **Time to Completion:** How long does it take to complete the task?
-    *   **Collision Rate:** How often does the robot collide with objects?
-    *   **LLM Hallucinations:** Does the LLM generate plausible plans, or does it try to do things the robot cannot?
+*   **لانچ فائل کی توثیق:** یقینی بنائیں کہ آپ کی `humanoid_vla_capstone.launch.py` تمام ضروری نوڈس اور خدمات کو بغیر کسی غلطی کے کامیابی سے شروع کرتی ہے۔ ROS گراف کی تصدیق کے لیے `ros2 node list`، `ros2 topic list`، اور `rqt_graph` کا استعمال کریں۔
+*   **اینڈ-ٹو-اینڈ منظرنامے کی جانچ:**
+    *   **سادہ فیچ:** "Rosie، میز سے نیلے کیوب کو اٹھاؤ۔"
+    *   **پیچیدہ نیویگیشن:** "کچن میں جاؤ، سرخ مگ تلاش کرو، اور مجھے لاؤ۔"
+    *   **ناکامی کے طریقے:** اگر آبجیکٹ نہیں ملتا تو کیا ہوتا ہے؟ اگر راستہ مسدود ہو تو کیا ہوتا ہے؟ کیا روبوٹ غلطی کی رپورٹ کرتا ہے یا پھنس جاتا ہے؟
+*   **میٹرکس:** سیمولیشن میں کلیدی کارکردگی کے اشاریوں (KPIs) کی نگرانی کریں:
+    *   **ٹاسک کی تکمیل کی شرح:** روبوٹ کتنی کثرت سے کام کامیابی سے مکمل کرتا ہے؟
+    *   **تکمیل کا وقت:** کام مکمل کرنے میں کتنا وقت لگتا ہے؟
+    *   **تصادم کی شرح:** روبوٹ کتنی کثرت سے اشیاء سے ٹکراتا ہے؟
+    *   **LLM ہالوسینیشنز:** کیا LLM قابل یقین منصوبے تیار کرتا ہے، یا یہ ایسی چیزیں کرنے کی کوشش کرتا ہے جو روبوٹ نہیں کر سکتا؟
 
-## 3. Human-in-the-Loop Testing
+## 3. ہیومن-ان-دی-لوپ ٹیسٹنگ
 
-For a natural language interface, human feedback is crucial.
+قدرتی زبان کے انٹرفیس کے لیے، انسانی فیڈ بیک بہت اہم ہے۔
 
-*   **User Trials:** Have human users interact with the robot in simulation. Collect feedback on:
-    *   **Clarity of Understanding:** Does the robot understand the commands as intended?
-    *   **Naturalness of Interaction:** Is the communication fluid and intuitive?
-    *   **Robot Behavior:** Does the robot's physical actions match the user's expectations?
-*   **Speech Robustness:** Test with different voices, accents, and background noises to ensure the STT is robust.
+*   **صارف کے تجربات:** انسانی صارفین کو سیمولیشن میں روبوٹ کے ساتھ تعامل کرنے دیں۔ اس پر فیڈ بیک جمع کریں:
+    *   **سمجھنے کی وضاحت:** کیا روبوٹ کمانڈز کو ارادے کے مطابق سمجھتا ہے؟
+    *   **تعامل کی فطرت:** کیا مواصلات ہموار اور بدیہی ہے؟
+    *   **روبوٹ کا رویہ:** کیا روبوٹ کے طبعی اعمال صارف کی توقعات سے ملتے ہیں؟
+*   **اسپیچ کی مضبوطی:** مختلف آوازوں، لہجوں، اور پس منظر کے شور کے ساتھ ٹیسٹ کریں تاکہ یہ یقینی بنایا جا سکے کہ STT مضبوط ہے۔
 
-## 4. Hardware-in-the-Loop (HIL) / Real-World Testing (for Tier 3/4)
+## 4. ہارڈ ویئر-ان-دی-لوپ (HIL) / حقیقی دنیا کی جانچ (ٹائر 3/4 کے لیے)
 
-For students with a Jetson kit or physical robot, the final stage is deployment.
+Jetson کٹ یا جسمانی روبوٹ والے طلباء کے لیے، آخری مرحلہ تعیناتی ہے۔
 
-*   **Sim-to-Real Transfer:** If you trained a model in simulation, test its performance on the physical hardware. Expect a performance drop and iterate on your domain randomization and fine-tuning.
-*   **Physical Constraints:** Observe how the robot's movements are affected by real-world friction, gravity, and latency.
-*   **Safety Testing:** Rigorously test safety protocols. What happens if the robot loses connection? What if a human steps into its workspace?
+*   **سم-ٹو-ریئل ٹرانسفر:** اگر آپ نے سیمولیشن میں ایک ماڈل کو تربیت دی ہے، تو جسمانی ہارڈ ویئر پر اس کی کارکردگی کو ٹیسٹ کریں۔ کارکردگی میں کمی کی توقع کریں اور اپنی ڈومین رینڈمائزیشن اور فائن ٹیوننگ پر اعادہ کریں۔
+*   **طبعی رکاوٹیں:** مشاہدہ کریں کہ روبوٹ کی حرکات حقیقی دنیا کی رگڑ، کشش ثقل، اور لیٹنسی سے کیسے متاثر ہوتی ہیں۔
+*   **حفاظتی جانچ:** حفاظتی پروٹوکولز کی سختی سے جانچ کریں۔ اگر روبوٹ کنکشن کھو دیتا ہے تو کیا ہوتا ہے؟ اگر کوئی انسان اس کے ورک اسپیس میں داخل ہوتا ہے تو کیا ہوتا ہے؟
 
-Testing a VLA system is an iterative process. You will constantly move between simulation and reality, collecting data, refining your models, and improving your system. The goal is not perfection on the first try, but a robust and continuous improvement loop.
+VLA سسٹم کی جانچ ایک تکراری عمل ہے۔ آپ سیمولیشن اور حقیقت کے درمیان مسلسل حرکت کرتے رہیں گے، ڈیٹا اکٹھا کرتے رہیں گے، اپنے ماڈلز کو بہتر بناتے رہیں گے، اور اپنے سسٹم کو بہتر بناتے رہیں گے۔ مقصد پہلی کوشش میں کمال نہیں ہے، بلکہ ایک مضبوط اور مسلسل بہتری کا لوپ ہے۔
 
-This concludes Module 4, and indeed, the entire course. You have journeyed from the theoretical foundations of Physical AI to building and testing a complete, voice-commanded autonomous humanoid robot. Congratulations on completing your RoboLearn journey!
+یہ ماڈیول 4، اور درحقیقت، پورے کورس کا اختتام کرتا ہے۔ آپ نے فزیکل AI کی نظریاتی بنیادوں سے لے کر ایک مکمل، آواز سے چلنے والے خود مختار ہیومنائڈ روبوٹ کو بنانے اور جانچنے تک کا سفر طے کیا ہے۔ RoboLearn کے اپنے سفر کو مکمل کرنے پر مبارک ہو!

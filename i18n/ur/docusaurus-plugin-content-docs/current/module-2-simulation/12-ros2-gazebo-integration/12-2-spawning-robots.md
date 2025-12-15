@@ -1,17 +1,17 @@
-# Lesson 12.2: Spawning Robots (Review)
+# سبق 12.2: روبوٹ کو اسپان کرنا (جائزہ)
 
-We briefly covered this in Chapter 10, but it's worth looking at the mechanism for adding your robot to the simulation in more detail.
+ہم نے باب 10 میں اس پر مختصر طور پر بات کی تھی، لیکن سیمولیشن میں اپنے روبوٹ کو شامل کرنے کے طریقہ کار کو مزید تفصیل سے دیکھنا قابل قدر ہے۔
 
-You cannot include a URDF file directly in a world SDF file. The SDF standard does not have an `<include>` tag for URDFs. Instead, the standard workflow is:
-1.  Start the Gazebo simulation with a world file that contains the environment (ground, lights, obstacles, etc.).
-2.  Use a separate mechanism to **spawn** the robot's URDF model into the running simulation.
+آپ URDF فائل کو براہ راست ورلڈ SDF فائل میں شامل نہیں کر سکتے۔ SDF معیار میں URDFs کے لیے `<include>` ٹیگ نہیں ہے۔ اس کے بجائے، معیاری ورک فلو یہ ہے:
+1.  ایک ورلڈ فائل کے ساتھ Gazebo سیمولیشن شروع کریں جس میں ماحول (گراؤنڈ، لائٹس، رکاوٹیں، وغیرہ) شامل ہوں۔
+2.  چل رہی سیمولیشن میں روبوٹ کے URDF ماڈل کو **اسپان** کرنے کے لیے ایک الگ میکانزم استعمال کریں۔
 
-## The `create` Executable
+## `create` ایگزیکیوٹیبل
 
-The `ros_gz_sim` package provides a helpful executable for this purpose, called `create`. As we saw before, we can use it in a launch file like this:
+`ros_gz_sim` پیکیج اس مقصد کے لیے ایک مفید ایگزیکیوٹیبل فراہم کرتا ہے، جسے `create` کہا جاتا ہے۔ جیسا کہ ہم نے پہلے دیکھا، ہم اسے ایک لانچ فائل میں اس طرح استعمال کر سکتے ہیں:
 
 ```python
-# From a launch file
+# ایک لانچ فائل سے
 
 robot_urdf = os.path.join(get_package_share_directory('my_package'), 'urdf', 'my_robot.urdf')
 
@@ -29,21 +29,21 @@ spawn_robot_node = Node(
 )
 ```
 
-## How it Works Under the Hood
+## یہ پردے کے پیچھے کیسے کام کرتا ہے۔
 
-The `create` executable is a convenience wrapper that does two things:
-1.  **It reads your URDF file.** It parses the XML and holds the robot's description in memory.
-2.  **It calls a Gazebo service.** Gazebo has a built-in service that allows you to add new models to the world while it's running. The `create` node calls this service and passes it the robot's description from the URDF file.
+`create` ایگزیکیوٹیبل ایک سہولت ریپر ہے جو دو کام کرتا ہے:
+1.  **یہ آپ کی URDF فائل کو پڑھتا ہے۔** یہ XML کو پارس کرتا ہے اور روبوٹ کی تفصیل کو میموری میں رکھتا ہے۔
+2.  **یہ ایک Gazebo سروس کو کال کرتا ہے۔** Gazebo میں ایک بلٹ ان سروس ہے جو آپ کو چلتے ہوئے ورلڈ میں نئے ماڈلز شامل کرنے کی اجازت دیتی ہے۔ `create` نوڈ اس سروس کو کال کرتا ہے اور اسے URDF فائل سے روبوٹ کی تفصیل پاس کرتا ہے۔
 
-The service call is essentially saying, "Hey Gazebo, please add a new model to your world. Here is the description of the model." Gazebo then adds the robot to its physics engine and starts simulating it.
+سروس کال بنیادی طور پر یہ کہہ رہی ہے، "ارے Gazebo، براہ کرم اپنے ورلڈ میں ایک نیا ماڈل شامل کریں۔ یہاں ماڈل کی تفصیل ہے۔" Gazebo پھر روبوٹ کو اپنے فزکس انجن میں شامل کرتا ہے اور اسے سمیولیٹ کرنا شروع کر دیتا ہے۔
 
-## Why Spawn Instead of Include?
+## شامل کرنے کے بجائے اسپان کیوں؟
 
-This two-step process might seem more complicated than just including the robot in the world file, but it provides a critical advantage: **modularity**.
+یہ دو قدمی عمل ورلڈ فائل میں روبوٹ کو شامل کرنے سے زیادہ پیچیدہ لگ سکتا ہے، لیکن یہ ایک اہم فائدہ فراہم کرتا ہے: **ماڈیولریٹی**۔
 
-*   **Robot and World are Decoupled:** Your robot's URDF file is completely separate from your world SDF file. This means you can test the *same robot* in *many different worlds* without having to edit any files. You can simply pass a different world file path to your launch file.
-*   **Dynamic Spawning:** You can spawn robots at any time, not just at the beginning of the simulation. You could have a ROS 2 node that decides to spawn a new robot in response to some event.
+*   **روبوٹ اور ورلڈ الگ ہیں:** آپ کے روبوٹ کی URDF فائل آپ کی ورلڈ SDF فائل سے مکمل طور پر الگ ہے۔ اس کا مطلب ہے کہ آپ کسی بھی فائل میں ترمیم کیے بغیر ایک *ہی روبوٹ* کو *بہت سے مختلف ورلڈز* میں جانچ سکتے ہیں۔ آپ آسانی سے اپنی لانچ فائل کو ایک مختلف ورلڈ فائل پاتھ پاس کر سکتے ہیں۔
+*   **ڈائنامک اسپاننگ:** آپ کسی بھی وقت روبوٹ کو اسپان کر سکتے ہیں، نہ کہ صرف سیمولیشن کے آغاز میں۔ آپ کے پاس ایک ROS 2 نوڈ ہو سکتا ہے جو کسی ایونٹ کے جواب میں ایک نیا روبوٹ اسپان کرنے کا فیصلہ کرتا ہے۔
 
-This separation of the robot from its environment is a fundamental concept in ROS and Gazebo. It allows you to create reusable robot models and reusable test environments, and then mix and match them as needed.
+روبوٹ کو اس کے ماحول سے الگ کرنا ROS اور Gazebo میں ایک بنیادی تصور ہے۔ یہ آپ کو دوبارہ قابل استعمال روبوٹ ماڈلز اور دوبارہ قابل استعمال ٹیسٹ ماحول بنانے کی اجازت دیتا ہے، اور پھر ضرورت کے مطابق انہیں مکس اور میچ کرتا ہے۔
 
-In the next lesson, we will use the topics provided by our spawned robot's sensors to create a closed-loop controller.
+اگلے سبق میں، ہم اپنے اسپان شدہ روبوٹ کے سینسرز کے ذریعے فراہم کردہ ٹاپکس کا استعمال کریں گے تاکہ ایک کلوزڈ-لوپ کنٹرولر بنایا جا سکے۔

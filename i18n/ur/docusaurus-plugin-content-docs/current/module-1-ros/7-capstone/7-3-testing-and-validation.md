@@ -1,82 +1,82 @@
-# Lesson 7.3: Testing & Validation
+# سبق 7.3: جانچ اور توثیق
 
-Your system is built and running. Now, how do you know if it works? You must test it against the requirements laid out in your specification.
+آپ کا سسٹم بن چکا ہے اور چل رہا ہے۔ اب، آپ کو کیسے معلوم ہوگا کہ یہ کام کرتا ہے؟ آپ کو اسے اپنی تفصیلات میں بیان کردہ ضروریات کے خلاف جانچنا ہوگا۔
 
-With your capstone system running (via `ros2 launch my_first_package capstone.launch.py`), open a new terminal and source your workspace. We will now go through the requirements from Lesson 7.1 and validate each one.
+اپنے کیپسٹون سسٹم کو چلاتے ہوئے (`ros2 launch my_first_package capstone.launch.py` کے ذریعے)، ایک نیا ٹرمینل کھولیں اور اپنی ورک اسپیس کو سورس کریں۔ اب ہم سبق 7.1 کی ضروریات کو ایک ایک کر کے دیکھیں گے اور ہر ایک کی توثیق کریں گے۔
 
 ---
 
-### Requirement 1: The system shall be able to command a turtle to draw a polygon.
+### ضرورت 1: سسٹم کو ایک کچھوے کو کثیرالضلعی بنانے کا حکم دینے کے قابل ہونا چاہیے۔
 
-This is the core requirement. We can test this by calling our `/draw_shape` service. Let's try to draw a square (4 sides).
+یہ بنیادی ضرورت ہے۔ ہم اپنی `/draw_shape` سروس کو کال کر کے اس کی جانچ کر سکتے ہیں۔ آئیے ایک مربع (4 اطراف) بنانے کی کوشش کریں۔
 
 ```bash
 ros2 service call /draw_shape my_custom_interfaces/srv/DrawShape "{sides: 4, edge_length: 2.0}"
 ```
-**Expected Behavior:** The turtle in the Turtlesim window should move forward, turn, move forward, turn, and so on, until it has drawn a complete square.
-**Actual Behavior:** Observe the turtle. Does it draw a square?
+**متوقع رویہ:** ٹرٹل سم ونڈو میں کچھوے کو آگے بڑھنا چاہیے، مڑنا چاہیے، آگے بڑھنا چاہیے، مڑنا چاہیے، اور اسی طرح، جب تک کہ وہ ایک مکمل مربع نہ بنا لے۔
+**اصل رویہ:** کچھوے کا مشاہدہ کریں۔ کیا یہ ایک مربع بناتا ہے؟
 
-Let's try a triangle.
+آئیے ایک مثلث کی کوشش کریں۔
 ```bash
 ros2 service call /draw_shape my_custom_interfaces/srv/DrawShape "{sides: 3, edge_length: 3.0}"
 ```
-**Expected Behavior:** The turtle should draw an equilateral triangle.
-**Actual Behavior:** Does it?
+**متوقع رویہ:** کچھوے کو ایک مساوی الساقین مثلث بنانا چاہیے۔
+**اصل رویہ:** کیا یہ بناتا ہے؟
 
-**Result:** PASS / FAIL
+**نتیجہ:** پاس / فیل
 
 ---
 
-### Requirement 2: The shape's size and drawing speed shall be configurable.
+### ضرورت 2: شکل کا سائز اور ڈرائنگ کی رفتار قابل ترتیب ہونی چاہیے۔
 
-Our specification called for the size to be configured via the service call and the speed to be configured via parameters.
+ہماری تفصیلات میں سائز کو سروس کال کے ذریعے اور رفتار کو پیرامیٹرز کے ذریعے ترتیب دینے کا مطالبہ کیا گیا تھا۔
 
-**Test 2a: Size Configuration**
-Call the service with a different `edge_length`.
+**جانچ 2a: سائز کی ترتیب**
+ایک مختلف `edge_length` کے ساتھ سروس کو کال کریں۔
 ```bash
 ros2 service call /draw_shape my_custom_interfaces/srv/DrawShape "{sides: 4, edge_length: 4.0}"
 ```
-**Expected Behavior:** The turtle should draw a larger square than the first test.
-**Actual Behavior:** Does it?
+**متوقع رویہ:** کچھوے کو پہلے ٹیسٹ سے بڑا مربع بنانا چاہیے۔
+**اصل رویہ:** کیا یہ بناتا ہے؟
 
-**Result:** PASS / FAIL
+**نتیجہ:** پاس / فیل
 
-**Test 2b: Speed Configuration**
-Our launch file set the default speeds to 0.5. We can override these from the command line when we launch. Stop your current launch file (`Ctrl+C`) and restart it with new parameters:
+**جانچ 2b: رفتار کی ترتیب**
+ہماری لانچ فائل نے ڈیفالٹ رفتار کو 0.5 پر سیٹ کیا ہے۔ ہم لانچ کرتے وقت کمانڈ لائن سے انہیں اوور رائڈ کر سکتے ہیں۔ اپنی موجودہ لانچ فائل کو روکیں (`Ctrl+C`) اور اسے نئے پیرامیٹرز کے ساتھ دوبارہ شروع کریں:
 ```bash
 ros2 launch my_first_package capstone.launch.py linear_velocity:=1.5 angular_velocity:=1.5
 ```
-Now, call the service to draw a square again:
+اب، دوبارہ ایک مربع بنانے کے لیے سروس کو کال کریں:
 ```bash
 ros2 service call /draw_shape my_custom_interfaces/srv/DrawShape "{sides: 4, edge_length: 2.0}"
 ```
-**Expected Behavior:** The turtle should draw the square noticeably faster than in the first test.
-**Actual Behavior:** Is it faster?
+**متوقع رویہ:** کچھوے کو پہلے ٹیسٹ کے مقابلے میں نمایاں طور پر تیزی سے مربع بنانا چاہیے۔
+**اصل رویہ:** کیا یہ تیز ہے؟
 
-**Result:** PASS / FAIL
-
----
-
-### Requirement 3: The drawing process shall be triggered by a service call.
-
-We have already validated this in the previous tests. The turtle only moves when we explicitly call the `/draw_shape` service.
-
-**Result:** PASS
+**نتیجہ:** پاس / فیل
 
 ---
 
-### Requirement 4: The system shall be started with a single launch file.
+### ضرورت 3: ڈرائنگ کا عمل سروس کال کے ذریعے شروع ہونا چاہیے۔
 
-We have also validated this. The `ros2 launch my_first_package capstone.launch.py` command successfully starts both the `turtlesim_node` and our `shape_drawer_node`. We can verify this by using `ros2 node list` in another terminal while the system is running.
+ہم نے پچھلے ٹیسٹوں میں اس کی پہلے ہی توثیق کر لی ہے۔ کچھوا صرف اس وقت حرکت کرتا ہے جب ہم واضح طور پر `/draw_shape` سروس کو کال کرتے ہیں۔
 
-**Result:** PASS
+**نتیجہ:** پاس
 
 ---
 
-## Conclusion
+### ضرورت 4: سسٹم کو ایک ہی لانچ فائل سے شروع کیا جانا چاہیے۔
 
-If you have passed all the validation steps, congratulations! You have successfully designed, implemented, and tested a multi-node ROS 2 system from a specification. You have demonstrated mastery of all the core concepts of this module: nodes, topics, services, custom interfaces, parameters, and launch files.
+ہم نے اس کی بھی توثیق کی ہے۔ `ros2 launch my_first_package capstone.launch.py` کمانڈ کامیابی سے `turtlesim_node` اور ہمارے `shape_drawer_node` دونوں کو شروع کرتی ہے۔ ہم سسٹم چلتے وقت دوسرے ٹرمینل میں `ros2 node list` استعمال کر کے اس کی تصدیق کر سکتے ہیں۔
 
-This is a significant achievement. The workflow you practiced in this chapter—spec, build, test—is the same workflow used to build some of the most complex robots in the world.
+**نتیجہ:** پاس
 
-You are now ready to move on to Module 2, where you will learn to apply these skills to more complex, 3D robots in high-fidelity simulators.
+---
+
+## نتیجہ
+
+اگر آپ نے تمام توثیق کے مراحل پاس کر لیے ہیں، تو مبارک ہو! آپ نے کامیابی سے ایک تفصیلات سے ایک ملٹی نوڈ ROS 2 سسٹم کو ڈیزائن، نافذ، اور جانچا ہے۔ آپ نے اس ماڈیول کے تمام بنیادی تصورات میں مہارت کا مظاہرہ کیا ہے: نوڈس، ٹاپکس، خدمات، کسٹم انٹرفیس، پیرامیٹرز، اور لانچ فائلیں۔
+
+یہ ایک اہم کامیابی ہے۔ آپ نے اس باب میں جو ورک فلو مشق کیا ہے—تفصیلات، تعمیر، جانچ—وہی ورک فلو ہے جو دنیا کے کچھ پیچیدہ ترین روبوٹس بنانے کے لیے استعمال ہوتا ہے۔
+
+اب آپ ماڈیول 2 میں جانے کے لیے تیار ہیں، جہاں آپ ان مہارتوں کو زیادہ پیچیدہ، 3D روبوٹس پر اعلی مخلص سمیلیٹروں میں لاگو کرنا سیکھیں گے۔

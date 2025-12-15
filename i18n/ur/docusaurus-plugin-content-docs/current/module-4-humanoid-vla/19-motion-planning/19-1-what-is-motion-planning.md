@@ -1,35 +1,35 @@
-# Lesson 19.1: What is Motion Planning?
+# سبق 19.1: موشن پلاننگ کیا ہے؟
 
-Motion planning is the process of finding a valid sequence of movements to get a robot from a starting configuration to a goal configuration. It seems simple, but it is a computationally very hard problem.
+موشن پلاننگ ایک روبوٹ کو ایک ابتدائی ترتیب سے ایک مقصد کی ترتیب تک پہنچانے کے لیے حرکات کی ایک درست ترتیب تلاش کرنے کا عمل ہے۔ یہ سادہ لگتا ہے، لیکن یہ کمپیوٹیشنل طور پر بہت مشکل مسئلہ ہے۔
 
-## Configuration Space (C-Space)
+## کنفیگریشن اسپیس (C-اسپیس)
 
-To understand why, we need to think about the robot's **Configuration Space (C-Space)**. C-Space is an abstract mathematical space where each point represents a unique configuration of the robot's joints.
-*   For a simple 2-joint arm, the C-Space is a 2D square.
-*   For a 6-DoF arm, the C-Space is a 6-dimensional hyper-volume.
+یہ سمجھنے کے لیے کہ کیوں، ہمیں روبوٹ کی **کنفیگریشن اسپیس (C-اسپیس)** کے بارے میں سوچنے کی ضرورت ہے۔ C-اسپیس ایک خلاصہ ریاضیاتی اسپیس ہے جہاں ہر نقطہ روبوٹ کے جوڑوں کی ایک منفرد ترتیب کی نمائندگی کرتا ہے۔
+*   ایک سادہ 2-جوائنٹ بازو کے لیے، C-اسپیس ایک 2D مربع ہے۔
+*   ایک 6-DoF بازو کے لیے، C-اسپیس ایک 6-dimensional ہائپر-والیوم ہے۔
 
-Every point in this high-dimensional space is a set of joint angles. The motion planning problem is to find a path from the starting point to the goal point in this C-Space.
+اس اعلیٰ جہتی اسپیس میں ہر نقطہ جوائنٹ زاویوں کا ایک سیٹ ہے۔ موشن پلاننگ کا مسئلہ اس C-اسپیس میں ابتدائی نقطہ سے مقصد کے نقطہ تک ایک راستہ تلاش کرنا ہے۔
 
-## The Obstacles
+## رکاوٹیں
 
-The problem is that not all of C-Space is valid. Some configurations are forbidden.
-*   **Self-Collisions:** Some joint configurations would cause the robot's arm to run into its own body.
-*   **Environmental Collisions:** Some joint configurations would cause the arm to run into a table, a wall, or another object in the environment.
+مسئلہ یہ ہے کہ C-اسپیس کا ہر حصہ درست نہیں ہے۔ کچھ ترتیبیں ممنوع ہیں۔
+*   **خود سے تصادم:** کچھ جوائنٹ ترتیبیں روبوٹ کے بازو کو اس کے اپنے جسم سے ٹکرانے کا سبب بنیں گی۔
+*   **ماحولیاتی تصادم:** کچھ جوائنٹ ترتیبیں بازو کو میز، دیوار، یا ماحول میں کسی اور چیز سے ٹکرانے کا سبب بنیں گی۔
 
-These invalid configurations form "obstacles" in C-Space. The motion planner's job is to find a path through C-Space that avoids these obstacles.
+یہ غلط ترتیبیں C-اسپیس میں "رکاوٹیں" بناتی ہیں۔ موشن پلانر کا کام ان رکاوٹوں سے بچتے ہوئے C-اسپیس میں ایک راستہ تلاش کرنا ہے۔
 
-## Sampling-Based Planners
+## سیمپلنگ پر مبنی پلانرز
 
-For a high-dimensional space, it is impossible to map out all the obstacles. Instead, modern motion planners use **sampling-based algorithms**, like **RRT (Rapidly-exploring Random Tree)**.
+ایک اعلیٰ جہتی اسپیس کے لیے، تمام رکاوٹوں کو نقشہ بنانا ناممکن ہے۔ اس کے بجائے، جدید موشن پلانرز **سیمپلنگ پر مبنی الگورتھم** استعمال کرتے ہیں، جیسے **RRT (ریپڈلی-ایکسپلورنگ رینڈم ٹری)**۔
 
-The RRT algorithm works like this:
-1.  Start with the robot's current configuration.
-2.  Randomly pick a new, "goal" configuration in C-Space.
-3.  Try to move a small step from the current configuration toward the goal configuration.
-4.  **Collision Check:** Check if this new, small step results in a collision (either with the robot itself or the environment). This is done in the 3D "workspace" using the robot's collision geometry.
-5.  If there is no collision, add the new configuration to a "tree" of valid states and repeat from the new state.
-6.  If there is a collision, discard the new configuration and try a different random goal.
+RRT الگورتھم اس طرح کام کرتا ہے:
+1.  روبوٹ کی موجودہ ترتیب سے شروع کریں۔
+2.  C-اسپیس میں تصادفی طور پر ایک نئی، "مقصد" ترتیب کا انتخاب کریں۔
+3.  موجودہ ترتیب سے مقصد کی ترتیب کی طرف ایک چھوٹا قدم بڑھانے کی کوشش کریں۔
+4.  **تصادم کی جانچ:** جانچ کریں کہ آیا یہ نیا، چھوٹا قدم تصادم کا نتیجہ ہے (یا تو روبوٹ کے اپنے یا ماحول کے ساتھ)۔ یہ روبوٹ کی تصادم جیومیٹری کا استعمال کرتے ہوئے 3D "ورک اسپیس" میں کیا جاتا ہے۔
+5.  اگر کوئی تصادم نہیں ہے، تو نئی ترتیب کو درست حالتوں کے "ٹری" میں شامل کریں اور نئی حالت سے دہرائیں۔
+6.  اگر کوئی تصادم ہے، تو نئی ترتیب کو رد کریں اور ایک مختلف تصادفی مقصد کی کوشش کریں۔
 
-By repeating this process thousands of times, the algorithm rapidly explores the valid, collision-free regions of the C-Space, building a tree of reachable configurations that eventually connects the start state to the goal state. The path through this tree is the planned motion.
+اس عمل کو ہزاروں بار دہراتے ہوئے، الگورتھم C-اسپیس کے درست، تصادم سے پاک علاقوں کو تیزی سے دریافت کرتا ہے، قابل رسائی ترتیبوں کا ایک ٹری بناتا ہے جو بالآخر ابتدائی حالت کو مقصد کی حالت سے جوڑتا ہے۔ اس ٹری کے ذریعے کا راستہ منصوبہ بند حرکت ہے۔
 
-This process—randomly sampling, checking for collisions, and building a tree—is the core of almost all modern motion planning systems.
+یہ عمل — تصادفی طور پر نمونہ لینا، تصادم کی جانچ کرنا، اور ایک ٹری بنانا — تقریباً تمام جدید موشن پلاننگ سسٹمز کا بنیادی حصہ ہے۔

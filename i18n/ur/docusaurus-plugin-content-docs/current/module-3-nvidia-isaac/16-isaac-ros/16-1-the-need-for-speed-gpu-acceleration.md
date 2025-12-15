@@ -1,32 +1,32 @@
-# Lesson 16.1: The Need for Speed: GPU Acceleration
+# سبق 16.1: رفتار کی ضرورت: GPU ایکسلریشن
 
-A CPU (Central Processing Unit) is a general-purpose processor. It has a few very fast, very smart cores that are designed to execute sequential tasks one after another.
+ایک CPU (سینٹرل پروسیسنگ یونٹ) ایک عمومی مقصد کا پروسیسر ہے۔ اس میں چند بہت تیز، بہت سمارٹ کورز ہیں جو ترتیب وار کاموں کو ایک کے بعد ایک انجام دینے کے لیے ڈیزائن کیے گئے ہیں۔
 
-A GPU (Graphics Processing Unit) is a specialized processor. It has thousands of slower, dumber cores that are designed to perform the same operation on many pieces of data at the same time. This is called **parallel processing**.
+ایک GPU (گرافکس پروسیسنگ یونٹ) ایک خاص پروسیسر ہے۔ اس میں ہزاروں سست، کم ذہین کورز ہیں جو ایک ہی وقت میں ڈیٹا کے کئی ٹکڑوں پر ایک ہی آپریشن انجام دینے کے لیے ڈیزائن کیے گئے ہیں۔ اسے **متوازی پروسیسنگ** کہا جاتا ہے۔
 
-## Why GPUs are Perfect for AI and CV
+## GPUs AI اور CV کے لیے کیوں بہترین ہیں
 
-Many of the core operations in computer vision (CV) and deep learning (AI) are inherently parallel.
+کمپیوٹر ویژن (CV) اور ڈیپ لرننگ (AI) میں بہت سے بنیادی آپریشنز فطری طور پر متوازی ہوتے ہیں۔
 
-Consider applying a filter to an image. You are performing the exact same mathematical operation on every single pixel in the image.
-*   **On a CPU:** The CPU would have to loop through the pixels one by one, or a few at a time.
-*   **On a GPU:** The GPU can assign a core to every single pixel and process all of them simultaneously.
+ایک تصویر پر فلٹر لگانے پر غور کریں۔ آپ تصویر میں ہر ایک پکسل پر بالکل وہی ریاضیاتی آپریشن انجام دے رہے ہیں۔
+*   **ایک CPU پر:** CPU کو پکسلز کے ذریعے ایک ایک کر کے، یا چند ایک کے ذریعے لوپ کرنا پڑے گا۔
+*   **ایک GPU پر:** GPU ہر ایک پکسل کو ایک کور تفویض کر سکتا ہے اور ان سب کو بیک وقت پروسیس کر سکتا ہے۔
 
-This results in a massive speedup, often 10x to 100x faster than a CPU for these types of tasks.
+اس کے نتیجے میں ان قسم کے کاموں کے لیے بہت بڑی رفتار میں اضافہ ہوتا ہے، جو اکثر CPU سے 10x سے 100x تیز ہوتا ہے۔
 
-The same principle applies to deep learning. A neural network is essentially a series of large matrix multiplications. These are also highly parallelizable operations, which is why all modern AI training and inference is done on GPUs.
+یہی اصول ڈیپ لرننگ پر بھی لاگو ہوتا ہے۔ ایک نیورل نیٹ ورک بنیادی طور پر بڑے میٹرکس ضربوں کا ایک سلسلہ ہے۔ یہ بھی انتہائی متوازی آپریشنز ہیں، یہی وجہ ہے کہ تمام جدید AI تربیت اور تخمینہ GPUs پر کیا جاتا ہے۔
 
-## Isaac ROS: Bringing GPU Acceleration to ROS 2
+## Isaac ROS: ROS 2 میں GPU ایکسلریشن لانا
 
-The standard ROS 2 packages are almost all CPU-based. The Isaac ROS packages are NVIDIA's effort to re-implement many of the most computationally expensive parts of a robot's perception stack to take advantage of the GPU.
+معیاری ROS 2 پیکیجز تقریباً تمام CPU پر مبنی ہیں۔ Isaac ROS پیکیجز NVIDIA کی کوشش ہے کہ روبوٹ کے پرسیپشن اسٹیک کے کئی سب سے زیادہ کمپیوٹیشنل طور پر مہنگے حصوں کو GPU کا فائدہ اٹھانے کے لیے دوبارہ لاگو کیا جائے۔
 
-Isaac ROS provides GPU-accelerated packages for:
-*   **Visual SLAM:** For tracking a robot's position while building a map.
-*   **Object Detection:** For running models like YOLO or Faster R-CNN.
-*   **Image Processing:** For common CV tasks like rectification and color space conversion.
-*   **AprilTags:** For detecting fiducial markers.
-*   And many more.
+Isaac ROS GPU-ایکسلریٹڈ پیکیجز فراہم کرتا ہے:
+*   **ویژول SLAM:** نقشہ بناتے ہوئے روبوٹ کی پوزیشن کو ٹریک کرنے کے لیے۔
+*   **آبجیکٹ ڈیٹیکشن:** YOLO یا Faster R-CNN جیسے ماڈلز چلانے کے لیے۔
+*   **تصویری پروسیسنگ:** عام CV کاموں جیسے ریکٹیفیکیشن اور کلر اسپیس کنورژن کے لیے۔
+*   **AprilTags:** فڈیوشل مارکر کا پتہ لگانے کے لیے۔
+*   اور بہت کچھ۔
 
-These packages are designed to be drop-in replacements for their CPU-based counterparts. For example, you can use the `isaac_ros_vslam` node in place of a CPU-based SLAM algorithm, and it will publish to the same standard ROS 2 topics (`/tf`, `/map`).
+یہ پیکیجز ان کے CPU پر مبنی ہم منصبوں کے لیے ڈراپ ان متبادل کے طور پر ڈیزائن کیے گئے ہیں۔ مثال کے طور پر، آپ CPU پر مبنی SLAM الگورتھم کی جگہ `isaac_ros_vslam` نوڈ استعمال کر سکتے ہیں، اور یہ انہی معیاری ROS 2 ٹاپکس (`/tf`، `/map`) پر شائع کرے گا۔
 
-By using these packages, you can build a perception system that would require a powerful desktop CPU and run it in real-time on a low-power embedded board like the Jetson Orin. This is the key that unlocks the door to deploying complex AI on mobile robots. In the next lesson, we will take a closer look at one of the most important Isaac ROS packages: Visual SLAM.
+ان پیکیجز کا استعمال کرتے ہوئے، آپ ایک پرسیپشن سسٹم بنا سکتے ہیں جسے ایک طاقتور ڈیسک ٹاپ CPU کی ضرورت ہوگی اور اسے Jetson Orin جیسے کم طاقت والے ایمبیڈڈ بورڈ پر ریئل ٹائم میں چلا سکتے ہیں۔ یہ وہ کلید ہے جو موبائل روبوٹس پر پیچیدہ AI کو تعینات کرنے کے دروازے کو کھولتی ہے۔ اگلے سبق میں، ہم سب سے اہم Isaac ROS پیکیجز میں سے ایک: ویژول SLAM پر گہری نظر ڈالیں گے۔

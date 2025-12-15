@@ -1,32 +1,32 @@
-# Chapter 7: Capstone - Robot Controller
+# باب 7: کیپسٹون - روبوٹ کنٹرولر
 
-Welcome to the capstone project for Module 1. In this chapter, you will put everything you have learned—nodes, topics, services, parameters, and launch files—together to build a complete, multi-node robot controller system for Turtlesim.
+ماڈیول 1 کے کیپسٹون پروجیکٹ میں خوش آمدید۔ اس باب میں، آپ وہ سب کچھ جو آپ نے سیکھا ہے—نوڈس، ٹاپکس، سروسز، پیرامیٹرز، اور لانچ فائلیں—کو اکٹھا کر کے ٹرٹل سم کے لیے ایک مکمل، ملٹی نوڈ روبوٹ کنٹرولر سسٹم بنائیں گے۔
 
-This chapter introduces the final layer of our teaching method: **Spec-Driven Integration**. You will not just be writing code; you will be acting as a systems integrator. You will start by writing a clear technical specification for the desired behavior, and then you will implement and test your system against that specification. This is how professional robotics projects are managed.
+یہ باب ہمارے تدریسی طریقہ کی آخری پرت متعارف کراتا ہے: **تفصیلات پر مبنی انضمام**۔ آپ صرف کوڈ نہیں لکھیں گے؛ آپ ایک سسٹم انٹیگریٹر کے طور پر کام کریں گے۔ آپ مطلوبہ رویے کے لیے ایک واضح تکنیکی تفصیلات لکھ کر شروع کریں گے، اور پھر آپ اس تفصیلات کے خلاف اپنے سسٹم کو نافذ اور جانچیں گے۔ اسی طرح پیشہ ورانہ روبوٹکس پروجیکٹس کا انتظام کیا جاتا ہے۔
 
-*   **Duration:** 3 lessons, 4.5 hours total
-*   **Layer Breakdown:** L4: Spec-Driven Integration
-*   **Hardware Tier:** Tier 1 (Turtlesim simulation)
-*   **Prerequisites:** Completion of Chapter 6
+*   **دورانیہ:** 3 اسباق، کل 4.5 گھنٹے
+*   **سطح کی تقسیم:** L4: تفصیلات پر مبنی انضمام
+*   **ہارڈ ویئر ٹائر:** ٹائر 1 (ٹرٹل سم سیمولیشن)
+*   **شرائط:** باب 6 کی تکمیل
 
-## Learning Objectives
-By the end of this chapter, you will be able to:
+## سیکھنے کے مقاصد
+اس باب کے اختتام تک، آپ اس قابل ہو جائیں گے:
 
-*   Write a technical specification for a multi-node ROS 2 system.
-*   Implement a system from a specification, combining multiple nodes, topics, and services.
-*   Create a launch file to run and configure the entire system.
-*   Systematically test your implementation against your specification to validate its correctness.
+*   ایک ملٹی نوڈ ROS 2 سسٹم کے لیے تکنیکی تفصیلات لکھیں۔
+*   ایک تفصیلات سے ایک سسٹم نافذ کریں، جس میں متعدد نوڈس، ٹاپکس، اور خدمات شامل ہوں۔
+*   پورے سسٹم کو چلانے اور ترتیب دینے کے لیے ایک لانچ فائل بنائیں۔
+*   اس کی درستگی کی توثیق کے لیے اپنی تفصیلات کے خلاف اپنے نفاذ کی منظم طریقے سے جانچ کریں۔
 
-## Project Goal
+## پروجیکٹ کا مقصد
 
-You will build a system that makes the turtle draw a shape of a configurable size and speed. The system will be controlled by a service call, not by running a node directly.
+آپ ایک ایسا سسٹم بنائیں گے جو ٹرٹل کو قابل ترتیب سائز اور رفتار کی شکل بنانے پر مجبور کرتا ہے۔ سسٹم کو براہ راست نوڈ چلانے کے بجائے سروس کال کے ذریعے کنٹرول کیا جائے گا۔
 
-## Lessons
-*   **Lesson 7.1: The Specification** (60 minutes)
-    *   First, we will write a detailed plan. What nodes do we need? What topics and services will they use? What parameters will they have?
+## اسباق
+*   **سبق 7.1: تفصیلات** (60 منٹ)
+    *   سب سے پہلے، ہم ایک تفصیلی منصوبہ لکھیں گے۔ ہمیں کن نوڈس کی ضرورت ہے؟ وہ کونسے ٹاپکس اور خدمات استعمال کریں گے؟ ان کے پاس کونسے پیرامیٹرز ہوں گے؟
 
-*   **Lesson 7.2: Building the Controller** (120 minutes)
-    *   With a clear specification in hand, you will implement the nodes and launch file for the system.
+*   **سبق 7.2: کنٹرولر کی تعمیر** (120 منٹ)
+    *   ایک واضح تفصیلات کے ساتھ، آپ سسٹم کے لیے نوڈس اور لانچ فائل نافذ کریں گے۔
 
-*   **Lesson 7.3: Testing & Validation** (90 minutes)
-    *   You will run your system and systematically test each requirement from your specification to ensure it works as designed.
+*   **سبق 7.3: جانچ اور توثیق** (90 منٹ)
+    *   آپ اپنا سسٹم چلائیں گے اور اپنی تفصیلات سے ہر ضرورت کی منظم طریقے سے جانچ کریں گے تاکہ یہ یقینی بنایا جا سکے کہ یہ ڈیزائن کے مطابق کام کرتا ہے۔

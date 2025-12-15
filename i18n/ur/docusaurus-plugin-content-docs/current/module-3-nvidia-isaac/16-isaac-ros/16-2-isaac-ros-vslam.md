@@ -1,60 +1,60 @@
-# Lesson 16.2: Isaac ROS VSLAM
+# سبق 16.2: آئزک ROS VSLAM
 
-**SLAM** (Simultaneous Localization and Mapping) is one of the most fundamental problems in mobile robotics. It is the process of building a map of an unknown environment while simultaneously keeping track of the robot's position within that map.
+**SLAM** (Simultaneous Localization and Mapping) موبائل روبوٹکس میں سب سے بنیادی مسائل میں سے ایک ہے۔ یہ ایک نامعلوم ماحول کا نقشہ بنانے کا عمل ہے جبکہ بیک وقت اس نقشے کے اندر روبوٹ کی پوزیشن پر نظر رکھنا۔
 
-**VSLAM** (Visual SLAM) is a category of SLAM algorithms that use camera images as their primary sensor input.
+**VSLAM** (ویژول SLAM) SLAM الگورتھم کی ایک قسم ہے جو کیمرہ امیجز کو اپنے بنیادی سینسر ان پٹ کے طور پر استعمال کرتی ہے۔
 
-The `isaac_ros_vslam` package is NVIDIA's GPU-accelerated solution for VSLAM. It is designed for high performance on NVIDIA's embedded Jetson platforms.
+`isaac_ros_vslam` پیکیج VSLAM کے لیے NVIDIA کا GPU-ایکسلریٹڈ حل ہے۔ اسے NVIDIA کے ایمبیڈڈ Jetson پلیٹ فارمز پر اعلیٰ کارکردگی کے لیے ڈیزائن کیا گیا ہے۔
 
-## How it Works
+## یہ کیسے کام کرتا ہے۔
 
-The `isaac_ros_vslam` node takes two main inputs:
-1.  **Stereo Images:** A pair of synchronized images from a left and right camera. The slight difference in perspective between the two images allows the algorithm to calculate depth.
-2.  **IMU Data:** Data from an Inertial Measurement Unit, which provides information about the robot's orientation and acceleration.
+`isaac_ros_vslam` نوڈ دو اہم ان پٹ لیتا ہے:
+1.  **سٹیریو امیجز:** بائیں اور دائیں کیمرے سے مطابقت پذیر امیجز کا ایک جوڑا۔ دو امیجز کے درمیان نقطہ نظر میں ہلکا سا فرق الگورتھم کو گہرائی کا حساب لگانے کی اجازت دیتا ہے۔
+2.  **IMU ڈیٹا:** Inertial Measurement Unit سے ڈیٹا، جو روبوٹ کی واقفیت اور سرعت کے بارے میں معلومات فراہم کرتا ہے۔
 
-From these inputs, it produces two key outputs:
-1.  **Pose (`/tf`):** The real-time estimated position and orientation of the robot. It publishes this as a transform from a fixed `odom` frame to the robot's `base_link` frame.
-2.  **Map (`/map`):** A point cloud representing the 3D structure of the environment that the robot has observed so far.
+ان ان پٹس سے، یہ دو کلیدی آؤٹ پٹ تیار کرتا ہے:
+1.  **پوز (`/tf`):** روبوٹ کی ریئل ٹائم تخمینہ شدہ پوزیشن اور واقفیت۔ یہ اسے ایک مقررہ `odom` فریم سے روبوٹ کے `base_link` فریم میں ایک ٹرانسفارم کے طور پر شائع کرتا ہے۔
+2.  **نقشہ (`/map`):** ماحول کی 3D ساخت کی نمائندگی کرنے والا ایک پوائنٹ کلاؤڈ جسے روبوٹ نے اب تک دیکھا ہے۔
 
-## Integrating with Nav2
+## Nav2 کے ساتھ انٹیگریشن
 
-The output of `isaac_ros_vslam` is designed to be a drop-in input for the standard ROS 2 Navigation Stack, **Nav2**.
+`isaac_ros_vslam` کا آؤٹ پٹ معیاری ROS 2 نیویگیشن اسٹیک، **Nav2** کے لیے ڈراپ ان ان پٹ کے طور پر ڈیزائن کیا گیا ہے۔
 
-Nav2 is a highly configurable system that handles path planning and obstacle avoidance. It needs two things to function: a map of the world and the current pose of the robot within that map. Isaac ROS VSLAM provides both.
+Nav2 ایک انتہائی قابل ترتیب نظام ہے جو پاتھ پلاننگ اور رکاوٹوں سے بچنے کو سنبھالتا ہے۔ اسے کام کرنے کے لیے دو چیزوں کی ضرورت ہوتی ہے: دنیا کا نقشہ اور اس نقشے کے اندر روبوٹ کی موجودہ پوز۔ Isaac ROS VSLAM دونوں فراہم کرتا ہے۔
 
-The data flow looks like this:
+ڈیٹا فلو اس طرح نظر آتا ہے:
 
 ```mermaid
 graph TD
-    subgraph "Robot Hardware / Gazebo"
-        A[Stereo Camera + IMU]
+    subgraph "روبوٹ ہارڈ ویئر / Gazebo"
+        A[سٹیریو کیمرہ + IMU]
     end
 
-    subgraph "Isaac ROS"
-        B[isaac_ros_vslam Node]
+    subgraph "آئزک ROS"
+        B[isaac_ros_vslam نوڈ]
     end
 
-    subgraph "ROS 2 Nav2 Stack"
-        C[Nav2 Planner]
-        D[Nav2 Controller]
+    subgraph "ROS 2 Nav2 اسٹیک"
+        C[Nav2 پلانر]
+        D[Nav2 کنٹرولر]
     end
 
-    subgraph "Robot Hardware / Gazebo"
-        E[Robot Base / diff_drive plugin]
+    subgraph "روبوٹ ہارڈ ویئر / Gazebo"
+        E[روبوٹ بیس / diff_drive پلگ ان]
     end
 
-    A -- "Image & IMU Data" --> B
-    B -- "Map & Pose (TF)" --> C
-    C -- "Path" --> D
-    D -- "Velocity Commands (cmd_vel)" --> E
+    A -- "امیج اور IMU ڈیٹا" --> B
+    B -- "نقشہ اور پوز (TF)" --> C
+    C -- "پاتھ" --> D
+    D -- "رفتار کمانڈز (cmd_vel)" --> E
 ```
 
-1.  The stereo camera and IMU (either real or simulated in Gazebo/Isaac Sim) publish their data.
-2.  The `isaac_ros_vslam` node subscribes to this data.
-3.  The VSLAM node processes the data on the GPU and publishes the robot's pose as a TF transform and the map as a point cloud.
-4.  The Nav2 stack uses the map for long-range planning and the TF transform for localization.
-5.  When given a goal, the Nav2 planner creates a path through the map.
-6.  The Nav2 controller generates `Twist` messages to follow the path, publishing them on `/cmd_vel`.
-7.  The robot's differential drive controller receives the `/cmd_vel` messages and moves the robot.
+1.  سٹیریو کیمرہ اور IMU (یا تو حقیقی یا Gazebo/Isaac Sim میں سمیولیٹڈ) اپنا ڈیٹا شائع کرتے ہیں۔
+2.  `isaac_ros_vslam` نوڈ اس ڈیٹا کو سبسکرائب کرتا ہے۔
+3.  VSLAM نوڈ GPU پر ڈیٹا پر کارروائی کرتا ہے اور روبوٹ کے پوز کو TF ٹرانسفارم کے طور پر اور نقشے کو پوائنٹ کلاؤڈ کے طور پر شائع کرتا ہے۔
+4.  Nav2 اسٹیک لمبی رینج کی منصوبہ بندی کے لیے نقشہ اور لوکلائزیشن کے لیے TF ٹرانسفارم استعمال کرتا ہے۔
+5.  جب ایک مقصد دیا جاتا ہے، تو Nav2 پلانر نقشے کے ذریعے ایک پاتھ بناتا ہے۔
+6.  Nav2 کنٹرولر پاتھ کی پیروی کرنے کے لیے `Twist` پیغامات تیار کرتا ہے، انہیں `/cmd_vel` پر شائع کرتا ہے۔
+7.  روبوٹ کا ڈیفرینشل ڈرائیو کنٹرولر `/cmd_vel` پیغامات وصول کرتا ہے اور روبوٹ کو حرکت دیتا ہے۔
 
-This tight integration between the GPU-accelerated perception of Isaac ROS and the high-level planning of Nav2 allows for the creation of robust, high-performance autonomous navigation systems on embedded hardware.
+Isaac ROS کے GPU-ایکسلریٹڈ پرسیپشن اور Nav2 کی اعلیٰ سطحی منصوبہ بندی کے درمیان یہ سخت انٹیگریشن ایمبیڈڈ ہارڈ ویئر پر مضبوط، اعلیٰ کارکردگی والے خود مختار نیویگیشن سسٹمز کی تخلیق کی اجازت دیتا ہے۔

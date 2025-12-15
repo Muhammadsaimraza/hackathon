@@ -1,60 +1,60 @@
-# Lesson 13.3: Testing & Validation
+# سبق 13.3: جانچ اور توثیق
 
-Your integrated system is running. Now it's time to validate its performance against our specification from Lesson 13.1.
+آپ کا مربوط نظام چل رہا ہے۔ اب وقت آگیا ہے کہ ہماری تفصیلات سے سبق 13.1 کے خلاف اس کی کارکردگی کی توثیق کی جائے۔
 
-Launch your system using `ros2 launch urdf_tutorial module2_capstone.launch.py`.
+اپنے سسٹم کو `ros2 launch urdf_tutorial module2_capstone.launch.py` کا استعمال کرتے ہوئے لانچ کریں۔
 
-## Test Procedures
+## ٹیسٹ کے طریقہ کار
 
-### Requirement 1 & 2: Robot and World
-*   **Test:** Does the Gazebo simulation start? Do you see a world with a ground plane and a long wall? Does your two-wheeled robot spawn into the world?
-*   **Verification:** Visual inspection of the Gazebo GUI.
-*   **Result:** PASS / FAIL
+### ضرورت 1 اور 2: روبوٹ اور ورلڈ
+*   **ٹیسٹ:** کیا Gazebo سیمولیشن شروع ہوتی ہے؟ کیا آپ کو گراؤنڈ پلین اور ایک لمبی دیوار والی دنیا نظر آتی ہے؟ کیا آپ کا دو پہیوں والا روبوٹ دنیا میں اسپان ہوتا ہے؟
+*   **توثیق:** Gazebo GUI کا بصری معائنہ۔
+*   **نتیجہ:** پاس / فیل
 
-### Requirement 3: Wall Follower Node Starts
-*   **Test:** Does the `wall_follower_node` start correctly?
-*   **Verification:** In a new terminal, run `ros2 node list`. You should see `/wall_follower_node` in the list, in addition to the Gazebo nodes.
-*   **Result:** PASS / FAIL
+### ضرورت 3: وال فالور نوڈ شروع ہوتا ہے
+*   **ٹیسٹ:** کیا `wall_follower_node` صحیح طریقے سے شروع ہوتا ہے؟
+*   **توثیق:** ایک نئے ٹرمینل میں، `ros2 node list` چلائیں۔ آپ کو Gazebo نوڈس کے علاوہ فہرست میں `/wall_follower_node` نظر آنا چاہیے۔
+*   **نتیجہ:** پاس / فیل
 
-### Requirement 4: Closed-Loop Control
-*   **Test:** Does the robot move forward and attempt to maintain a constant distance from the wall on its right?
-*   **Verification:**
-    1.  Observe the robot's behavior in the Gazebo GUI. It should drive alongside the wall.
-    2.  Use `ros2 topic echo /cmd_vel`. You should see a constant `linear.x` value and a fluctuating `angular.z` value as the controller makes corrections.
-    3.  Use `ros2 topic echo /scan`. Look at the value for `ranges[90]`. Does it stay close to the `desired_distance` parameter you set in the launch file (e.g., 1.5 meters)? It will fluctuate, but it should hover around the target value.
-*   **Result:** PASS / FAIL
+### ضرورت 4: کلوزڈ-لوپ کنٹرول
+*   **ٹیسٹ:** کیا روبوٹ آگے بڑھتا ہے اور اپنی دائیں جانب کی دیوار سے ایک مستقل فاصلہ برقرار رکھنے کی کوشش کرتا ہے؟
+*   **توثیق:**
+    1.  Gazebo GUI میں روبوٹ کے رویے کا مشاہدہ کریں۔ اسے دیوار کے ساتھ چلنا چاہیے۔
+    2.  `ros2 topic echo /cmd_vel` استعمال کریں۔ آپ کو ایک مستقل `linear.x` ویلیو اور ایک اتار چڑھاؤ والی `angular.z` ویلیو نظر آنی چاہیے کیونکہ کنٹرولر اصلاحات کرتا ہے۔
+    3.  `ros2 topic echo /scan` استعمال کریں۔ `ranges[90]` کی ویلیو کو دیکھیں۔ کیا یہ لانچ فائل میں سیٹ کردہ `desired_distance` پیرامیٹر (مثلاً، 1.5 میٹر) کے قریب رہتا ہے؟ اس میں اتار چڑھاؤ ہوگا، لیکن اسے ہدف ویلیو کے قریب رہنا چاہیے۔
+*   **نتیجہ:** پاس / فیل
 
-### Requirement 5: Configurable Parameters
-*   **Test:** Can we change the behavior by changing the launch parameters?
-*   **Verification:**
-    1.  Stop the launch file (`Ctrl+C`).
-    2.  Edit `module2_capstone.launch.py`. Change the parameters, for example:
+### ضرورت 5: قابل ترتیب پیرامیٹرز
+*   **ٹیسٹ:** کیا ہم لانچ پیرامیٹرز کو تبدیل کر کے رویے کو تبدیل کر سکتے ہیں؟
+*   **توثیق:**
+    1.  لانچ فائل کو روکیں (`Ctrl+C`)۔
+    2.  `module2_capstone.launch.py` میں ترمیم کریں۔ پیرامیٹرز کو تبدیل کریں، مثال کے طور پر:
         ```python
         parameters=[
-            {'desired_distance': 0.5}, # Closer to the wall
-            {'forward_velocity': 0.1}, # Slower
-            {'proportional_gain': 1.2}  # More aggressive turning
+            {'desired_distance': 0.5}, # دیوار کے قریب
+            {'forward_velocity': 0.1}, # آہستہ
+            {'proportional_gain': 1.2}  # زیادہ جارحانہ موڑ
         ]
         ```
-    3.  Re-launch the simulation.
-    4.  Observe the robot's behavior. Does it now try to stay much closer to the wall? Is its movement slower and more twitchy (due to the higher gain)?
-*   **Result:** PASS / FAIL
+    3.  سیمولیشن کو دوبارہ لانچ کریں۔
+    4.  روبوٹ کے رویے کا مشاہدہ کریں۔ کیا یہ اب دیوار کے بہت قریب رہنے کی کوشش کرتا ہے؟ کیا اس کی حرکت سست اور زیادہ جھٹکے دار ہے (اعلی گیین کی وجہ سے)؟
+*   **نتیجہ:** پاس / فیل
 
-### Requirement 6: Single Launch File
-*   **Test:** Does the entire system (Gazebo, robot spawn, controller node) start with a single command?
-*   **Verification:** The `ros2 launch` command successfully starts everything.
-*   **Result:** PASS
+### ضرورت 6: سنگل لانچ فائل
+*   **ٹیسٹ:** کیا پورا نظام (Gazebo، روبوٹ اسپان، کنٹرولر نوڈ) ایک ہی کمانڈ سے شروع ہوتا ہے؟
+*   **توثیق:** `ros2 launch` کمانڈ کامیابی سے سب کچھ شروع کرتی ہے۔
+*   **نتیجہ:** پاس
 
-## Conclusion
+## نتیجہ
 
-If you have passed these validation steps, you have successfully completed Module 2. You have demonstrated an end-to-end understanding of robotics simulation:
+اگر آپ نے یہ توثیق کے مراحل پاس کر لیے ہیں، تو آپ نے کامیابی سے ماڈیول 2 مکمل کر لیا ہے۔ آپ نے روبوٹکس سیمولیشن کی مکمل سمجھ کا مظاہرہ کیا ہے:
 
-*   You modeled a robot's physical form (URDF).
-*   You created a world for it to live in (SDF).
-*   You gave it senses (Gazebo sensor plugins).
-*   You gave it a brain (a ROS 2 controller node).
-*   You integrated and tested the complete system.
+*   آپ نے روبوٹ کی طبعی شکل (URDF) کو ماڈل کیا۔
+*   آپ نے اس کے رہنے کے لیے ایک دنیا (SDF) بنائی۔
+*   آپ نے اسے احساسات (Gazebo سینسر پلگ انز) دیے۔
+*   آپ نے اسے ایک دماغ (ایک ROS 2 کنٹرولر نوڈ) دیا۔
+*   آپ نے مکمل نظام کو مربوط اور جانچا۔
 
-These are the fundamental skills of a robotics simulation engineer. The complexity of the robots and the worlds will grow, but the principles you have learned here will remain the same.
+یہ روبوٹکس سیمولیشن انجینئر کی بنیادی مہارتیں ہیں۔ روبوٹ اور دنیا کی پیچیدگی بڑھے گی، لیکن یہاں آپ نے جو اصول سیکھے ہیں وہ وہی رہیں گے۔
 
-You are now well-prepared for the advanced topics in Module 3, where we will explore how to use high-fidelity simulators like NVIDIA Isaac Sim to train AI-based perception and control systems.
+اب آپ ماڈیول 3 میں جدید موضوعات کے لیے اچھی طرح تیار ہیں، جہاں ہم NVIDIA Isaac Sim جیسے اعلیٰ مخلص سمیلیٹرز کو اے آئی پر مبنی پرسیپشن اور کنٹرول سسٹمز کو تربیت دینے کا طریقہ دریافت کریں گے۔

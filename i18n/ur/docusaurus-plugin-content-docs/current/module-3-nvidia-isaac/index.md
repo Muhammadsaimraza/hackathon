@@ -1,22 +1,22 @@
-# Module 3: The AI-Robot Brain (NVIDIA Isaac)
+# ماڈیول 3: اے آئی-روبوٹ دماغ (NVIDIA Isaac)
 
-Welcome to Module 3. You've mastered the fundamentals of ROS 2 and learned how to build and test robots in a physics simulator. Now, it's time to give your robot an AI-powered brain.
+ماڈیول 3 میں خوش آمدید۔ آپ نے ROS 2 کے بنیادی اصولوں میں مہارت حاصل کر لی ہے اور سیکھ لیا ہے کہ فزکس سمیلیٹر میں روبوٹس کو کیسے بنانا اور جانچنا ہے۔ اب، وقت آ گیا ہے کہ اپنے روبوٹ کو اے آئی سے چلنے والا دماغ دیں۔
 
-This module dives into the **NVIDIA Isaac** platform, a powerful suite of tools for AI-based robotics. While Gazebo is excellent for physics, the future of robotics is driven by perception and learning. For that, we need a simulator that is not just physically accurate, but **photorealistic**.
+یہ ماڈیول **NVIDIA Isaac** پلیٹ فارم میں گہرائی سے جاتا ہے، جو اے آئی پر مبنی روبوٹکس ڈویلپمنٹ کے لیے ٹولز کا ایک طاقتور سوٹ ہے۔ جب کہ Gazebo فزکس کے لیے بہترین ہے، روبوٹکس کا مستقبل پرسیپشن اور لرننگ سے چلتا ہے۔ اس کے لیے، ہمیں ایک ایسے سمیلیٹر کی ضرورت ہے جو نہ صرف طبعی طور پر درست ہو، بلکہ **فوٹو ریئلسٹک** بھی ہو۔
 
-You will learn how to use **Isaac Sim** to generate the vast amounts of synthetic data needed to train modern AI models. You will then use **Isaac ROS**, a collection of GPU-accelerated ROS 2 packages, to build high-performance perception and navigation systems. This module is your gateway to professional-grade, AI-driven robotics.
+آپ سیکھیں گے کہ جدید اے آئی ماڈلز کو تربیت دینے کے لیے درکار مصنوعی ڈیٹا کی بڑی مقدار پیدا کرنے کے لیے **Isaac Sim** کو کیسے استعمال کیا جائے۔ اس کے بعد آپ ہائی پرفارمنس پرسیپشن اور نیویگیشن سسٹم بنانے کے لیے GPU-ایکسلریٹڈ ROS 2 پیکیجز کے مجموعہ **Isaac ROS** کو استعمال کریں گے۔ یہ ماڈیول پیشہ ورانہ درجے کی، اے آئی سے چلنے والی روبوٹکس کے لیے آپ کا گیٹ وے ہے۔
 
-## Learning Objectives
-By the end of this module, you will be able to:
+## سیکھنے کے مقاصد
+اس ماڈیول کے اختتام تک، آپ اس قابل ہو جائیں گے:
 
-*   Understand the role of Isaac Sim as a photorealistic, physically-accurate simulator for AI training.
-*   Generate synthetic, labeled data (like bounding boxes and segmentation masks) from Isaac Sim.
-*   Use Domain Randomization to improve a model's ability to transfer from simulation to the real world.
-*   Implement GPU-accelerated ROS 2 nodes for common perception tasks like Visual SLAM.
-*   Integrate Isaac ROS packages with the Nav2 stack for high-performance autonomous navigation.
+*   اے آئی تربیت کے لیے فوٹو ریئلسٹک، طبعی طور پر درست سمیلیٹر کے طور پر Isaac Sim کے کردار کو سمجھیں۔
+*   Isaac Sim سے مصنوعی، لیبل شدہ ڈیٹا (جیسے باؤنڈنگ باکسز اور سیگمنٹیشن ماسکس) تیار کریں۔
+*   ایک ماڈل کی صلاحیت کو بہتر بنانے کے لیے ڈومین رینڈمائزیشن کا استعمال کریں تاکہ اسے سیمولیشن سے حقیقی دنیا میں منتقل کیا جا سکے۔
+*   ویژول SLAM جیسی عام پرسیپشن ٹاسکس کے لیے GPU-ایکسلریٹڈ ROS 2 نوڈس کو نافذ کریں۔
+*   ہائی پرفارمنس خود مختار نیویگیشن کے لیے Isaac ROS پیکیجز کو Nav2 اسٹیک کے ساتھ مربوط کریں۔
 
-## Chapters
-*   **Chapter 14: Introduction to NVIDIA Isaac**
-*   **Chapter 15: Isaac Sim & Synthetic Data**
-*   **Chapter 16: Isaac ROS & GPU-Accelerated Perception**
-*   **Chapter 17: Sim-to-Real**
+## ابواب
+*   **باب 14: NVIDIA Isaac کا تعارف**
+*   **باب 15: Isaac Sim اور مصنوعی ڈیٹا**
+*   **باب 16: Isaac ROS اور GPU-ایکسلریٹڈ پرسیپشن**
+*   **باب 17: سم-ٹو-ریئل**

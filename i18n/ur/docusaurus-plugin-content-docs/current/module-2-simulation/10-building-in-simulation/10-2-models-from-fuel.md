@@ -1,32 +1,32 @@
-# Lesson 10.2: Models from Fuel
+# سبق 10.2: فیول سے ماڈل
 
-Building every object in your world from scratch would be time-consuming. Fortunately, Gazebo has access to a large online database of pre-made models called the **Ignition Fuel** marketplace. You can browse it at [app.ignitionrobotics.org](https://app.ignitionrobotics.org/fuel/models).
+اپنی دنیا میں ہر چیز کو شروع سے بنانا وقت طلب ہوگا۔ خوش قسمتی سے، Gazebo کو پہلے سے بنے ہوئے ماڈلز کا ایک بڑا آن لائن ڈیٹا بیس دستیاب ہے جسے **Ignition Fuel** مارکیٹ پلیس کہا جاتا ہے۔ آپ اسے [app.ignitionrobotics.org](https://app.ignitionrobotics.org/fuel/models) پر براؤز کر سکتے ہیں۔
 
-You can include any model from this marketplace in your SDF world file using the `<include>` tag, just as we did for the sun and ground plane.
+آپ اپنے SDF ورلڈ فائل میں اس مارکیٹ پلیس سے کسی بھی ماڈل کو `<include>` ٹیگ کا استعمال کرتے ہوئے شامل کر سکتے ہیں، جیسا کہ ہم نے سورج اور گراؤنڈ پلین کے لیے کیا تھا۔
 
-## Including a Fuel Model
+## فیول ماڈل کو شامل کرنا
 
-Let's add a construction cone to our world.
+آئیے اپنی دنیا میں ایک کنسٹرکشن کون شامل کرتے ہیں۔
 
-First, find the model on the Fuel website. If you search for "construction cone," you'll find it. The "owner" of the model is `OpenRobotics`.
+پہلے، فیول ویب سائٹ پر ماڈل تلاش کریں۔ اگر آپ "construction cone" تلاش کرتے ہیں، تو آپ کو یہ مل جائے گا۔ ماڈل کا "مالک" `OpenRobotics` ہے۔
 
-Now, we can add it to our `empty_world.sdf` file.
+اب، ہم اسے اپنی `empty_world.sdf` فائل میں شامل کر سکتے ہیں۔
 ```xml
 <?xml version="1.0" ?>
 <sdf version="1.7">
   <world name="empty_world">
 
-    <!-- A global light source -->
+    <!-- ایک عالمی روشنی کا ذریعہ -->
     <include>
       <uri>model://sun</uri>
     </include>
 
-    <!-- A ground plane -->
+    <!-- ایک گراؤنڈ پلین -->
     <include>
       <uri>model://ground_plane</uri>
     </include>
     
-    <!-- A construction cone from Fuel -->
+    <!-- فیول سے ایک کنسٹرکشن کون -->
     <include>
       <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Construction Cone</uri>
       <name>cone_1</name>
@@ -37,22 +37,22 @@ Now, we can add it to our `empty_world.sdf` file.
 </sdf>
 ```
 
-### Breakdown
-*   **`<uri>`:** Instead of `model://`, we provide the full URL to the model on the Fuel server. The format is `https://fuel.ignitionrobotics.org/1.0/<OWNER>/models/<MODEL_NAME>`.
-*   **`<name>`:** We must give this instance of the model a unique name in our world, e.g., `cone_1`.
-*   **`<pose>`:** This tag lets us set the initial position and orientation of the model in the world. The format is `x y z roll pitch yaw`. Here, we are placing the cone at `(x=2.0, y=1.0, z=0.0)`.
+### وضاحت
+*   **`<uri>`:** `model://` کے بجائے، ہم فیول سرور پر ماڈل کا مکمل URL فراہم کرتے ہیں۔ فارمیٹ `https://fuel.ignitionrobotics.org/1.0/<OWNER>/models/<MODEL_NAME>` ہے۔
+*   **`<name>`:** ہمیں اپنی دنیا میں ماڈل کے اس انسٹنس کو ایک منفرد نام دینا ہوگا، جیسے `cone_1`۔
+*   **`<pose>`:** یہ ٹیگ ہمیں دنیا میں ماڈل کی ابتدائی پوزیشن اور اوریئنٹیشن سیٹ کرنے دیتا ہے۔ فارمیٹ `x y z roll pitch yaw` ہے۔ یہاں، ہم کون کو `(x=2.0, y=1.0, z=0.0)` پر رکھ رہے ہیں۔
 
-## Caching
+## کیشنگ
 
-The first time you launch a world that includes a Fuel model, Gazebo will download it from the internet and cache it on your local machine (usually in `~/.ignition/fuel`). The next time you launch the world, it will load the model from the local cache, which is much faster.
+پہلی بار جب آپ ایک ایسی دنیا لانچ کرتے ہیں جس میں ایک فیول ماڈل شامل ہوتا ہے، تو Gazebo اسے انٹرنیٹ سے ڈاؤن لوڈ کرے گا اور اسے آپ کی مقامی مشین پر کیش کرے گا (عام طور پر `~/.ignition/fuel` میں)۔ اگلی بار جب آپ دنیا لانچ کریں گے، تو یہ ماڈل کو مقامی کیش سے لوڈ کرے گا، جو بہت تیز ہے۔
 
-## Adding Your Robot
+## اپنا روبوٹ شامل کرنا
 
-How do we add our own robot, which we defined in a URDF file? We can't include a URDF file directly in a world SDF file.
+ہم اپنا روبوٹ کیسے شامل کریں، جسے ہم نے ایک URDF فائل میں بیان کیا تھا؟ ہم ایک URDF فائل کو براہ راست ورلڈ SDF فائل میں شامل نہیں کر سکتے۔
 
-Instead, we will use a special "spawner" node from the `ros_gz_sim` package to add the robot to the simulation after it has started.
+اس کے بجائے، ہم `ros_gz_sim` پیکیج سے ایک خاص "اسپانر" نوڈ استعمال کریں گے تاکہ روبوٹ کو شروع ہونے کے بعد سیمولیشن میں شامل کیا جا سکے۔
 
-We will modify our `gazebo.launch.py` to do this.
+ہم اس کے لیے اپنی `gazebo.launch.py` میں ترمیم کریں گے۔
 ```python
 import os
 from ament_index_python.packages import get_package_share_directory
@@ -66,13 +66,13 @@ def generate_launch_description():
     urdf_file_path = os.path.join(pkg_share, 'urdf', 'two_wheeled_robot.urdf')
 
     return LaunchDescription([
-        # Launch Gazebo
+        # Gazebo لانچ کریں
         ExecuteProcess(
             cmd=['gz', 'sim', '-r', world_file_path],
             output='screen'
         ),
         
-        # Spawn the robot
+        # روبوٹ کو اسپان کریں
         Node(
             package='ros_gz_sim',
             executable='create',
@@ -87,14 +87,14 @@ def generate_launch_description():
         ),
     ])
 ```
-### Breakdown
-1.  We add a new `Node` action.
-2.  **`package='ros_gz_sim'`, `executable='create'`**: This runs the spawner node.
-3.  **`arguments=[...]`**: We pass command-line arguments to the spawner.
-    *   `-file`: The path to our URDF file.
-    *   `-name`: A unique name for our robot in the simulation.
-    *   `-x`, `-y`, `-z`: The initial coordinates to spawn the robot at.
+### وضاحت
+1.  ہم ایک نیا `Node` ایکشن شامل کرتے ہیں۔
+2.  **`package='ros_gz_sim'`, `executable='create'`**: یہ اسپانر نوڈ کو چلاتا ہے۔
+3.  **`arguments=[...]`**: ہم اسپانر کو کمانڈ لائن دلائل پاس کرتے ہیں۔
+    *   `-file`: ہماری URDF فائل کا پاتھ۔
+    *   `-name`: سیمولیشن میں ہمارے روبوٹ کے لیے ایک منفرد نام۔
+    *   `-x`, `-y`, `-z`: روبوٹ کو اسپان کرنے کے لیے ابتدائی کوآرڈینیٹس۔
 
-Now, build and launch. You will see your empty world with the construction cone, and after a moment, your two-wheeled robot will appear at the origin.
+اب، بنائیں اور لانچ کریں۔ آپ کو کنسٹرکشن کون کے ساتھ اپنی خالی دنیا نظر آئے گی، اور ایک لمحے کے بعد، آپ کا دو پہیوں والا روبوٹ اصل میں ظاہر ہو جائے گا۔
 
-It will probably fall over and look strange. Why? Because while our URDF has `<inertial>` tags, it doesn't have the Gazebo-specific tags needed for a complete physical simulation. We will fix that in the next lesson.
+یہ شاید گر جائے گا اور عجیب لگے گا۔ کیوں؟ کیونکہ جب کہ ہماری URDF میں `<inertial>` ٹیگز ہیں، اس میں مکمل طبعی سیمولیشن کے لیے درکار Gazebo کے مخصوص ٹیگز نہیں ہیں۔ ہم اسے اگلے سبق میں ٹھیک کریں گے۔

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -8,9 +7,9 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className="container">
-        <h1 className={styles.heroTitle}>ROBOLEARN PLATFORM</h1>
-        <p className={styles.heroSubtitle}>Build robots that understand the physical world.</p>
-        <p className={styles.heroDescription}>Master Physical AI from browser to production. ROS 2, Isaac Sim, and Vision-Language-Action models. Free forever.</p>
+        <h1 className={styles.heroTitle}>روبولرن پلیٹ فارم</h1>
+        <p className={styles.heroSubtitle}>ایسے روبوٹ بنائیں جو طبعی دنیا کو سمجھیں۔</p>
+        <p className={styles.heroDescription}>براؤزر سے پروڈکشن تک فزیکل اے آئی میں مہارت حاصل کریں۔ ROS 2، آئزک سم، اور ویژن-لینگویج-ایکشن ماڈلز۔ ہمیشہ کے لیے مفت۔</p>
         {/* You can add a button here if you want */}
       </div>
     </header>
@@ -21,9 +20,9 @@ function JourneySection() {
     return (
         <section className={styles.journeySection}>
             <div className="container">
-                <h2>YOUR JOURNEY</h2>
-                <h3>From Zero to Building Robots That Think</h3>
-                <p>Each step brings you closer to creating machines that move, sense, and understand.</p>
+                <h2>آپ کا سفر</h2>
+                <h3>صفر سے سوچنے والے روبوٹ بنانے تک</h3>
+                <p>ہر قدم آپ کو ایسی مشینیں بنانے کے قریب لاتا ہے جو حرکت کرتی ہیں، محسوس کرتی ہیں اور سمجھتی ہیں۔</p>
             </div>
         </section>
     );
@@ -31,36 +30,36 @@ function JourneySection() {
 
 const modules = [
   {
-    title: 'Module 1: Robot Middleware',
-    subtitle: 'ROS 2 Fundamentals',
+    title: 'ماڈیول 1: روبوٹ مڈل ویئر',
+    subtitle: 'ROS 2 کے بنیادی اصول',
     icon: '🔌',
-    description: 'Master the robotic nervous system with ROS 2 middleware for robot control.',
-    details: ['Nodes, Topics, and Services', 'Python Agents with rclpy', 'URDF for Humanoids'],
-    duration: 'Weeks 1-5',
+    description: 'روبوٹ کنٹرول کے لیے ROS 2 مڈل ویئر کے ساتھ روبوٹک نروس سسٹم میں مہارت حاصل کریں۔',
+    details: ['نوڈس، ٹاپکس، اور سروسز', 'rclpy کے ساتھ پائتھن ایجنٹس', 'ہیومنائڈز کے لیے URDF'],
+    duration: 'ہفتے 1-5',
   },
   {
-    title: 'Module 2: Simulation',
-    subtitle: 'Digital Twins',
+    title: 'ماڈیول 2: سیمولیشن',
+    subtitle: 'ڈیجیٹل ٹوئنز',
     icon: '🤖',
-    description: 'Build physics simulations and high-fidelity environments.',
-    details: ['Gazebo Physics Simulation', 'Unity Visualization', 'Sensor Simulation (LiDAR, IMU)'],
-    duration: 'Weeks 6-7',
+    description: 'طبیعیات کی سمیولیشن اور ہائی فیڈیلیٹی ماحول بنائیں۔',
+    details: ['گیزیبو فزکس سمیولیشن', 'یونٹی ویژولائزیشن', 'سینسر سمیولیشن (LiDAR، IMU)'],
+    duration: 'ہفتے 6-7',
   },
   {
-    title: 'Module 3: AI-Powered',
-    subtitle: 'NVIDIA Isaac',
+    title: 'ماڈیول 3: اے آئی پاورڈ',
+    subtitle: 'این ویڈیا آئزک',
     icon: '🧠',
-    description: 'Advanced perception, navigation, and sim-to-real transfer.',
-    details: ['Isaac Sim & Synthetic Data', 'VSLAM & Navigation', 'Reinforcement Learning'],
-    duration: 'Weeks 8-10',
+    description: 'جدید پرسیپشن، نیویگیشن، اور سم-ٹو-ریئل ٹرانسفر۔',
+    details: ['آئزک سم اور مصنوعی ڈیٹا', 'VSLAM اور نیویگیشن', 'ری انفورسمنٹ لرننگ'],
+    duration: 'ہفتے 8-10',
   },
   {
-    title: 'Module 4: Capstone',
-    subtitle: 'Vision-Language-Action',
+    title: 'ماڈیول 4: کیپسٹون',
+    subtitle: 'ویژن-لینگویج-ایکشن',
     icon: '🏆',
-    description: 'Convergence of LLMs and Robotics for conversational control.',
-    details: ['Voice-to-Action (Whisper)', 'LLM Cognitive Planning', 'Autonomous Humanoid Capstone'],
-    duration: 'Weeks 11-13',
+    description: 'بات چیت کے کنٹرول کے لیے LLMs اور روبوٹکس کا سنگم۔',
+    details: ['وائس ٹو ایکشن (Whisper)', 'LLM علمی منصوبہ بندی', 'خود مختار ہیومنائڈ کیپسٹون'],
+    duration: 'ہفتے 11-13',
   },
 ];
 
@@ -94,9 +93,9 @@ function WhyMattersSection() {
     return (
         <section className={styles.whyMattersSection}>
             <div className="container">
-                <h2>Why This Matters</h2>
-                <h3>Build Machines That Free Up Your Time</h3>
-                <p>Robots that handle physical tasks while you focus on what matters most.</p>
+                <h2>یہ کیوں اہم ہے</h2>
+                <h3>ایسی مشینیں بنائیں جو آپ کا وقت بچائیں</h3>
+                <p>روبوٹ جو جسمانی کام سنبھالتے ہیں جبکہ آپ ان چیزوں پر توجہ مرکوز کرتے ہیں جو سب سے زیادہ اہم ہیں۔</p>
             </div>
         </section>
     );
@@ -104,28 +103,28 @@ function WhyMattersSection() {
 
 const features = [
     {
-        title: 'Embodied Intelligence',
-        description: 'AI that operates in physical space, not just digital environments. Robots that understand physics and interact with the real world.'
+        title: 'مجسم ذہانت',
+        description: 'وہ اے آئی جو صرف ڈیجیٹل ماحول میں نہیں بلکہ طبعی جگہ میں کام کرتی ہے۔ وہ روبوٹ جو طبیعیات کو سمجھتے ہیں اور حقیقی دنیا کے ساتھ تعامل کرتے ہیں۔'
     },
     {
-        title: 'Human-Centered Design',
-        description: 'Humanoid robots navigate our world without modification. They use human tools, interfaces, and learn from demonstrations.'
+        title: 'انسان مرکز ڈیزائن',
+        description: 'ہیومنائڈ روبوٹ بغیر کسی ترمیم کے ہماری دنیا میں نیویگیٹ کرتے ہیں۔ وہ انسانی اوزار، انٹرفیس استعمال کرتے ہیں، اور مظاہروں سے سیکھتے ہیں۔'
     },
     {
-        title: 'Production-Ready Skills',
-        description: 'ROS 2, Gazebo, NVIDIA Isaac, and VLA models. The complete stack for modern robotics development.'
+        title: 'پروڈکشن کے لیے تیار مہارتیں',
+        description: 'ROS 2، گیزیبو، این ویڈیا آئزک، اور VLA ماڈلز۔ جدید روبوٹکس ڈویلپمنٹ کے لیے مکمل اسٹیک۔'
     },
     {
-        title: 'Conversational Robotics',
-        description: "Natural language commands translated to robot actions. 'Clean the room' becomes a sequence of coordinated movements."
+        title: 'بات چیت والی روبوٹکس',
+        description: "قدرتی زبان کے احکامات روبوٹ کے اعمال میں ترجمہ ہوتے ہیں۔ 'کمرہ صاف کرو' مربوط حرکات کا ایک سلسلہ بن جاتا ہے۔"
     },
     {
-        title: 'Sim-to-Real Transfer',
-        description: 'Train in simulation, deploy to reality. Photorealistic environments and domain randomization bridge the gap.'
+        title: 'سم-ٹو-ریئل ٹرانسفر',
+        description: 'سمیولیشن میں تربیت دیں، حقیقت میں تعینات کریں۔ فوٹو ریئلسٹک ماحول اور ڈومین رینڈمائزیشن فرق کو ختم کرتے ہیں۔'
     },
     {
-        title: 'Interactive Learning',
-        description: 'RAG-powered chat, personalized content, and hands-on exercises. Learn by doing, not just reading.'
+        title: 'انٹرایکٹو لرننگ',
+        description: 'RAG پاورڈ چیٹ، ذاتی نوعیت کا مواد، اور ہینڈز آن مشقیں۔ صرف پڑھنے سے نہیں، کرنے سے سیکھیں۔'
     }
 ];
 
@@ -150,9 +149,9 @@ function StartSection() {
     return (
         <section className={styles.startSection}>
             <div className="container">
-                <h2>Start Where You Are</h2>
-                <h3>No Expensive Hardware Required</h3>
-                <p>Begin building today with just your browser. Scale up when you're ready.</p>
+                <h2>وہیں سے شروع کریں جہاں آپ ہیں</h2>
+                <h3>کسی مہنگے ہارڈ ویئر کی ضرورت نہیں</h3>
+                <p>آج ہی صرف اپنے براؤزر سے تعمیر شروع کریں۔ جب آپ تیار ہوں تو پیمانہ بڑھائیں۔</p>
             </div>
         </section>
     );
@@ -161,27 +160,27 @@ function StartSection() {
 const hardwareOptions = [
     {
         tier: 1,
-        title: 'Workstation',
-        subtitle: 'Full Local Setup',
-        description: 'Best Experience',
-        details: 'RTX 4070 Ti+, 64GB RAM, Ubuntu 22.04. Run Isaac Sim locally with full performance.',
-        cost: 'Cost: ~$2,500+ hardware',
+        title: 'ورک سٹیشن',
+        subtitle: 'مکمل مقامی سیٹ اپ',
+        description: 'بہترین تجربہ',
+        details: 'RTX 4070 Ti+, 64GB RAM, Ubuntu 22.04. مکمل کارکردگی کے ساتھ مقامی طور پر آئزک سم چلائیں۔',
+        cost: 'قیمت: ~$2,500+ ہارڈ ویئر',
     },
     {
         tier: 2,
-        title: 'Cloud + Edge',
-        subtitle: 'Hybrid Approach',
-        description: 'Flexible',
-        details: 'AWS/Azure GPU instances for simulation. Jetson kit for physical deployment.',
-        cost: 'Cost: ~$200/quarter cloud + $700 Jetson',
+        title: 'کلاؤڈ + ایج',
+        subtitle: 'ہائبرڈ نقطہ نظر',
+        description: 'لچکدار',
+        details: 'سمیولیشن کے لیے AWS/Azure GPU مثالیں۔ جسمانی تعیناتی کے لیے جیٹسن کٹ۔',
+        cost: 'قیمت: ~$200/سہ ماہی کلاؤڈ + $700 جیٹسن',
     },
     {
         tier: 3,
-        title: 'Simulation Only',
-        subtitle: 'Learning Focus',
-        description: 'Lowest Cost',
-        details: 'Cloud-based simulation without physical hardware. Complete the theory and simulation modules.',
-        cost: 'Cost: Cloud compute only',
+        title: 'صرف سیمولیشن',
+        subtitle: 'سیکھنے کی توجہ',
+        description: 'کم ترین قیمت',
+        details: 'جسمانی ہارڈ ویئر کے بغیر کلاؤڈ بیسڈ سمیولیشن۔ تھیوری اور سمیولیشن کے ماڈیولز مکمل کریں۔',
+        cost: 'قیمت: صرف کلاؤڈ کمپیوٹ',
     }
 ];
 
@@ -210,14 +209,14 @@ function CtaSection() {
     return (
         <section className={styles.ctaSection}>
             <div className="container">
-                <h2>Ready to Begin?</h2>
-                <h3>Future is Physical AI. Robots That Think, Move, and Collaborate.</h3>
-                <p>Join the transition from AI confined to screens to AI that shapes the physical world alongside us.</p>
-                <p>Start Your Physical AI Journey. From ROS 2 basics to autonomous humanoids with voice control.</p>
+                <h2>شروع کرنے کے لیے تیار ہیں؟</h2>
+                <h3>مستقبل فزیکل اے آئی ہے۔ روبوٹ جو سوچتے، حرکت کرتے اور تعاون کرتے ہیں۔</h3>
+                <p>صرف اسکرینوں تک محدود اے آئی سے اس اے آئی کی طرف منتقلی میں شامل ہوں جو ہمارے ساتھ طبعی دنیا کو تشکیل دیتی ہے۔</p>
+                <p>اپنا فزیکل اے آئی کا سفر شروع کریں۔ ROS 2 کی بنیادی باتوں سے لے کر وائس کنٹرول کے ساتھ خود مختار ہیومنائڈز تک۔</p>
                 <Link
                     className="button button--primary button--lg"
-                    to="/docs/intrroduction">
-                    GET STARTED FREE
+                    to="/docs/Introduction/">
+                    مفت شروع کریں
                 </Link>
             </div>
         </section>
@@ -228,8 +227,8 @@ function CtaSection() {
 export default function Home(): React.ReactElement {
   return (
     <Layout
-      title="RoboLearn"
-      description="Master Physical AI from browser to production.">
+      title="روبولرن"
+      description="براؤزر سے پروڈکشن تک فزیکل اے آئی میں مہارت حاصل کریں۔">
       <HomepageHeader />
       <main>
         <JourneySection />

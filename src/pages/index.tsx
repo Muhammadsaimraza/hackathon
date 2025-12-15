@@ -216,7 +216,7 @@ function CtaSection() {
                 <p>Start Your Physical AI Journey. From ROS 2 basics to autonomous humanoids with voice control.</p>
                 <Link
                     className="button button--primary button--lg"
-                    to="/docs/intrroduction">
+                    to="/docs/Introduction/">
                     GET STARTED FREE
                 </Link>
             </div>

@@ -1,50 +1,50 @@
-# Lesson 15.1: Synthetic Data Generation
+# سبق 15.1: مصنوعی ڈیٹا جنریشن
 
-Training a modern deep learning model for a task like object detection requires a huge amount of labeled data. For example, the COCO dataset, a common benchmark, has over 200,000 labeled images. Creating such a dataset by hand—taking pictures and then manually drawing bounding boxes around every object—is incredibly slow and expensive.
+آبجیکٹ ڈیٹیکشن جیسے کام کے لیے ایک جدید ڈیپ لرننگ ماڈل کو تربیت دینے کے لیے بڑی مقدار میں لیبل شدہ ڈیٹا کی ضرورت ہوتی ہے۔ مثال کے طور پر، COCO ڈیٹاسیٹ، ایک عام بینچ مارک، میں 200,000 سے زیادہ لیبل شدہ تصاویر ہیں۔ ایسے ڈیٹاسیٹ کو ہاتھ سے بنانا — تصاویر لینا اور پھر ہر آبجیکٹ کے گرد دستی طور پر باؤنڈنگ باکسز بنانا — ناقابل یقین حد تک سست اور مہنگا ہے۔
 
-**Synthetic data** solves this problem by generating the images and the labels automatically inside a simulator.
+**مصنوعی ڈیٹا** سمیلیٹر کے اندر خود بخود تصاویر اور لیبل تیار کرکے اس مسئلے کو حل کرتا ہے۔
 
-## Isaac Sim Replicator
+## آئزک سم ریپلیکیٹر
 
-Isaac Sim's tool for this is called **Replicator**. Replicator is a Python scripting interface that allows you to define how to generate a dataset.
+اس کے لیے Isaac Sim کا ٹول **ریپلیکیٹر** کہلاتا ہے۔ ریپلیکیٹر ایک پائتھن اسکرپٹنگ انٹرفیس ہے جو آپ کو ڈیٹاسیٹ تیار کرنے کا طریقہ بیان کرنے کی اجازت دیتا ہے۔
 
-A typical Replicator script does the following:
-1.  **Define the environment:** Places the objects, walls, and lights in the scene.
-2.  **Define the randomization:** Specifies how to vary the scene for each image (e.g., move the objects around, change the lighting). This is the "Domain Randomization" we will cover in the next lesson.
-3.  **Attach annotators:** Specifies what kind of labels to generate for each image.
-4.  **Run the replicator:** Tells Isaac Sim to generate a specified number of images and their corresponding labels.
+ایک عام ریپلیکیٹر اسکرپٹ مندرجہ ذیل کام کرتا ہے:
+1.  **ماحول کی وضاحت کریں:** منظر میں اشیاء، دیواریں، اور لائٹس رکھیں۔
+2.  **رینڈمائزیشن کی وضاحت کریں:** ہر تصویر کے لیے منظر کو کیسے مختلف کرنا ہے اس کی وضاحت کریں (مثلاً، اشیاء کو ادھر ادھر منتقل کریں، روشنی تبدیل کریں)۔ یہ وہ "ڈومین رینڈمائزیشن" ہے جس کا ہم اگلے سبق میں احاطہ کریں گے۔
+3.  **تشریح کنندگان کو منسلک کریں:** بیان کریں کہ ہر تصویر کے لیے کس قسم کے لیبل تیار کرنے ہیں۔
+4.  **ریپلیکیٹر چلائیں:** Isaac Sim کو تصاویر اور ان کے متعلقہ لیبل کی مخصوص تعداد تیار کرنے کے لیے کہیں۔
 
-## Annotators: The "Perfect" Labels
+## تشریح کنندگان: "کامل" لیبل
 
-Because we are in a simulation, we have perfect knowledge of everything in the scene. We know the exact 3D position and class of every object. The Replicator framework uses "annotators" to convert this ground-truth information into the labels that a machine learning model needs.
+چونکہ ہم ایک سیمولیشن میں ہیں، ہمیں منظر میں ہر چیز کا کامل علم ہے۔ ہمیں ہر آبجیکٹ کی درست 3D پوزیشن اور کلاس معلوم ہے۔ ریپلیکیٹر فریم ورک اس گراؤنڈ-ٹروتھ معلومات کو ان لیبلز میں تبدیل کرنے کے لیے "تشریح کنندگان" کا استعمال کرتا ہے جن کی مشین لرننگ ماڈل کو ضرورت ہوتی ہے۔
 
-Common annotators include:
-*   **Bounding Box Annotator:** Generates 2D or 3D bounding boxes around each object in the image.
-*   **Semantic Segmentation Annotator:** Generates an image where each pixel is colored based on the class of the object it belongs to (e.g., all cars are blue, all pedestrians are red).
-*   **Instance Segmentation Annotator:** Generates an image where each pixel is colored based on the specific *instance* of the object (e.g., car_1 is blue, car_2 is green).
-*   **Depth Annotator:** Generates a depth image.
-*   **Pose Annotator:** Generates the exact 6D pose (position and orientation) of each object.
+عام تشریح کنندگان میں شامل ہیں:
+*   **باؤنڈنگ باکس تشریح کنندہ:** تصویر میں ہر آبجیکٹ کے گرد 2D یا 3D باؤنڈنگ باکسز تیار کرتا ہے۔
+*   **سیمنٹک سیگمنٹیشن تشریح کنندہ:** ایک ایسی تصویر تیار کرتا ہے جہاں ہر پکسل کو اس آبجیکٹ کی کلاس کی بنیاد پر رنگین کیا جاتا ہے جس سے وہ تعلق رکھتا ہے (مثلاً، تمام کاریں نیلی ہیں، تمام پیدل چلنے والے سرخ ہیں)۔
+*   **مثال سیگمنٹیشن تشریح کنندہ:** ایک ایسی تصویر تیار کرتا ہے جہاں ہر پکسل کو آبجیکٹ کی مخصوص *مثال* کی بنیاد پر رنگین کیا جاتا ہے (مثلاً، کار_1 نیلی ہے، کار_2 سبز ہے)۔
+*   **ڈیپتھ تشریح کنندہ:** ایک ڈیپتھ تصویر تیار کرتا ہے۔
+*   **پوز تشریح کنندہ:** ہر آبجیکٹ کا درست 6D پوز (پوزیشن اور واقفیت) تیار کرتا ہے۔
 
-## A Simple Replicator Script
+## ایک سادہ ریپلیکیٹر اسکرپٹ
 
-Here is a simplified example of what a Replicator script might look like.
+یہ ایک ریپلیکیٹر اسکرپٹ کی ایک سادہ مثال ہے کہ یہ کیسا نظر آ سکتا ہے۔
 
 ```python
 import omni.replicator.core as rep
 
-# Define our objects
+# اپنی اشیاء کی وضاحت کریں
 sphere = rep.create.sphere(position=(0, 0, 1))
 cube = rep.create.cube(position=(2, 0, 1))
 
-# Set up the camera and renderer
+# کیمرہ اور رینڈرر سیٹ اپ کریں
 camera = rep.create.camera()
 render_product = rep.create.render_product(camera, (1024, 1024))
 
-# Attach annotators to generate bounding box labels
+# باؤنڈنگ باکس لیبل تیار کرنے کے لیے تشریح کنندگان کو منسلک کریں
 bbox_annotator = rep.AnnotatorRegistry.get_annotator("bounding_box_2d_tight")
 bbox_annotator.attach([render_product])
 
-# Define a randomization function for the sphere's position
+# sphere کی پوزیشن کے لیے ایک رینڈمائزیشن فنکشن کی وضاحت کریں
 def randomize_sphere():
     with sphere:
         rep.modify.pose(
@@ -52,15 +52,15 @@ def randomize_sphere():
         )
     return sphere
 
-# Register the randomization function to be called for each frame
+# ہر فریم کے لیے کال کیے جانے والے رینڈمائزیشن فنکشن کو رجسٹر کریں
 rep.randomizer.register(randomize_sphere)
 
-# Run the replicator for 100 frames
+# 100 فریم کے لیے ریپلیکیٹر چلائیں
 with rep.trigger.on_frame(num_frames=100):
     rep.randomizer.randomize()
 
-# The script would then be run inside Isaac Sim, which would output
-# 100 images and 100 corresponding text files with the bounding box data.
+# اسکرپٹ پھر Isaac Sim کے اندر چلایا جائے گا، جو آؤٹ پٹ کرے گا
+# 100 تصاویر اور باؤنڈنگ باکس ڈیٹا کے ساتھ 100 متعلقہ ٹیکسٹ فائلیں۔
 ```
 
-This ability to generate vast, clean, and perfectly-labeled datasets is the primary reason why high-fidelity simulators like Isaac Sim are at the heart of modern AI-based robotics. It dramatically reduces the time and cost required to train robust and accurate perception models.
+بڑی، صاف، اور مکمل طور پر لیبل شدہ ڈیٹاسیٹس تیار کرنے کی یہ صلاحیت بنیادی وجہ ہے کہ Isaac Sim جیسے اعلیٰ مخلص سمیلیٹرز جدید AI پر مبنی روبوٹکس کے مرکز میں کیوں ہیں۔ یہ مضبوط اور درست پرسیپشن ماڈلز کو تربیت دینے کے لیے درکار وقت اور لاگت کو ڈرامائی طور پر کم کرتا ہے۔

@@ -1,41 +1,41 @@
-# Lesson 19.2: Introduction to MoveIt2
+# سبق 19.2: MoveIt2 کا تعارف
 
-**MoveIt** is the most widely used software for motion planning in the ROS ecosystem. It is a large and complex framework that provides everything you need to get a robot arm moving.
+**MoveIt** ROS ایکو سسٹم میں موشن پلاننگ کے لیے سب سے زیادہ استعمال ہونے والا سافٹ ویئر ہے۔ یہ ایک بڑا اور پیچیدہ فریم ورک ہے جو آپ کو روبوٹ بازو کو حرکت دینے کے لیے درکار ہر چیز فراہم کرتا ہے۔
 
-MoveIt2 is the ROS 2 version of the framework.
+MoveIt2 فریم ورک کا ROS 2 ورژن ہے۔
 
-## What MoveIt2 Does
+## MoveIt2 کیا کرتا ہے۔
 
-MoveIt is not a single node. It is a collection of nodes, plugins, and configuration files that work together to provide a complete motion planning service.
+MoveIt ایک واحد نوڈ نہیں ہے۔ یہ نوڈس، پلگ انز، اور کنفیگریشن فائلوں کا ایک مجموعہ ہے جو ایک مکمل موشن پلاننگ سروس فراہم کرنے کے لیے مل کر کام کرتے ہیں۔
 
-At its core, MoveIt:
-1.  **Takes your URDF:** It reads your robot's URDF to understand its kinematic structure.
-2.  **Loads the Environment:** It subscribes to topics that provide information about the world, including a 3D representation of the environment from a sensor like a depth camera. This is used for collision checking.
-3.  **Provides an Action Server:** It provides a ROS 2 Action server, typically called `/move_action`, that allows you to send it goals. A goal can be a target pose for the end-effector or a target set of joint angles.
-4.  **Plans a Path:** When it receives a goal, it uses its configured motion planning plugin (which often uses an algorithm like RRT) to find a collision-free path.
-5.  **Executes the Trajectory:** It converts the planned path into a smooth trajectory and sends the commands to the robot's motor controllers (often via another action server called `/follow_joint_trajectory`).
+اس کی بنیاد میں، MoveIt:
+1.  **آپ کی URDF لیتا ہے:** یہ آپ کے روبوٹ کی URDF کو اس کی کائیمیٹک ساخت کو سمجھنے کے لیے پڑھتا ہے۔
+2.  **ماحول لوڈ کرتا ہے:** یہ ٹاپکس کو سبسکرائب کرتا ہے جو دنیا کے بارے میں معلومات فراہم کرتے ہیں، بشمول گہرائی کیمرے جیسے سینسر سے ماحول کی 3D نمائندگی۔ یہ تصادم کی جانچ کے لیے استعمال ہوتا ہے۔
+3.  **ایک ایکشن سرور فراہم کرتا ہے:** یہ ایک ROS 2 ایکشن سرور فراہم کرتا ہے، جسے عام طور پر `/move_action` کہا جاتا ہے، جو آپ کو اسے اہداف بھیجنے کی اجازت دیتا ہے۔ ایک ہدف اینڈ-ایفیکٹر کے لیے ایک ہدف پوز یا جوائنٹ زاویوں کا ایک ہدف سیٹ ہو سکتا ہے۔
+4.  **ایک راستہ پلان کرتا ہے:** جب اسے ایک ہدف ملتا ہے، تو یہ اپنے ترتیب شدہ موشن پلاننگ پلگ ان کا استعمال کرتا ہے (جو اکثر RRT جیسے الگورتھم کا استعمال کرتا ہے) تاکہ تصادم سے پاک راستہ تلاش کر سکے۔
+5.  **ٹراجیکٹری پر عمل درآمد کرتا ہے:** یہ منصوبہ بند راستے کو ایک ہموار ٹراجیکٹری میں تبدیل کرتا ہے اور کمانڈز کو روبوٹ کے موٹر کنٹرولرز کو بھیجتا ہے (اکثر `/follow_joint_trajectory` نامی ایک اور ایکشن سرور کے ذریعے)۔
 
-## The MoveIt Setup Assistant
+## MoveIt سیٹ اپ اسسٹنٹ
 
-Configuring MoveIt2 for a new robot by hand is a very complex process. To simplify this, the MoveIt team provides a GUI tool called the **MoveIt Setup Assistant**.
+ایک نئے روبوٹ کے لیے MoveIt2 کو ہاتھ سے ترتیب دینا ایک بہت پیچیدہ عمل ہے۔ اسے آسان بنانے کے لیے، MoveIt ٹیم **MoveIt سیٹ اپ اسسٹنٹ** نامی ایک GUI ٹول فراہم کرتی ہے۔
 
-The Setup Assistant guides you through the process:
-1.  **Load URDF:** You load your robot's URDF file.
-2.  **Define Planning Groups:** You define a "planning group" for the part of the robot you want to control (e.g., you create an "arm" group that includes all the links and joints from the shoulder to the wrist).
-3.  **Define Robot Poses:** You can define pre-set poses, like a "home" or "stow" position.
-4.  **Configure End-Effectors:** You define which link is the end-effector (the "hand").
-5.  **Generate Configuration Files:** The tool then automatically generates a collection of configuration files and launch files that are specific to your robot.
+سیٹ اپ اسسٹنٹ آپ کو عمل کے ذریعے رہنمائی کرتا ہے:
+1.  **URDF لوڈ کریں:** آپ اپنے روبوٹ کی URDF فائل لوڈ کرتے ہیں۔
+2.  **پلاننگ گروپس کی وضاحت کریں:** آپ روبوٹ کے اس حصے کے لیے ایک "پلاننگ گروپ" کی وضاحت کرتے ہیں جسے آپ کنٹرول کرنا چاہتے ہیں (مثلاً، آپ ایک "بازو" گروپ بناتے ہیں جس میں کندھے سے کلائی تک کے تمام لنکس اور جوائنٹس شامل ہوتے ہیں)۔
+3.  **روبوٹ پوز کی وضاحت کریں:** آپ پہلے سے سیٹ پوز کی وضاحت کر سکتے ہیں، جیسے "ہوم" یا "اسٹو" پوزیشن۔
+4.  **اینڈ-ایفیکٹرز کو ترتیب دیں:** آپ وضاحت کرتے ہیں کہ کون سا لنک اینڈ-ایفیکٹر ("ہاتھ") ہے۔
+5.  **کنفیگریشن فائلیں تیار کریں:** ٹول پھر خود بخود کنفیگریشن فائلوں اور لانچ فائلوں کا ایک مجموعہ تیار کرتا ہے جو آپ کے روبوٹ کے لیے مخصوص ہوتے ہیں۔
 
-These generated files create a complete MoveIt configuration package. You can then launch this package to start all the necessary MoveIt nodes.
+یہ تیار کردہ فائلیں ایک مکمل MoveIt کنفیگریشن پیکیج بناتی ہیں۔ آپ پھر ان تمام ضروری MoveIt نوڈس کو شروع کرنے کے لیے اس پیکیج کو لانچ کر سکتے ہیں۔
 
-## Using MoveIt
+## MoveIt کا استعمال
 
-Once the MoveIt nodes are running, you can command your robot from your own Python node by creating a client for the `/move_action` server.
+ایک بار جب MoveIt نوڈس چل رہے ہوں، تو آپ `/move_action` سرور کے لیے ایک کلائنٹ بنا کر اپنے اپنے پائتھن نوڈ سے اپنے روبوٹ کو کمانڈ کر سکتے ہیں۔
 
-A simplified workflow:
-1.  Create an action client for `/move_action`.
-2.  Create a `PoseStamped` message to define your target pose in 3D space.
-3.  Send the goal to the MoveIt action server.
-4.  MoveIt will then do all the hard work: call an IK solver, plan a collision-free path, and execute the trajectory on the real or simulated robot.
+ایک سادہ ورک فلو:
+1.  `/move_action` کے لیے ایک ایکشن کلائنٹ بنائیں۔
+2.  3D اسپیس میں اپنے ہدف پوز کی وضاحت کے لیے ایک `PoseStamped` پیغام بنائیں۔
+3.  مقصد کو MoveIt ایکشن سرور کو بھیجیں۔
+4.  MoveIt پھر تمام مشکل کام کرے گا: ایک IK سولور کو کال کرے گا، تصادم سے پاک راستہ پلان کرے گا، اور حقیقی یا سمیولیٹڈ روبوٹ پر ٹراجیکٹری پر عمل درآمد کرے گا۔
 
-MoveIt provides the bridge from high-level "go here" commands to low-level joint control. It is a fundamental building block for any robot that needs to perform manipulation tasks.
+MoveIt اعلیٰ سطحی "یہاں جاؤ" کمانڈز سے نچلی سطح کے جوائنٹ کنٹرول تک پل فراہم کرتا ہے۔ یہ کسی بھی روبوٹ کے لیے ایک بنیادی بلڈنگ بلاک ہے جسے مینیپولیشن کے کام انجام دینے کی ضرورت ہے۔

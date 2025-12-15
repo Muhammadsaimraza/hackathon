@@ -1,59 +1,59 @@
-# Lesson 13.1: The Specification
+# سبق 13.1: تفصیلات
 
-As in the Module 1 capstone, we begin by writing a clear and unambiguous technical specification.
+ماڈیول 1 کے کیپسٹون کی طرح، ہم ایک واضح اور غیر مبہم تکنیکی تفصیلات لکھ کر شروع کرتے ہیں۔
 
-## High-Level Requirements
+## اعلیٰ سطحی ضروریات
 
-1.  The system shall consist of a simulated two-wheeled robot in a world with walls.
-2.  The robot shall be equipped with a 360-degree LiDAR sensor.
-3.  A "wall follower" node shall control the robot.
-4.  The wall follower node shall cause the robot to move forward while maintaining a configurable distance from a wall to its right.
-5.  The entire system shall be started with a single launch file.
+1.  نظام میں دیواروں والی دنیا میں ایک سمیولیٹڈ دو پہیوں والا روبوٹ شامل ہوگا۔
+2.  روبوٹ 360 ڈگری LiDAR سینسر سے لیس ہوگا۔
+3.  ایک "وال فالور" نوڈ روبوٹ کو کنٹرول کرے گا۔
+4.  وال فالور نوڈ روبوٹ کو آگے بڑھنے پر مجبور کرے گا جبکہ اس کی دائیں جانب کی دیوار سے ایک قابل ترتیب فاصلہ برقرار رکھے گا۔
+5.  پورا نظام ایک ہی لانچ فائل سے شروع کیا جائے گا۔
 
-## System Components
+## سسٹم کے اجزاء
 
-1.  **Gazebo World:** An SDF file containing a world with at least one long, straight wall for the robot to follow.
-2.  **Robot Model:** A URDF file for a two-wheeled robot, including a LiDAR sensor plugin.
-3.  **Wall Follower Node:** A Python ROS 2 node that implements the control logic.
-4.  **Launch File:** A Python launch file to start and configure the system.
+1.  **Gazebo ورلڈ:** ایک SDF فائل جس میں روبوٹ کے لیے کم از کم ایک لمبی، سیدھی دیوار والی دنیا ہو۔
+2.  **روبوٹ ماڈل:** ایک دو پہیوں والے روبوٹ کے لیے ایک URDF فائل، جس میں ایک LiDAR سینسر پلگ ان بھی شامل ہو۔
+3.  **وال فالور نوڈ:** ایک پائتھن ROS 2 نوڈ جو کنٹرول منطق کو نافذ کرتا ہے۔
+4.  **لانچ فائل:** سسٹم کو شروع کرنے اور ترتیب دینے کے لیے ایک پائتھن لانچ فائل۔
 
-## Node-by-Node Specification
+## نوڈ بہ نوڈ تفصیلات
 
 ### 1. `wall_follower_node`
 
-*   **Node Name:** `wall_follower_node`
-*   **Purpose:** Subscribes to LiDAR data and publishes velocity commands to follow a wall.
-*   **Parameters:**
-    *   `desired_distance` (float, default: 1.0): The target distance to maintain from the wall (in meters).
-    *   `forward_velocity` (float, default: 0.2): The constant forward speed of the robot.
-    *   `proportional_gain` (float, default: 0.5): The 'k' value for the proportional controller that determines the turning rate.
-*   **Topics Subscribed:**
-    *   `/scan` (`sensor_msgs/msg/LaserScan`): The topic the LiDAR plugin is publishing on.
-*   **Topics Published:**
-    *   `/cmd_vel` (`geometry_msgs/msg/Twist`): The topic the differential drive plugin is listening to.
-*   **Behavior:**
-    1.  The node runs a continuous control loop (triggered by the reception of a `/scan` message).
-    2.  In the loop, it reads the distance measurement from the ray pointing directly to the right (the 90-degree or -π/2 radians index of the `ranges` array).
-    3.  It calculates the `error = desired_distance - measured_distance`.
-    4.  It calculates the `angular_velocity = proportional_gain * error`.
-    5.  It publishes a `Twist` message with `linear.x` set to `forward_velocity` and `angular.z` set to the calculated `angular_velocity`.
+*   **نوڈ کا نام:** `wall_follower_node`
+*   **مقصد:** LiDAR ڈیٹا کو سبسکرائب کرتا ہے اور دیوار کے ساتھ چلنے کے لیے رفتار کمانڈز شائع کرتا ہے۔
+*   **پیرامیٹرز:**
+    *   `desired_distance` (فلوٹ، ڈیفالٹ: 1.0): دیوار سے برقرار رکھنے کا ہدف فاصلہ (میٹرز میں)۔
+    *   `forward_velocity` (فلوٹ، ڈیفالٹ: 0.2): روبوٹ کی مستقل آگے کی رفتار۔
+    *   `proportional_gain` (فلوٹ، ڈیفالٹ: 0.5): تناسب کنٹرولر کے لیے 'k' ویلیو جو موڑ کی شرح کا تعین کرتی ہے۔
+*   **سبسکرائب کردہ ٹاپکس:**
+    *   `/scan` (`sensor_msgs/msg/LaserScan`): وہ ٹاپک جس پر LiDAR پلگ ان شائع کر رہا ہے۔
+*   **شائع کردہ ٹاپکس:**
+    *   `/cmd_vel` (`geometry_msgs/msg/Twist`): وہ ٹاپک جسے ڈیفرینشل ڈرائیو پلگ ان سن رہا ہے۔
+*   **رویہ:**
+    1.  نوڈ ایک مسلسل کنٹرول لوپ چلاتا ہے ( `/scan` پیغام کی وصولی سے ٹرگر ہوتا ہے)۔
+    2.  لوپ میں، یہ براہ راست دائیں طرف اشارہ کرنے والی رے سے فاصلے کی پیمائش پڑھتا ہے (90 ڈگری یا -π/2 ریڈینز `ranges` ایرے کا انڈیکس)۔
+    3.  یہ `غلطی = مطلوبہ_فاصلہ - پیمائش_شدہ_فاصلہ` کا حساب لگاتا ہے۔
+    4.  یہ `کونیی_رفتار = تناسب_گیین * غلطی` کا حساب لگاتا ہے۔
+    5.  یہ `Twist` پیغام شائع کرتا ہے جس میں `linear.x` کو `forward_velocity` پر اور `angular.z` کو حساب کردہ `angular_velocity` پر سیٹ کیا جاتا ہے۔
 
-### 2. Gazebo Plugins (within URDF)
+### 2. Gazebo پلگ انز (URDF کے اندر)
 
-*   **LiDAR Plugin:**
-    *   Must be configured to publish on the `/scan` topic.
-    *   Must have a 360-degree horizontal field of view.
-*   **Differential Drive Plugin:**
-    *   Must be configured to subscribe to the `/cmd_vel` topic.
-    *   `wheel_separation` and `wheel_radius` must accurately match the URDF's geometry.
+*   **LiDAR پلگ ان:**
+    *   `/scan` ٹاپک پر شائع کرنے کے لیے ترتیب دیا جانا چاہیے۔
+    *   360 ڈگری افقی فیلڈ آف ویو ہونا چاہیے۔
+*   **ڈیفرینشل ڈرائیو پلگ ان:**
+    *   `/cmd_vel` ٹاپک کو سبسکرائب کرنے کے لیے ترتیب دیا جانا چاہیے۔
+    *   `wheel_separation` اور `wheel_radius` کو URDF کی جیومیٹری سے درست طریقے سے ملنا چاہیے۔
 
-## Launch File Specification
+## لانچ فائل کی تفصیلات
 
-*   **Name:** `module2_capstone.launch.py`
-*   **Actions:**
-    1.  Start Gazebo with the specified world file.
-    2.  Spawn the robot URDF model into Gazebo using the `ros_gz_sim` create node.
-    3.  Start the `wall_follower_node`.
-    4.  Pass the default parameter values (`desired_distance`, etc.) to the `wall_follower_node`.
+*   **نام:** `module2_capstone.launch.py`
+*   **اعمال:**
+    1.  مخصوص ورلڈ فائل کے ساتھ Gazebo شروع کریں۔
+    2.  `ros_gz_sim` create نوڈ کا استعمال کرتے ہوئے روبوٹ URDF ماڈل کو Gazebo میں اسپان کریں۔
+    3.  `wall_follower_node` شروع کریں۔
+    4.  `wall_follower_node` کو ڈیفالٹ پیرامیٹر ویلیوز ( `desired_distance`، وغیرہ) پاس کریں۔
 
-This specification provides a complete blueprint for our system. In the next lesson, you will implement the world, the robot, and the launch file.
+یہ تفصیلات ہمارے نظام کے لیے ایک مکمل بلیو پرنٹ فراہم کرتی ہے۔ اگلے سبق میں، آپ ورلڈ، روبوٹ، اور لانچ فائل کو نافذ کریں گے۔

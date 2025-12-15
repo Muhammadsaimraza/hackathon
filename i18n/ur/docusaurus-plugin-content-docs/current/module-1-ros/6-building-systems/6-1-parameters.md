@@ -1,4 +1,4 @@
-﻿# سبق 6.1: پیرامیٹرز
+# سبق 6.1: پیرامیٹرز
 
 اپنے کوڈ کے اندر اقدار کو ہارڈ کوڈ کرنا عام طور پر ایک بری مشق ہے۔ کیا ہوگا اگر آپ اپنے ٹاکر نوڈ کی ٹائمر کی شرح کو تبدیل کرنا چاہتے ہیں؟ یا chatter ٹاپک کو whisper میں تبدیل کرنا چاہتے ہیں؟ آپ کوڈ میں ترمیم کرکے دوبارہ تعمیر کرسکتے ہیں، لیکن ایک بہت بہتر طریقہ ہے: **پیرامیٹرز**۔
 
@@ -8,7 +8,7 @@
 
 آئیے اپنے ٹاکر نوڈ میں ترمیم کریں تاکہ پیغام کے مواد کے لیے ایک پیرامیٹر استعمال کریں۔
 
-`python
+```python
 # my_first_package/talker_with_params.py
 
 import rclpy
@@ -51,7 +51,7 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-`
+```
 
 ### کوڈ کی تفصیل
 1.  **self.declare_parameter('greeting', 'Hello')**:
@@ -63,23 +63,23 @@ if __name__ == '__main__':
 
 ## رجسٹر کریں، بنائیں، اور چلائیں
 
-1.  **نوڈ رجسٹر کریں:** اپنے setup.py میں 	alker_with_params = my_first_package.talker_with_params:main شامل کریں۔
+1.  **نوڈ رجسٹر کریں:** اپنے setup.py میں talker_with_params = my_first_package.talker_with_params:main شامل کریں۔
 2.  **بنائیں:** colcon build۔
 3.  **سورس:** source install/setup.bash۔
 4.  **چلائیں:**
     *   **پیرامیٹر سیٹ کیے بغیر:**
-        `ash
+        `bash
         ros2 run my_first_package talker_with_params
         `
         نوڈ "Hello World: ..." شائع کرے گا۔
 
     *   **کمانڈ لائن سے پیرامیٹر سیٹ کرنا:**
-        `ash
+        `bash
         ros2 run my_first_package talker_with_params --ros-args -p greeting:="Hola"
         `
         اب نوڈ "Hola World: ..." شائع کرے گا۔
 
---ros-args -p <param_name>:=<param_value> نحو ایک نوڈ کے لیے اسٹارٹ اپ پر پیرامیٹر سیٹ کرنے کا معیاری طریقہ ہے۔
+`--ros-args -p <param_name>:=<param_value>` نحو ایک نوڈ کے لیے اسٹارٹ اپ پر پیرامیٹر سیٹ کرنے کا معیاری طریقہ ہے۔
 
 ## رن ٹائم پر پیرامیٹرز کو تبدیل کرنا
 
@@ -87,12 +87,12 @@ if __name__ == '__main__':
 
 1.  پیرامیٹر سیٹ کیے بغیر نوڈ شروع کریں۔
 2.  ایک دوسرے ٹرمینل میں، نوڈ کے لیے پیرامیٹرز کی فہرست بنائیں:
-    `ash
+    `bash
     ros2 param list
     `
     آپ کو /talker_with_params_node اور اس کا greeting پیرامیٹر نظر آئے گا۔
 3.  اب، پیرامیٹر کو تبدیل کریں:
-    `ash
+    `bash
     ros2 param set /talker_with_params_node greeting "Bonjour"
     `
 آپ کو فوری طور پر اپنے چلنے والے نوڈ کا آؤٹ پٹ "Hello World" سے "Bonjour World" میں تبدیل ہوتا نظر آئے گا۔

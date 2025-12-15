@@ -1,33 +1,33 @@
-# Lesson 18.2: Dynamics: The Physics of Motion
+# سبق 18.2: ڈائنامکس: حرکت کی فزکس
 
-Kinematics describes *how* a robot can move. Dynamics describes *why* it moves. It is the study of motion in relation to the forces, torques, and energy that produce it.
+کائیمیٹکس یہ بتاتی ہے کہ روبوٹ *کیسے* حرکت کر سکتا ہے۔ ڈائنامکس یہ بتاتی ہے کہ یہ *کیوں* حرکت کرتا ہے۔ یہ حرکت کا مطالعہ ہے جو اسے پیدا کرنے والی قوتوں، ٹارک، اور توانائی کے تعلق سے ہے۔
 
-For a wheeled robot, the dynamics are relatively simple. For a legged humanoid robot, the dynamics are incredibly complex, and they all revolve around one central problem: **balance**.
+ایک پہیوں والے روبوٹ کے لیے، ڈائنامکس نسبتاً سادہ ہیں۔ ایک ٹانگوں والے ہیومنائڈ روبوٹ کے لیے، ڈائنامکس ناقابل یقین حد تک پیچیدہ ہیں، اور وہ سب ایک مرکزی مسئلے کے گرد گھومتے ہیں: **توازن**۔
 
-A walking robot is often described as an "inverted pendulum." It is an inherently unstable system that is constantly in a state of controlled falling. Mastering the dynamics of this controlled fall is the key to bipedal locomotion.
+ایک چلنے والے روبوٹ کو اکثر "الٹا پینڈولم" کہا جاتا ہے۔ یہ ایک فطری طور پر غیر مستحکم نظام ہے جو مسلسل کنٹرول شدہ گرنے کی حالت میں ہوتا ہے۔ اس کنٹرول شدہ گرنے کی ڈائنامکس میں مہارت حاصل کرنا دو پیروں والے لوکوموشن کی کلید ہے۔
 
-## Center of Mass (CoM)
+## سینٹر آف ماس (CoM)
 
-The **Center of Mass (CoM)** is the single point on the robot where the force of gravity can be considered to be acting. It is the average position of all the mass in the robot.
+**سینٹر آف ماس (CoM)** روبوٹ پر وہ واحد نقطہ ہے جہاں کشش ثقل کی قوت کو عمل کرتے ہوئے سمجھا جا سکتا ہے۔ یہ روبوٹ میں تمام ماس کی اوسط پوزیشن ہے۔
 
-To be statically stable (i.e., balanced without moving), the robot's CoM must be located vertically above its **support polygon**. The support polygon is the area on the ground enclosed by the robot's feet.
-*   If the robot is standing on two feet, the support polygon is the area that includes both feet.
-*   If the robot lifts one foot, the support polygon shrinks dramatically to just the area of the single foot that is on the ground.
+جامد طور پر مستحکم ہونے کے لیے (یعنی، حرکت کیے بغیر متوازن)، روبوٹ کا CoM اس کے **سپورٹ پولیگون** کے عمودی طور پر اوپر واقع ہونا چاہیے۔ سپورٹ پولیگون وہ علاقہ ہے جو روبوٹ کے پیروں سے گھرا ہوا ہے۔
+*   اگر روبوٹ دو پیروں پر کھڑا ہے، تو سپورٹ پولیگون وہ علاقہ ہے جس میں دونوں پیر شامل ہیں۔
+*   اگر روبوٹ ایک پیر اٹھاتا ہے، تو سپورٹ پولیگون ڈرامائی طور پر سکڑ کر صرف اس ایک پیر کے علاقے تک رہ جاتا ہے جو زمین پر ہے۔
 
-A primary goal of any walking algorithm is to move the robot's body in such a way that the CoM stays within the support polygon.
+کسی بھی واکنگ الگورتھم کا بنیادی مقصد روبوٹ کے جسم کو اس طرح حرکت دینا ہے کہ CoM سپورٹ پولیگون کے اندر رہے۔
 
-## Zero Moment Point (ZMP)
+## زیرو مومنٹ پوائنٹ (ZMP)
 
-The CoM is useful for static balance, but walking is a *dynamic* process. The robot is accelerating and decelerating, which creates inertial forces that also affect its balance.
+CoM جامد توازن کے لیے مفید ہے، لیکن چلنا ایک *ڈائنامک* عمل ہے۔ روبوٹ تیز اور سست ہو رہا ہے، جو inertial قوتیں پیدا کرتا ہے جو اس کے توازن کو بھی متاثر کرتی ہے۔
 
-The **Zero Moment Point (ZMP)** is a more advanced concept that accounts for these dynamic forces. The ZMP is the point on the ground where the total net moment (or torque) from both gravity and the inertial forces is zero.
+**زیرو مومنٹ پوائنٹ (ZMP)** ایک زیادہ جدید تصور ہے جو ان ڈائنامک قوتوں کا حساب رکھتا ہے۔ ZMP زمین پر وہ نقطہ ہے جہاں کشش ثقل اور inertial قوتوں دونوں سے کل خالص مومنٹ (یا ٹارک) صفر ہے۔
 
-The rule for dynamic stability is simple: **for the robot not to fall over, the ZMP must always remain inside the support polygon.**
+ڈائنامک استحکام کا اصول سادہ ہے: **روبوٹ کو گرنے سے روکنے کے لیے، ZMP کو ہمیشہ سپورٹ پولیگون کے اندر رہنا چاہیے**۔
 
-A walking gait is a carefully choreographed dance to keep the ZMP under control.
-1.  Before taking a step, the robot shifts its body to move the ZMP onto the foot that will remain on the ground.
-2.  It then lifts the other foot and swings it forward.
-3.  As the swinging foot moves forward, the robot adjusts its torso and arms to keep the ZMP within the tiny support polygon of the single stationary foot.
-4.  As the swinging foot lands, the support polygon expands to include both feet. The robot can then shift its weight and the ZMP onto the new support foot to begin the next step.
+ایک واکنگ گیٹ ZMP کو کنٹرول میں رکھنے کے لیے ایک احتیاط سے کوریوگراف شدہ ڈانس ہے۔
+1.  ایک قدم اٹھانے سے پہلے، روبوٹ اپنے جسم کو تبدیل کرتا ہے تاکہ ZMP کو اس پیر پر منتقل کر سکے جو زمین پر رہے گا۔
+2.  پھر یہ دوسرا پیر اٹھاتا ہے اور اسے آگے جھلاتا ہے۔
+3.  جیسے جیسے جھولتا ہوا پیر آگے بڑھتا ہے، روبوٹ اپنے دھڑ اور بازوؤں کو ایڈجسٹ کرتا ہے تاکہ ZMP کو اس ایک ساکن پیر کے چھوٹے سے سپورٹ پولیگون کے اندر رکھ سکے۔
+4.  جیسے ہی جھولتا ہوا پیر زمین پر آتا ہے، سپورٹ پولیگون دونوں پیروں کو شامل کرنے کے لیے پھیل جاتا ہے۔ روبوٹ پھر اپنا وزن اور ZMP نئے سپورٹ پیر پر منتقل کر سکتا ہے تاکہ اگلا قدم شروع کر سکے۔
 
-Modern humanoid control systems are complex algorithms that are constantly calculating the current position of the ZMP and commanding the robot's joints to move in a way that keeps the ZMP within the stable region. This is the fundamental challenge of making a robot walk like a human.
+جدید ہیومنائڈ کنٹرول سسٹمز پیچیدہ الگورتھم ہیں جو مسلسل ZMP کی موجودہ پوزیشن کا حساب لگاتے رہتے ہیں اور روبوٹ کے جوائنٹس کو اس طرح حرکت دینے کا حکم دیتے ہیں کہ ZMP مستحکم علاقے کے اندر رہے۔ یہ روبوٹ کو انسان کی طرح چلانے کا بنیادی چیلنج ہے۔

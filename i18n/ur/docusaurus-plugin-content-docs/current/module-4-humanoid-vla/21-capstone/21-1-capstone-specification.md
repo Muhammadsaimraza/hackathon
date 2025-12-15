@@ -1,76 +1,76 @@
-# Lesson 21.1: Capstone Specification
+# سبق 21.1: کیپسٹون تفصیلات
 
-For this capstone, we will define a "fetch" task for a simulated humanoid robot.
+اس کیپسٹون کے لیے، ہم ایک سمیولیٹڈ ہیومنائڈ روبوٹ کے لیے "فیچ" ٹاسک کی وضاحت کریں گے۔
 
-## High-Level Requirements
+## اعلیٰ سطحی ضروریات
 
-1.  The system shall be capable of receiving a natural language voice command from a human user.
-2.  The system shall use an LLM to interpret the command and generate a structured plan.
-3.  The robot shall navigate to a specified location in a simulated environment.
-4.  The robot shall use its perception system to identify a target object.
-5.  The robot shall manipulate the object (e.g., pick it up, push it).
-6.  The entire system shall be launched with a single command.
+1.  نظام ایک انسانی صارف سے قدرتی زبان کی صوتی کمانڈ وصول کرنے کے قابل ہوگا۔
+2.  نظام کمانڈ کی تشریح کرنے اور ایک سٹرکچرڈ پلان تیار کرنے کے لیے LLM کا استعمال کرے گا۔
+3.  روبوٹ ایک سمیولیٹڈ ماحول میں ایک مخصوص مقام پر نیویگیٹ کرے گا۔
+4.  روبوٹ ہدف آبجیکٹ کی شناخت کے لیے اپنے پرسیپشن سسٹم کا استعمال کرے گا۔
+5.  روبوٹ آبجیکٹ کو مینیپولٹ کرے گا (مثلاً، اسے اٹھانا، اسے دھکیلنا)۔
+6.  پورا نظام ایک ہی کمانڈ سے لانچ کیا جائے گا۔
 
-## Scenario
+## منظرنامہ
 
-**Robot:** A simplified simulated humanoid (e.g., our two-wheeled robot with a camera, LiDAR, and a simple gripper arm added).
-**Environment:** A simulated indoor environment in Isaac Sim with furniture and objects.
-**Task:** The user says, "Go to the kitchen and bring me the red mug."
+**روبوٹ:** ایک سادہ سمیولیٹڈ ہیومنائڈ (مثلاً، کیمرہ، LiDAR، اور ایک سادہ گریپر بازو کے ساتھ ہمارا دو پہیوں والا روبوٹ)۔
+**ماحول:** Isaac Sim میں فرنیچر اور اشیاء کے ساتھ ایک سمیولیٹڈ اندرونی ماحول۔
+**کام:** صارف کہتا ہے، "کچن میں جاؤ اور مجھے سرخ مگ لاؤ۔"
 
-## System Components
+## سسٹم کے اجزاء
 
-1.  **Speech-to-Text Node:** Converts human speech to text.
-2.  **LLM Planner Node:** Interprets text commands, generates JSON plans.
-3.  **Action Executor Node:** Translates JSON plans into ROS 2 actions/services.
-4.  **Navigation Stack:** Uses VSLAM and Nav2 for autonomous movement.
-5.  **Perception Stack:** Uses camera and object detection for finding objects.
-6.  **Manipulation Stack:** Uses MoveIt2 for arm control.
-7.  **Simulation:** Isaac Sim with a humanoid model and a realistic environment.
+1.  **اسپیچ-ٹو-ٹیکسٹ نوڈ:** انسانی تقریر کو ٹیکسٹ میں تبدیل کرتا ہے۔
+2.  **LLM پلانر نوڈ:** ٹیکسٹ کمانڈز کی تشریح کرتا ہے، JSON پلانز تیار کرتا ہے۔
+3.  **ایکشن ایگزیکیوٹر نوڈ:** JSON پلانز کو ROS 2 ایکشنز/سروسز میں ترجمہ کرتا ہے۔
+4.  **نیویگیشن اسٹیک:** خود مختار حرکت کے لیے VSLAM اور Nav2 کا استعمال کرتا ہے۔
+5.  **پرسیپشن اسٹیک:** اشیاء کو تلاش کرنے کے لیے کیمرہ اور آبجیکٹ ڈیٹیکشن کا استعمال کرتا ہے۔
+6.  **مینیپولیشن اسٹیک:** بازو کنٹرول کے لیے MoveIt2 کا استعمال کرتا ہے۔
+7.  **سیمولیشن:** ایک ہیومنائڈ ماڈل اور ایک حقیقت پسندانہ ماحول کے ساتھ Isaac Sim۔
 
-## Node-by-Node Specification
+## نوڈ بہ نوڈ تفصیلات
 
 ### 1. `voice_command_node`
-*   **Purpose:** Captures audio, sends to STT, publishes text.
-*   **Topics Published:** `/voice_command_text` (`std_msgs/msg/String`).
+*   **مقصد:** آڈیو کیپچر کرتا ہے، STT کو بھیجتا ہے، ٹیکسٹ شائع کرتا ہے۔
+*   **شائع کردہ ٹاپکس:** `/voice_command_text` (`std_msgs/msg/String`)۔
 
 ### 2. `llm_planner_node`
-*   **Purpose:** Subscribes to text commands, prompts LLM, publishes JSON plan.
-*   **Topics Subscribed:** `/voice_command_text` (`std_msgs/msg/String`).
-*   **Topics Published:** `/robot_plan` (`std_msgs/msg/String` - containing JSON).
-*   **Behavior:** Uses a pre-defined prompt to query an external LLM API (e.g., OpenAI, Gemini).
+*   **مقصد:** ٹیکسٹ کمانڈز کو سبسکرائب کرتا ہے، LLM کو پرامپٹ کرتا ہے، JSON پلان شائع کرتا ہے۔
+*   **سبسکرائب کردہ ٹاپکس:** `/voice_command_text` (`std_msgs/msg/String`)۔
+*   **شائع کردہ ٹاپکس:** `/robot_plan` (`std_msgs/msg/String` - JSON پر مشتمل)۔
+*   **رویہ:** ایک بیرونی LLM API (مثلاً، OpenAI، Gemini) کو استفسار کرنے کے لیے ایک پہلے سے بیان کردہ پرامپٹ کا استعمال کرتا ہے۔
 
 ### 3. `action_executor_node`
-*   **Purpose:** Subscribes to JSON plans, calls appropriate ROS 2 actions/services.
-*   **Topics Subscribed:** `/robot_plan` (`std_msgs/msg/String`).
-*   **Services Called:** Nav2 `/navigate_to_pose`, MoveIt2 `/move_group/action`.
-*   **Behavior:** Parses JSON, orchestrates calls to navigation, perception, and manipulation.
+*   **مقصد:** JSON پلانز کو سبسکرائب کرتا ہے، مناسب ROS 2 ایکشنز/سروسز کو کال کرتا ہے۔
+*   **سبسکرائب کردہ ٹاپکس:** `/robot_plan` (`std_msgs/msg/String`)۔
+*   **کال کردہ خدمات:** Nav2 `/navigate_to_pose`، MoveIt2 `/move_group/action`۔
+*   **رویہ:** JSON کو پارس کرتا ہے، نیویگیشن، پرسیپشن، اور مینیپولیشن کو کالز کو منظم کرتا ہے۔
 
-### 4. Navigation Stack (Nav2 + Isaac ROS VSLAM)
-*   **Purpose:** Autonomous movement to target locations.
-*   **Inputs:** Camera, IMU data (from Isaac Sim). Goal pose (from `action_executor_node`).
-*   **Outputs:** `/cmd_vel` (`geometry_msgs/msg/Twist`).
+### 4. نیویگیشن اسٹیک (Nav2 + Isaac ROS VSLAM)
+*   **مقصد:** ہدف کے مقامات پر خود مختار حرکت۔
+*   **ان پٹ:** کیمرہ، IMU ڈیٹا (Isaac Sim سے)۔ ہدف پوز (`action_executor_node` سے)۔
+*   **آؤٹ پٹ:** `/cmd_vel` (`geometry_msgs/msg/Twist`)۔
 
-### 5. Perception Stack (Object Detection)
-*   **Purpose:** Locates specified objects.
-*   **Inputs:** Camera data (from Isaac Sim).
-*   **Services Provided:** `/find_object` (`my_custom_interfaces/srv/FindObject`).
-*   **Behavior:** Runs a pre-trained object detection model.
+### 5. پرسیپشن اسٹیک (آبجیکٹ ڈیٹیکشن)
+*   **مقصد:** مخصوص اشیاء کو تلاش کرتا ہے۔
+*   **ان پٹ:** کیمرہ ڈیٹا (Isaac Sim سے)۔
+*   **فراہم کردہ خدمات:** `/find_object` (`my_custom_interfaces/srv/FindObject`)۔
+*   **رویہ:** ایک پہلے سے تربیت یافتہ آبجیکٹ ڈیٹیکشن ماڈل چلاتا ہے۔
 
-### 6. Manipulation Stack (MoveIt2)
-*   **Purpose:** Plans and executes arm movements for grasping.
-*   **Inputs:** Target object pose (from `action_executor_node`).
-*   **Services Provided:** `/pickup_object` (`my_custom_interfaces/srv/PickupObject`).
-*   **Behavior:** Uses MoveIt2 to plan and execute a grasp.
+### 6. مینیپولیشن اسٹیک (MoveIt2)
+*   **مقصد:** گرفت کے لیے بازو کی حرکات کی منصوبہ بندی اور عمل درآمد۔
+*   **ان پٹ:** ہدف آبجیکٹ پوز (`action_executor_node` سے)۔
+*   **فراہم کردہ خدمات:** `/pickup_object` (`my_custom_interfaces/srv/PickupObject`)۔
+*   **رویہ:** گرفت کی منصوبہ بندی اور عمل درآمد کے لیے MoveIt2 کا استعمال کرتا ہے۔
 
-## Launch File Specification (`humanoid_vla_capstone.launch.py`)
+## لانچ فائل کی تفصیلات (`humanoid_vla_capstone.launch.py`)
 
-*   Start Isaac Sim.
-*   Spawn the humanoid robot model.
-*   Launch `voice_command_node`.
-*   Launch `llm_planner_node`.
-*   Launch `action_executor_node`.
-*   Launch Nav2 stack (including VSLAM, local and global planners).
-*   Launch object detection node.
-*   Launch MoveIt2 planning and execution nodes.
+*   Isaac Sim شروع کریں۔
+*   ہیومنائڈ روبوٹ ماڈل اسپان کریں۔
+*   `voice_command_node` لانچ کریں۔
+*   `llm_planner_node` لانچ کریں۔
+*   `action_executor_node` لانچ کریں۔
+*   Nav2 اسٹیک لانچ کریں (بشمول VSLAM، لوکل اور گلوبل پلانرز)۔
+*   آبجیکٹ ڈیٹیکشن نوڈ لانچ کریں۔
+*   MoveIt2 پلاننگ اور ایگزیکیوشن نوڈس لانچ کریں۔
 
-This is a comprehensive system. While the full implementation is beyond the scope of this lesson, the specification lays out the entire architecture. In the next lessons, we'll focus on the high-level integration points.
+یہ ایک جامع نظام ہے۔ جب کہ مکمل عمل درآمد اس سبق کے دائرہ کار سے باہر ہے، تفصیلات پورے فن تعمیر کو واضح کرتی ہے۔ اگلے اسباق میں، ہم اعلیٰ سطحی انٹیگریشن پوائنٹس پر توجہ مرکوز کریں گے۔

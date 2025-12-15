@@ -11,11 +11,11 @@ const config: Config = {
   url: 'https://muhammadsaimraza.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/robolearn/',
+  baseUrl: '/hackathon/',
 
   // GitHub pages deployment config.
   organizationName: 'Muhammadsaimraza', // Usually your GitHub org/user name.
-  projectName: 'robolearn', // Usually your repo name.
+  projectName: 'hackathon', // Usually your repo name.
  
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -49,7 +49,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/Panaversity/phys-ai-robotics-textbook/tree/main/',
+            'https://github.com/Muhammadsaimraza/',
         },
         blog: false, // Disable the blog plugin.
         theme: {
@@ -61,13 +61,13 @@ const config: Config = {
 
   themeConfig: {
     // Enforce dark mode
-    colorMode: {
-      defaultMode: 'dark',
-      disableSwitch: true,
-      respectPrefersColorScheme: false,
-    },
+    // colorMode: {
+    //   defaultMode: 'dark',
+    //   disableSwitch: true,
+    //   respectPrefersColorScheme: false,
+    // },
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/download.jpg',
     navbar: {
       title: 'ROBOLEARN',
       logo: {
@@ -79,14 +79,14 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'textbookSidebar',
           position: 'left',
-          label: 'Textbook',
+          label: 'Learn Free',
         },
         {
           type: 'localeDropdown',
           position: 'right',
         },
         {
-          href: 'https://github.com/Panaversity/phys-ai-robotics-textbook',
+          href: 'https://github.com/Muhammadsaimraza',
           label: 'GitHub',
           position: 'right',
         },
@@ -100,7 +100,7 @@ const config: Config = {
           items: [
             {
               label: 'Textbook',
-              to: '/docs/module-1-ros/week-1-intro-to-physical-ai', // Updated to the first page of the textbook
+              to: '/docs/Introduction/', // Updated to the first page of the textbook
             },
           ],
         },
@@ -122,16 +122,23 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/Panaversity/phys-ai-robotics-textbook',
+              href: 'https://github.com/Panaversity',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Built with Saim.`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    algolia: {
+      // Add your Algolia Search API keys here
+      appId: 'YOUR_APP_ID',
+      apiKey: 'YOUR_SEARCH_API_KEY',
+      indexName: 'YOUR_INDEX_NAME',
+      contextualSearch: true,
     },
 
   } satisfies Preset.ThemeConfig,

@@ -1,34 +1,34 @@
-# Lesson 14.2: Isaac Sim vs. Gazebo
+# سبق 14.2: آئزک سم بمقابلہ Gazebo
 
-You've spent the last module learning Gazebo. Now we are introducing a new simulator, Isaac Sim. What's the difference? When would you choose one over the other?
+آپ نے پچھلے ماڈیول میں Gazebo سیکھا ہے۔ اب ہم ایک نیا سمیلیٹر، Isaac Sim متعارف کر رہے ہیں۔ کیا فرق ہے؟ آپ ایک کو دوسرے پر کب ترجیح دیں گے؟
 
-The choice of simulator depends on your primary goal.
+سمیلیٹر کا انتخاب آپ کے بنیادی مقصد پر منحصر ہے۔
 
-## The Tale of Two Simulators
+## دو سمیلیٹرز کی کہانی
 
-| Feature | Gazebo | Isaac Sim |
+| خصوصیت | Gazebo | Isaac Sim |
 | :--- | :--- | :--- |
-| **Core Strength** | **Physics.** Fast and robust rigid-body dynamics. | **Photorealism.** State-of-the-art rendering for realistic sensor data. |
-| **Primary Use Case** | Developing and testing control algorithms, locomotion, and manipulation. | Training and testing AI/ML perception models. Synthetic data generation. |
-| **Rendering Quality** | Functional, but not realistic. Lighting and textures are basic. | Physically-based, real-time ray tracing. Looks like a modern video game. |
-| **Physics Engine** | ODE (Open Dynamics Engine) - proven and stable. | NVIDIA PhysX 5 - advanced engine that also supports soft bodies and fluids. |
-| **Hardware Requirement** | Can run on a standard CPU. | Requires a powerful, modern NVIDIA GPU (RTX series). |
-| **Community & Cost** | Open-source, large academic community, free. | Proprietary (but free to use), enterprise-focused. |
-| **ROS Integration** | Excellent and native. | Excellent and native. |
+| **بنیادی طاقت** | **فزکس۔** تیز اور مضبوط ریجڈ-باڈی ڈائنامکس۔ | **فوٹو ریئلزم۔** حقیقت پسندانہ سینسر ڈیٹا کے لیے جدید ترین رینڈرنگ۔ |
+| **بنیادی استعمال کا کیس** | کنٹرول الگورتھم، لوکوموشن، اور مینیپولیشن تیار کرنا اور جانچنا۔ | AI/ML پرسیپشن ماڈلز کی تربیت اور جانچ۔ مصنوعی ڈیٹا جنریشن۔ |
+| **رینڈرنگ کا معیار** | فنکشنل، لیکن حقیقت پسندانہ نہیں۔ روشنی اور ساخت بنیادی ہیں۔ | طبعی طور پر مبنی، ریئل ٹائم رے ٹریسنگ۔ ایک جدید ویڈیو گیم کی طرح لگتا ہے۔ |
+| **فزکس انجن** | ODE (اوپن ڈائنامکس انجن) - ثابت شدہ اور مستحکم۔ | NVIDIA PhysX 5 - جدید انجن جو نرم باڈیز اور فلوڈز کو بھی سپورٹ کرتا ہے۔ |
+| **ہارڈ ویئر کی ضرورت** | ایک معیاری CPU پر چل سکتا ہے۔ | ایک طاقتور، جدید NVIDIA GPU (RTX سیریز) کی ضرورت ہے۔ |
+| **کمیونٹی اور لاگت** | اوپن سورس، بڑی تعلیمی کمیونٹی، مفت۔ | ملکیتی (لیکن استعمال کے لیے مفت)، انٹرپرائز پر مبنی۔ |
+| **ROS انٹیگریشن** | بہترین، مقامی سپورٹ۔ | بہترین اور مقامی۔ |
 
-## An Analogy: The Wind Tunnel vs. The Movie Set
+## ایک تمثیل: ونڈ ٹنل بمقابلہ مووی سیٹ
 
-*   **Gazebo is like a wind tunnel.** It might not look pretty, but it is a highly effective and scientifically accurate tool for testing the dynamics of your system. If you want to know if your control algorithm will be stable, Gazebo is the perfect tool.
-*   **Isaac Sim is like a movie set.** It is designed to look and feel exactly like the real world. If you want to fool a camera and an AI model into thinking they are in a real environment, Isaac Sim is the perfect tool.
+*   **Gazebo ایک ونڈ ٹنل کی طرح ہے۔** یہ خوبصورت نہیں لگ سکتا، لیکن یہ آپ کے سسٹم کی ڈائنامکس کی جانچ کے لیے ایک انتہائی موثر اور سائنسی طور پر درست ٹول ہے۔ اگر آپ جاننا چاہتے ہیں کہ آیا آپ کا کنٹرول الگورتھم مستحکم ہوگا، تو Gazebo بہترین ٹول ہے۔
+*   **Isaac Sim ایک مووی سیٹ کی طرح ہے۔** اسے بالکل حقیقی دنیا کی طرح نظر آنے اور محسوس کرنے کے لیے ڈیزائن کیا گیا ہے۔ اگر آپ ایک کیمرہ اور ایک AI ماڈل کو یہ سوچنے پر مجبور کرنا چاہتے ہیں کہ وہ ایک حقیقی ماحول میں ہیں، تو Isaac Sim بہترین ٹول ہے۔
 
-## Which One Should You Use?
+## آپ کو کون سا استعمال کرنا چاہیے؟
 
-In modern robotics, the answer is often **both**.
+جدید روبوٹکس میں، جواب اکثر **دونوں** ہوتا ہے۔
 
-A common professional workflow:
-1.  Use Gazebo for the initial stages of development. It's lightweight and fast for testing basic control loops, motor controllers, and locomotion.
-2.  Use Isaac Sim for the perception and AI stack. Once the basic control is working, you move to Isaac Sim to generate data, train your vision models, and test your autonomous navigation system in a realistic environment.
+ایک عام پیشہ ورانہ ورک فلو:
+1.  ڈویلپمنٹ کے ابتدائی مراحل کے لیے Gazebo استعمال کریں۔ یہ بنیادی کنٹرول لوپس، موٹر کنٹرولرز، اور لوکوموشن کی جانچ کے لیے ہلکا پھلکا اور تیز ہے۔
+2.  پرسیپشن اور AI اسٹیک کے لیے Isaac Sim استعمال کریں۔ ایک بار جب بنیادی کنٹرول کام کر رہا ہو، تو آپ Isaac Sim میں ڈیٹا تیار کرنے، اپنے ویژن ماڈلز کو تربیت دینے، اور اپنے خود مختار نیویگیشن سسٹم کو ایک حقیقت پسندانہ ماحول میں جانچنے کے لیے منتقل ہو جاتے ہیں۔
 
-This course focuses on Gazebo in Module 2 because it is more accessible and is excellent for teaching the fundamentals of simulation. In this module, we introduce Isaac Sim because it is the state-of-the-art tool for the AI-driven tasks that represent the future of robotics.
+یہ کورس ماڈیول 2 میں Gazebo پر توجہ مرکوز کرتا ہے کیونکہ یہ زیادہ قابل رسائی ہے اور سیمولیشن کی بنیادی باتوں کو سکھانے کے لیے بہترین ہے۔ اس ماڈیول میں، ہم Isaac Sim کو متعارف کراتے ہیں کیونکہ یہ AI پر مبنی کاموں کے لیے جدید ترین ٹول ہے جو روبوٹکس کے مستقبل کی نمائندگی کرتے ہیں۔
 
-The skills you learned with Gazebo—creating a URDF, understanding plugins, and integrating with ROS 2—are all directly transferable to Isaac Sim. The core concepts are the same; only the specific tools and the visual quality have changed.
+Gazebo کے ساتھ آپ نے جو مہارتیں سیکھی ہیں — ایک URDF بنانا، پلگ انز کو سمجھنا، اور ROS 2 کے ساتھ مربوط کرنا — وہ سب Isaac Sim میں براہ راست منتقلی کے قابل ہیں۔ بنیادی تصورات ایک جیسے ہیں؛ صرف مخصوص ٹولز اور بصری معیار تبدیل ہوئے ہیں۔

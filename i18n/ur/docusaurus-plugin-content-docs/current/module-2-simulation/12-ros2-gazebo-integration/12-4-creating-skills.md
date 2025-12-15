@@ -1,51 +1,51 @@
-# Lesson 12.4: Creating Skills
+# سبق 12.4: مہارتیں تخلیق کرنا
 
-The "wall follower" you built in the last lesson is an example of a **skill** or a **behavior**. It's a self-contained ROS 2 node (or collection of nodes) that accomplishes a specific, reusable task.
+"وال فالور" جو آپ نے پچھلے سبق میں بنایا تھا وہ ایک **مہارت** یا **رویے** کی ایک مثال ہے۔ یہ ایک خود مختار ROS 2 نوڈ (یا نوڈس کا مجموعہ) ہے جو ایک مخصوص، دوبارہ قابل استعمال کام انجام دیتا ہے۔
 
-Modern robotics is moving away from monolithic, hard-coded control programs and towards a library of composable skills. A high-level planner can then sequence these skills to accomplish complex goals.
+جدید روبوٹکس مونو لیتھک، ہارڈ کوڈڈ کنٹرول پروگراموں سے ہٹ کر قابل ترتیب مہارتوں کی ایک لائبریری کی طرف بڑھ رہا ہے۔ ایک اعلیٰ سطحی پلانر پھر پیچیدہ اہداف کو حاصل کرنے کے لیے ان مہارتوں کو ترتیب دے سکتا ہے۔
 
-## Characteristics of a Good Skill
+## ایک اچھی مہارت کی خصوصیات
 
-*   **Modular:** It should be a self-contained ROS 2 package with a clear interface.
-*   **Configurable:** It should use parameters to allow for easy tuning and adaptation to new robots or environments. Our wall follower could have parameters for `desired_distance` and `k_proportional`.
-*   **Well-Defined API:** It should have a clear way to start, stop, and monitor its progress. For simple skills, just running the node is enough. For more complex skills, you would typically use a ROS 2 **Action** (which we will cover in a future module). An action provides a formal way to send a goal (e.g., "follow the wall for 10 meters"), receive feedback, and get a final result.
+*   **ماڈیولر:** یہ ایک واضح انٹرفیس کے ساتھ ایک خود مختار ROS 2 پیکیج ہونا چاہیے۔
+*   **قابل ترتیب:** اسے نئے روبوٹس یا ماحول میں آسان ٹیوننگ اور موافقت کے لیے پیرامیٹرز کا استعمال کرنا چاہیے۔ ہمارے وال فالور میں `desired_distance` اور `k_proportional` کے لیے پیرامیٹرز ہو سکتے ہیں۔
+*   **واضح API:** اس کی پیشرفت کو شروع کرنے، روکنے، اور نگرانی کرنے کا ایک واضح طریقہ ہونا چاہیے۔ سادہ مہارتوں کے لیے، صرف نوڈ کو چلانا کافی ہے۔ زیادہ پیچیدہ مہارتوں کے لیے، آپ عام طور پر ایک ROS 2 **ایکشن** استعمال کریں گے (جس کا ہم مستقبل کے ماڈیول میں احاطہ کریں گے)۔ ایک ایکشن ایک مقصد بھیجنے کا ایک رسمی طریقہ فراہم کرتا ہے (مثلاً، "10 میٹر کے لیے دیوار کے ساتھ چلیں")، فیڈ بیک حاصل کرتا ہے، اور حتمی نتیجہ حاصل کرتا ہے۔
 
-## Example: A "Go to Goal" Skill
+## مثال: ایک "Go to Goal" مہارت
 
-Let's design another skill. This one will take our robot to a specific (x, y) coordinate.
+آئیے ایک اور مہارت ڈیزائن کرتے ہیں۔ یہ ہمارے روبوٹ کو ایک مخصوص (x, y) کوآرڈینیٹ پر لے جائے گی۔
 
-*   **Node Name:** `go_to_goal_node`
-*   **Subscribes to:**
-    *   `/odom` (`nav_msgs/msg/Odometry`): To get the robot's current position and orientation. We would get this topic by using the `ros_gz_bridge` to bridge Gazebo's pose information for our robot.
-*   **Publishes to:**
-    *   `/cmd_vel` (`geometry_msgs/msg/Twist`): To control the robot's movement.
-*   **Action Server:**
-    *   `/go_to_goal` (`my_interfaces/action/GoToGoal`): An action server to receive the target coordinate.
-*   **Logic:**
-    1.  Receive a goal with a target (x, y) pose.
-    2.  In a control loop, continuously:
-        a.  Read the current pose from `/odom`.
-        b.  Calculate the error between the current pose and the goal pose.
-        c.  Calculate a `linear.x` and `angular.z` velocity to reduce the error (this is a more complex proportional controller than the wall follower).
-        d.  Publish the velocity command to `/cmd_vel`.
-        e.  Publish feedback on the action topic with the current distance to the goal.
-    3.  When the error is close to zero, stop the robot and report that the goal was successful.
+*   **نوڈ کا نام:** `go_to_goal_node`
+*   **سبسکرائب کرتا ہے:**
+    *   `/odom` (`nav_msgs/msg/Odometry`): روبوٹ کی موجودہ پوزیشن اور واقفیت حاصل کرنے کے لیے۔ ہم اپنے روبوٹ کے لیے Gazebo کی پوز کی معلومات کو برج کرنے کے لیے `ros_gz_bridge` کا استعمال کرتے ہوئے یہ ٹاپک حاصل کریں گے۔
+*   **شائع کرتا ہے:**
+    *   `/cmd_vel` (`geometry_msgs/msg/Twist`): روبوٹ کی حرکت کو کنٹرول کرنے کے لیے۔
+*   **ایکشن سرور:**
+    *   `/go_to_goal` (`my_interfaces/action/GoToGoal`): ہدف کوآرڈینیٹ وصول کرنے کے لیے ایک ایکشن سرور۔
+*   **منطق:**
+    1.  ایک ہدف (x, y) پوز کے ساتھ ایک مقصد وصول کریں۔
+    2.  ایک کنٹرول لوپ میں، مسلسل:
+        a.  `/odom` سے موجودہ پوز پڑھیں۔
+        b.  موجودہ پوز اور مقصد پوز کے درمیان غلطی کا حساب لگائیں۔
+        c.  غلطی کو کم کرنے کے لیے `linear.x` اور `angular.z` رفتار کا حساب لگائیں (یہ وال فالور سے زیادہ پیچیدہ تناسب کنٹرولر ہے)۔
+        d.  رفتار کمانڈ کو `/cmd_vel` پر شائع کریں۔
+        e.  مقصد تک موجودہ فاصلے کے ساتھ ایکشن ٹاپک پر فیڈ بیک شائع کریں۔
+    3.  جب غلطی صفر کے قریب ہو، تو روبوٹ کو روکیں اور رپورٹ کریں کہ مقصد کامیابی سے حاصل ہو گیا۔
 
-## Composing Skills
+## مہارتوں کو ترتیب دینا
 
-Once you have a library of these skills, a high-level "brain" node can use them to perform complex tasks.
+ایک بار جب آپ کے پاس ان مہارتوں کی ایک لائبریری ہو جاتی ہے، تو ایک اعلیٰ سطحی "دماغ" نوڈ پیچیدہ کاموں کو انجام دینے کے لیے انہیں استعمال کر سکتا ہے۔
 
-Imagine you have skills for:
+تصور کریں کہ آپ کے پاس مہارتیں ہیں:
 *   `GoToGoal`
-*   `FindObject` (using a camera)
-*   `PickUpObject` (using a robot arm)
+*   `FindObject` (ایک کیمرہ کا استعمال کرتے ہوئے)
+*   `PickUpObject` (ایک روبوٹک بازو کا استعمال کرتے ہوئے)
 
-A brain node could receive a command like "fetch me the red ball from the other room" and translate it into a sequence of calls to these skill action servers:
-1.  Call `GoToGoal` with the coordinates of the "other room."
-2.  Once that succeeds, call `FindObject` with "red ball" as the target.
-3.  Once that succeeds (returning the position of the ball), call `GoToGoal` with the position of the ball.
-4.  Once that succeeds, call `PickUpObject`.
+ایک دماغ نوڈ "دوسرے کمرے سے مجھے سرخ گیند لاؤ" جیسا کمانڈ وصول کر سکتا ہے اور اسے ان مہارت ایکشن سرورز کو کالز کی ایک ترتیب میں ترجمہ کر سکتا ہے:
+1.  "دوسرے کمرے" کے کوآرڈینیٹس کے ساتھ `GoToGoal` کو کال کریں۔
+2.  ایک بار جب وہ کامیاب ہو جائے، تو "سرخ گیند" کو ہدف کے طور پر `FindObject` کو کال کریں۔
+3.  ایک بار جب وہ کامیاب ہو جائے (گیند کی پوزیشن واپس کر دے)، تو گیند کی پوزیشن کے ساتھ `GoToGoal` کو کال کریں۔
+4.  ایک بار جب وہ کامیاب ہو جائے، تو `PickUpObject` کو کال کریں۔
 
-This hierarchical, behavior-based architecture is a powerful and scalable way to build complex autonomous systems. You are not just writing code; you are creating a library of reusable robotic capabilities.
+یہ درجہ بندی شدہ، رویے پر مبنی فن تعمیر پیچیدہ خود مختار نظام بنانے کا ایک طاقتور اور قابل توسیع طریقہ ہے۔ آپ صرف کوڈ نہیں لکھ رہے ہیں؛ آپ دوبارہ قابل استعمال روبوٹک صلاحیتوں کی ایک لائبریری بنا رہے ہیں۔
 
-This concludes Chapter 12. You now understand how to integrate your ROS 2 nodes with a Gazebo simulation to create closed-loop behaviors. In the final chapter of this module, you will put all of these pieces together to complete the Module 2 capstone project.
+یہ باب 12 کا اختتام کرتا ہے۔ اب آپ اپنے ROS 2 نوڈس کو Gazebo سیمولیشن کے ساتھ کیسے مربوط کرنا ہے تاکہ کلوزڈ-لوپ رویے بنائے جا سکیں، یہ سمجھتے ہیں۔ اس ماڈیول کے آخری باب میں، آپ ماڈیول 2 کیپسٹون پروجیکٹ کو مکمل کرنے کے لیے ان تمام ٹکڑوں کو ایک ساتھ جوڑیں گے۔

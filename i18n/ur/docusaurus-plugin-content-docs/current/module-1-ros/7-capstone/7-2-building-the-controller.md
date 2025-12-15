@@ -1,31 +1,31 @@
-# Lesson 7.2: Building the Controller
+# سبق 7.2: کنٹرولر کی تعمیر
 
-With a clear specification, the coding becomes much more straightforward. We are no longer designing on the fly; we are simply implementing the plan we've already made.
+ایک واضح تفصیلات کے ساتھ، کوڈنگ بہت زیادہ سیدھی ہو جاتی ہے۔ ہم اب پرواز پر ڈیزائن نہیں کر رہے ہیں؛ ہم صرف اس منصوبے کو نافذ کر رہے ہیں جو ہم نے پہلے ہی بنایا ہے۔
 
-This lesson is a culmination of everything you've learned. You will need to create a new service interface, write a complex node that acts as both a service server and a publisher, and create a launch file to tie it all together.
+یہ سبق آپ کی سیکھی ہوئی ہر چیز کا نتیجہ ہے۔ آپ کو ایک نیا سروس انٹرفیس بنانا ہوگا، ایک پیچیدہ نوڈ لکھنا ہوگا جو سروس سرور اور پبلشر دونوں کے طور پر کام کرتا ہے، اور ان سب کو ایک ساتھ جوڑنے کے لیے ایک لانچ فائل بنانی ہوگی۔
 
-## 1. Create the Custom Service
+## 1. کسٹم سروس بنائیں
 
-First, let's create the `DrawShape.srv` file in your `my_custom_interfaces` package.
-1.  **Create file:** `my_custom_interfaces/srv/DrawShape.srv`
+سب سے پہلے، آئیے اپنے `my_custom_interfaces` پیکیج میں `DrawShape.srv` فائل بنائیں۔
+1.  **فائل بنائیں:** `my_custom_interfaces/srv/DrawShape.srv`
     ```
     float32 edge_length
     int32 sides
     ---
     bool success
     ```
-2.  **Edit `CMakeLists.txt`:** Add the new service file to the `rosidl_generate_interfaces` call.
+2.  **`CMakeLists.txt` میں ترمیم کریں:** نئی سروس فائل کو `rosidl_generate_interfaces` کال میں شامل کریں۔
     ```cmake
     rosidl_generate_interfaces(${PROJECT_NAME}
       "msg/Person.msg"
       "srv/SendPerson.srv"
-      "srv/DrawShape.srv"  # Add this
+      "srv/DrawShape.srv"  # اسے شامل کریں
     )
     ```
 
-## 2. Implement the `shape_drawer_node`
+## 2. `shape_drawer_node` کو نافذ کریں
 
-Create a new file, `my_first_package/shape_drawer.py`. The code for this node is more complex as it combines several concepts.
+ایک نئی فائل بنائیں، `my_first_package/shape_drawer.py`۔ اس نوڈ کا کوڈ زیادہ پیچیدہ ہے کیونکہ یہ کئی تصورات کو یکجا کرتا ہے۔
 
 ```python
 # my_first_package/my_first_package/shape_drawer.py
@@ -41,17 +41,17 @@ class ShapeDrawerNode(Node):
     def __init__(self):
         super().__init__('shape_drawer_node')
         
-        # Declare parameters
+        # پیرامیٹرز کا اعلان کریں
         self.declare_parameter('linear_velocity', 1.0)
         self.declare_parameter('angular_velocity', 1.0)
         
-        # Create publisher for velocity commands
+        # رفتار کے کمانڈز کے لیے پبلشر بنائیں
         self.publisher_ = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
         
-        # Create the service server
+        # سروس سرور بنائیں
         self.srv = self.create_service(DrawShape, 'draw_shape', self.draw_shape_callback)
         
-        self.get_logger().info('Shape Drawer Node has been started.')
+        self.get_logger().info('شکل بنانے والا نوڈ شروع ہو گیا ہے۔')
 
     def draw_shape_callback(self, request, response):
         linear_vel = self.get_parameter('linear_velocity').get_parameter_value().double_value
@@ -60,32 +60,32 @@ class ShapeDrawerNode(Node):
         edge_length = request.edge_length
         sides = request.sides
 
-        self.get_logger().info(f'Drawing a shape with {sides} sides of length {edge_length}.')
+        self.get_logger().info(f'{sides} اطراف اور {edge_length} لمبائی کی شکل بنا رہا ہے۔')
 
-        # Calculate times needed for movement and turning
+        # حرکت اور موڑ کے لیے درکار اوقات کا حساب لگائیں
         move_duration = edge_length / linear_vel
         turn_angle = 2 * math.pi / sides
         turn_duration = turn_angle / angular_vel
 
-        # Loop to draw the shape
+        # شکل بنانے کے لیے لوپ
         for i in range(sides):
-            # Move forward
+            # آگے بڑھیں
             self.publish_velocity(linear_vel, 0.0)
             time.sleep(move_duration)
             
-            # Stop
+            # رکیں
             self.publish_velocity(0.0, 0.0)
             time.sleep(0.1)
 
-            # Turn
+            # مڑیں
             self.publish_velocity(0.0, angular_vel)
             time.sleep(turn_duration)
 
-            # Stop
+            # رکیں
             self.publish_velocity(0.0, 0.0)
             time.sleep(0.1)
 
-        self.get_logger().info('Shape drawing complete.')
+        self.get_logger().info('شکل کی ڈرائنگ مکمل ہوئی۔')
         response.success = True
         return response
 
@@ -105,11 +105,11 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 ```
-**Note:** The use of `time.sleep()` here is a simple approach for this exercise. In a real, production-quality robot, you would use more sophisticated feedback-based control (e.g., checking the turtle's pose from the `/turtle1/pose` topic) rather than relying on fixed-time movements.
+**نوٹ:** یہاں `time.sleep()` کا استعمال اس مشق کے لیے ایک سادہ طریقہ ہے۔ ایک حقیقی، پروڈکشن-کوالٹی روبوٹ میں، آپ زیادہ نفیس فیڈ بیک پر مبنی کنٹرول استعمال کریں گے (مثلاً، `/turtle1/pose` ٹاپک سے کچھوے کی پوز چیک کرنا) بجائے اس کے کہ مقررہ وقت کی حرکات پر انحصار کریں۔
 
-## 3. Create the Launch File
+## 3. لانچ فائل بنائیں
 
-Create `launch/capstone.launch.py` in your `my_first_package`.
+اپنے `my_first_package` میں `launch/capstone.launch.py` بنائیں۔
 
 ```python
 # my_first_package/launch/capstone.launch.py
@@ -136,16 +136,16 @@ def generate_launch_description():
     ])
 ```
 
-## 4. Register, Build, and Run
+## 4. رجسٹر، بنائیں، اور چلائیں
 
-1.  **Register Node:** Add `shape_drawer = my_first_package.shape_drawer:main` to your `setup.py`.
-2.  **Add Dependency:** Add `<depend>my_custom_interfaces</depend>` to the `package.xml` of `my_first_package`.
-3.  **Build:** Run `colcon build` from your workspace root. It should build both `my_custom_interfaces` and `my_first_package`.
-4.  **Source:** `source install/setup.bash`.
-5.  **Launch the system:**
+1.  **نوڈ رجسٹر کریں:** اپنے `setup.py` میں `shape_drawer = my_first_package.shape_drawer:main` شامل کریں۔
+2.  **انحصار شامل کریں:** `my_first_package` کی `package.xml` میں `<depend>my_custom_interfaces</depend>` شامل کریں۔
+3.  **بنائیں:** اپنی ورک اسپیس کی جڑ سے `colcon build` چلائیں۔ اسے `my_custom_interfaces` اور `my_first_package` دونوں کو بنانا چاہیے۔
+4.  **سورس:** `source install/setup.bash`۔
+5.  **سسٹم لانچ کریں:**
     ```bash
     ros2 launch my_first_package capstone.launch.py
     ```
-    This will start both the Turtlesim simulator and your controller node. Your system is now running and waiting for a command.
+    یہ ٹرٹل سم سمیلیٹر اور آپ کا کنٹرولر نوڈ دونوں شروع کر دے گا۔ آپ کا سسٹم اب چل رہا ہے اور کمانڈ کا انتظار کر رہا ہے۔
 
-In the final lesson, we will test the system against our specification.
+آخری سبق میں، ہم سسٹم کو اس کی تفصیلات کے خلاف جانچیں گے۔

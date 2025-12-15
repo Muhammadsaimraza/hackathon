@@ -1,27 +1,27 @@
-# Lesson 12.3: Closed-Loop Control
+# سبق 12.3: کلوزڈ-لوپ کنٹرول
 
-So far, our control has been **open-loop**. We publish a velocity command and just hope the robot does what we want. We are not using any sensor feedback to adjust our commands.
+اب تک، ہمارا کنٹرول **اوپن-لوپ** رہا ہے۔ ہم ایک رفتار کمانڈ شائع کرتے ہیں اور صرف امید کرتے ہیں کہ روبوٹ وہی کرے گا جو ہم چاہتے ہیں۔ ہم اپنے کمانڈز کو ایڈجسٹ کرنے کے لیے کسی سینسر فیڈ بیک کا استعمال نہیں کر رہے ہیں۔
 
-**Closed-loop control** is the process of using sensor feedback to continuously correct a robot's behavior. This is the key to creating intelligent and robust robots.
+**کلوزڈ-لوپ کنٹرول** روبوٹ کے رویے کو مسلسل درست کرنے کے لیے سینسر فیڈ بیک استعمال کرنے کا عمل ہے۔ یہ ذہین اور مضبوط روبوٹس بنانے کی کلید ہے۔
 
-Let's build a classic closed-loop behavior: a wall follower. The goal is to have our robot drive forward while maintaining a constant distance from a wall on its right side.
+آئیے ایک کلاسیکی کلوزڈ-لوپ رویہ بناتے ہیں: ایک دیوار کا فالور۔ مقصد یہ ہے کہ ہمارا روبوٹ آگے بڑھے جبکہ اپنی دائیں جانب کی دیوار سے ایک مستقل فاصلہ برقرار رکھے۔
 
-## The Logic
+## منطق
 
-1.  **Sense:** Use the LiDAR scanner to measure the distance to the wall on the right.
-2.  **Compare:** Compare this measured distance to our desired distance (our "setpoint").
-3.  **Act:**
-    *   If the robot is too far from the wall, turn slightly to the right.
-    *   If the robot is too close to the wall, turn slightly to the left.
-    *   If the robot is at the correct distance, drive straight.
+1.  **محسوس کریں:** دائیں جانب کی دیوار سے فاصلہ کی پیمائش کے لیے LiDAR سکینر استعمال کریں۔
+2.  **موازنہ کریں:** اس پیمائش شدہ فاصلہ کا ہمارے مطلوبہ فاصلہ (ہمارا "سیٹ پوائنٹ") سے موازنہ کریں۔
+3.  **عمل کریں:**
+    *   اگر روبوٹ دیوار سے بہت دور ہے، تو تھوڑا سا دائیں طرف مڑیں۔
+    *   اگر روبوٹ دیوار سے بہت قریب ہے، تو تھوڑا سا بائیں طرف مڑیں۔
+    *   اگر روبوٹ صحیح فاصلے پر ہے، تو سیدھا چلیں۔
 
-This is a simple form of a **proportional controller**. The turning command is proportional to the error between the desired distance and the measured distance.
+یہ **تناسب کنٹرولر** کی ایک سادہ شکل ہے۔ موڑنے کی کمانڈ مطلوبہ فاصلہ اور پیمائش شدہ فاصلہ کے درمیان غلطی کے متناسب ہے۔
 
-## The Code
+## کوڈ
 
-We will create a new node that subscribes to the `/scan` topic and publishes to the `/cmd_vel` topic.
+ہم ایک نیا نوڈ بنائیں گے جو `/scan` ٹاپک کو سبسکرائب کرے گا اور `/cmd_vel` ٹاپک پر شائع کرے گا۔
 
-Create a new file, `my_first_package/wall_follower.py`.
+ایک نئی فائل بنائیں، `my_first_package/wall_follower.py`۔
 
 ```python
 # my_first_package/my_first_package/wall_follower.py
@@ -44,24 +44,24 @@ class WallFollowerNode(Node):
         self.get_logger().info('Wall Follower Node has been started.')
 
     def scan_callback(self, msg):
-        # We want to look at the laser reading directly to our right.
-        # Our scan is 360 points, from -pi to +pi.
-        # The point to the right is at -pi/2 radians, which is the 90th point.
-        # (The indices go from 0 to 359, mapping to the angles)
+        # ہم اپنی دائیں جانب براہ راست لیزر ریڈنگ کو دیکھنا چاہتے ہیں۔
+        # ہمارا سکین 360 پوائنٹس کا ہے، -pi سے +pi تک۔
+        # دائیں جانب کا پوائنٹ -pi/2 ریڈینز پر ہے، جو 90 واں پوائنٹ ہے۔
+        # (انڈیکس 0 سے 359 تک جاتے ہیں، زاویوں سے نقشہ سازی کرتے ہیں)
         
         distance_to_right = msg.ranges[90]
         
-        # Simple proportional controller
+        # سادہ تناسب کنٹرولر
         desired_distance = 1.0
         error = desired_distance - distance_to_right
         
-        # The 'k' is our proportional gain. It's a tuning parameter.
+        # 'k' ہمارا تناسب گیین ہے۔ یہ ایک ٹیوننگ پیرامیٹر ہے۔
         k_proportional = 0.5
         
-        # Create a Twist message
+        # ایک Twist پیغام بنائیں
         twist_msg = Twist()
-        twist_msg.linear.x = 0.5  # Always move forward
-        twist_msg.angular.z = k_proportional * error # Turn based on the error
+        twist_msg.linear.x = 0.5  # ہمیشہ آگے بڑھیں
+        twist_msg.angular.z = k_proportional * error # غلطی کی بنیاد پر مڑیں
         
         self.get_logger().info(f'Dist: {distance_to_right:.2f}, Err: {error:.2f}, Ang. Vel: {twist_msg.angular.z:.2f}')
         self.publisher_.publish(twist_msg)
@@ -77,13 +77,13 @@ if __name__ == '__main__':
     main()
 ```
 
-## Running the System
+## سسٹم چلانا
 
-1.  **Register and Build:** Add the new node to your `setup.py` and run `colcon build`.
-2.  **Create a Launch File:** Create a new launch file, `launch/wall_follower.launch.py`. This should:
-    *   Launch Gazebo with a world that has some walls (e.g., your `obstacle_course.sdf`).
-    *   Spawn your two-wheeled robot URDF.
-    *   Launch your new `wall_follower` node.
-3.  **Launch and Observe:** Run your new launch file. Place your robot near a wall in the simulation. It should start to drive forward, adjusting its angle to try and stay 1.0 meter away from the wall.
+1.  **رجسٹر کریں اور بنائیں:** اپنے `setup.py` میں نیا نوڈ شامل کریں اور `colcon build` چلائیں۔
+2.  **ایک لانچ فائل بنائیں:** ایک نئی لانچ فائل بنائیں، `launch/wall_follower.launch.py`۔ اس میں یہ ہونا چاہیے:
+    *   Gazebo کو ایک ایسی دنیا کے ساتھ لانچ کریں جس میں کچھ دیواریں ہوں (مثلاً، آپ کا `obstacle_course.sdf`)۔
+    *   اپنے دو پہیوں والے روبوٹ URDF کو اسپان کریں۔
+    *   اپنا نیا `wall_follower` نوڈ لانچ کریں۔
+3.  **لانچ کریں اور مشاہدہ کریں:** اپنی نئی لانچ فائل چلائیں۔ اپنے روبوٹ کو سیمولیشن میں ایک دیوار کے قریب رکھیں۔ اسے آگے بڑھنا شروع کر دینا چاہیے، اپنے زاویہ کو ایڈجسٹ کرتے ہوئے اپنی دائیں جانب کی دیوار سے 1.0 میٹر فاصلہ برقرار رکھنے کی کوشش کریں۔
 
-You have now created a true robotic "skill." Your system is no longer just executing pre-programmed movements; it is sensing its environment and reacting to it in real-time. This perception-action loop is the essence of intelligent robotics.
+اب آپ نے ایک حقیقی روبوٹک "مہارت" بنائی ہے۔ آپ کا نظام اب صرف پہلے سے پروگرام شدہ حرکات کو انجام نہیں دے رہا ہے؛ یہ اپنے ماحول کو محسوس کر رہا ہے اور ریئل ٹائم میں اس پر رد عمل ظاہر کر رہا ہے۔ یہ پرسیپشن-ایکشن لوپ ذہین روبوٹکس کا جوہر ہے۔

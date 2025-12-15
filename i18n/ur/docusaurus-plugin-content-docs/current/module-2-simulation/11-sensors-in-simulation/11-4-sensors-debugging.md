@@ -1,40 +1,40 @@
-# Lesson 11.4: Sensors Debugging
+# سبق 11.4: سینسرز کی ڈیبگنگ
 
-Your simulation is now publishing a lot of data. But how do you know if the data is correct? Debugging simulated sensors is a critical skill. Here are the primary tools and techniques you should use.
+آپ کا سیمولیشن اب بہت سارا ڈیٹا شائع کر رہا ہے۔ لیکن آپ کو کیسے معلوم ہوگا کہ ڈیٹا درست ہے؟ سمیولیٹڈ سینسرز کو ڈیبگ کرنا ایک اہم مہارت ہے۔ یہاں وہ بنیادی ٹولز اور تکنیکیں ہیں جو آپ کو استعمال کرنی چاہئیں۔
 
 ## 1. `ros2 topic echo`
 
-This is always your first step. Before you try to visualize anything, look at the raw data.
+یہ ہمیشہ آپ کا پہلا قدم ہے۔ کسی بھی چیز کو دیکھنے کی کوشش کرنے سے پہلے، خام ڈیٹا کو دیکھیں۔
 ```bash
 ros2 topic echo <topic_name>
 ```
-*   **Is anything being published?** If you see no messages, it means your plugin is not running or is configured incorrectly. Check your URDF and the Gazebo console for errors.
-*   **Is the data reasonable?** If you're echoing `/scan` and all the ranges are `inf` (infinity), it might mean your LiDAR is inside another object or pointing at the sky. If you're echoing `/image_raw`, you won't see the image data itself (it's too large), but you should see the message headers being published.
+*   **کیا کچھ بھی شائع ہو رہا ہے؟** اگر آپ کو کوئی پیغام نظر نہیں آتا، تو اس کا مطلب ہے کہ آپ کا پلگ ان نہیں چل رہا ہے یا غلط طریقے سے ترتیب دیا گیا ہے۔ اپنی URDF اور Gazebo کنسول میں غلطیوں کی جانچ کریں۔
+*   **کیا ڈیٹا معقول ہے؟** اگر آپ `/scan` کو echo کر رہے ہیں اور تمام رینجز `inf` (لامتناہی) ہیں، تو اس کا مطلب یہ ہو سکتا ہے کہ آپ کا LiDAR کسی دوسری چیز کے اندر ہے یا آسمان کی طرف اشارہ کر رہا ہے۔ اگر آپ `/image_raw` کو echo کر رہے ہیں، تو آپ کو تصویری ڈیٹا خود نظر نہیں آئے گا (یہ بہت بڑا ہے)، لیکن آپ کو پیغام کے ہیڈرز شائع ہوتے نظر آنے چاہئیں۔
 
 ## 2. RViz
 
-RViz is the primary tool for visualizing sensor data in a spatial context.
+RViz ایک اسپیشل سیاق و سباق میں سینسر ڈیٹا کو دیکھنے کے لیے بنیادی ٹول ہے۔
 
-*   **TF Tree:** The first thing to check is your TF tree. Add the "TF" display. Do all the links appear? Are they connected correctly? If your `camera_link` is floating in space instead of being attached to your `chassis`, you have a problem in your joint's `<origin>` tag.
-*   **LaserScan Display:** When you add a LaserScan display and set the topic, you should see the points appear around your robot model. If the points are offset or rotated incorrectly, it usually means the `<frame_name>` in your sensor plugin configuration is wrong, or the sensor's `<pose>` inside the URDF is incorrect.
-*   **Image Display:** RViz can also display camera images. Add an "Image" display and set the topic. This is useful, but for simple viewing, `rqt_image_view` is often easier.
-*   **IMU Display:** You can't directly visualize the IMU's orientation, but you can see its effect on the TF tree. The IMU data is often used by a localization algorithm (like SLAM) to publish the robot's orientation. You would see this by watching the `chassis` frame rotate in RViz as you move the physical robot in Gazebo.
+*   **TF ٹری:** سب سے پہلے اپنی TF ٹری کو چیک کریں۔ "TF" ڈسپلے شامل کریں۔ کیا تمام لنکس ظاہر ہوتے ہیں؟ کیا وہ صحیح طریقے سے جڑے ہوئے ہیں؟ اگر آپ کا `camera_link` `chassis` سے منسلک ہونے کے بجائے خلا میں تیر رہا ہے، تو آپ کے جوائنٹ کے `<origin>` ٹیگ میں مسئلہ ہے۔
+*   **LaserScan ڈسپلے:** جب آپ ایک LaserScan ڈسپلے شامل کرتے ہیں اور ٹاپک سیٹ کرتے ہیں، تو آپ کو اپنے روبوٹ ماڈل کے ارد گرد پوائنٹس نظر آنے چاہئیں۔ اگر پوائنٹس غلط طریقے سے آفسیٹ یا گھمائے گئے ہیں، تو اس کا مطلب عام طور پر یہ ہوتا ہے کہ آپ کے سینسر پلگ ان کنفیگریشن میں `<frame_name>` غلط ہے، یا URDF کے اندر سینسر کا `<pose>` غلط ہے۔
+*   **تصویری ڈسپلے:** RViz کیمرہ کی تصاویر بھی دکھا سکتا ہے۔ ایک "Image" ڈسپلے شامل کریں اور ٹاپک سیٹ کریں۔ یہ مفید ہے، لیکن سادہ دیکھنے کے لیے، `rqt_image_view` اکثر آسان ہوتا ہے۔
+*   **IMU ڈسپلے:** آپ IMU کی واقفیت کو براہ راست نہیں دیکھ سکتے، لیکن آپ TF ٹری پر اس کے اثرات کو دیکھ سکتے ہیں۔ IMU ڈیٹا اکثر ایک لوکلائزیشن الگورتھم (جیسے SLAM) کے ذریعہ روبوٹ کی واقفیت کو شائع کرنے کے لیے استعمال ہوتا ہے۔ آپ اسے RViz میں `chassis` فریم کو گھومتے ہوئے دیکھ کر سمجھیں گے جب آپ Gazebo میں فزیکل روبوٹ کو حرکت دیتے ہیں۔
 
 ## 3. Gazebo GUI
 
-Don't forget that Gazebo itself is a powerful debugging tool.
+یہ نہ بھولیں کہ Gazebo خود ایک طاقتور ڈیبگنگ ٹول ہے۔
 
-*   **Visualizers:** In the Gazebo GUI, you can turn on visualizers for many sensor types. For example, you can enable "View" -> "Lidar visualization" to see the actual laser beams being cast in the simulation. This can help you understand why your sensor isn't seeing an object you think it should. You can do the same for camera frustums and other sensors.
-*   **Inspect Tool:** Use the "Inspect" tool (the magnifying glass) to click on any link of your robot. The panel on the right will show you all of its properties, including its mass, inertia, and whether it is in a collision state.
-*   **Console Output:** The terminal where you launched Gazebo is filled with useful information and error messages. If a plugin fails to load or a model can't be found, the error will be printed here.
+*   **وژولائزرز:** Gazebo GUI میں، آپ بہت سے سینسر کی اقسام کے لیے وژولائزرز کو آن کر سکتے ہیں۔ مثال کے طور پر، آپ "View" -> "Lidar visualization" کو فعال کر سکتے ہیں تاکہ سیمولیشن میں اصل لیزر بیم کو کاسٹ ہوتے ہوئے دیکھ سکیں۔ یہ آپ کو یہ سمجھنے میں مدد کر سکتا ہے کہ آپ کا سینسر کسی ایسی چیز کو کیوں نہیں دیکھ رہا ہے جس کو آپ کو لگتا ہے کہ اسے دیکھنا چاہیے۔ آپ کیمرہ فرسٹمز اور دیگر سینسرز کے لیے بھی ایسا کر سکتے ہیں۔
+*   **انسپیکٹ ٹول:** "Inspect" ٹول (میگنیفائنگ گلاس) کا استعمال کرتے ہوئے اپنے روبوٹ کے کسی بھی لنک پر کلک کریں۔ دائیں جانب کا پینل آپ کو اس کی تمام خصوصیات دکھائے گا، بشمول اس کا ماس، انرشیا، اور آیا یہ تصادم کی حالت میں ہے۔
+*   **کنسول آؤٹ پٹ:** جس ٹرمینل میں آپ نے Gazebo لانچ کیا تھا وہ مفید معلومات اور غلطی کے پیغامات سے بھرا ہوا ہے۔ اگر کوئی پلگ ان لوڈ ہونے میں ناکام ہو جاتا ہے یا کوئی ماڈل نہیں ملتا، تو غلطی یہاں پرنٹ ہو گی۔
 
-## Common Problems & Solutions
+## عام مسائل اور حل
 
-*   **Problem:** No messages on the topic.
-    *   **Solution:** Check the Gazebo console for errors. Did the plugin load correctly? Is the topic name in your URDF spelled correctly?
-*   **Problem:** Data is in the wrong place in RViz (e.g., LiDAR scan is floating in space).
-    *   **Solution:** Your TF tree is broken. Check the `<frame_name>` or `<frame_id>` in your plugin configuration. It must match the name of the link the sensor is attached to.
-*   **Problem:** The simulation is very slow.
-    *   **Solution:** Your sensor settings might be too high. Try reducing the `update_rate` or the number of `samples` (for LiDAR) or the `width`/`height` (for a camera). A `gpu_lidar` is much faster than a CPU `lidar`.
+*   **مسئلہ:** ٹاپک پر کوئی پیغام نہیں۔
+    *   **حل:** Gazebo کنسول میں غلطیوں کی جانچ کریں۔ کیا پلگ ان صحیح طریقے سے لوڈ ہوا؟ کیا آپ کی URDF میں ٹاپک کا نام صحیح لکھا ہے؟
+*   **مسئلہ:** RViz میں ڈیٹا غلط جگہ پر ہے (مثلاً، LiDAR سکین خلا میں تیر رہا ہے)۔
+    *   **حل:** آپ کی TF ٹری ٹوٹی ہوئی ہے۔ اپنی پلگ ان کنفیگریشن میں `<frame_name>` یا `<frame_id>` کو چیک کریں۔ اسے اس لنک کے نام سے ملنا چاہیے جس سے سینسر منسلک ہے۔
+*   **مسئلہ:** سیمولیشن بہت سست ہے۔
+    *   **حل:** آپ کی سینسر کی سیٹنگز بہت زیادہ ہو سکتی ہیں۔ `update_rate` یا `samples` کی تعداد (LiDAR کے لیے) یا `width`/`height` (کیمرے کے لیے) کو کم کرنے کی کوشش کریں۔ ایک `gpu_lidar` CPU `lidar` سے کہیں زیادہ تیز ہے۔
 
-By combining these tools, you can systematically diagnose and fix almost any issue with your simulated sensors. This concludes Chapter 11. You can now build a robot and give it senses. In the next chapter, you'll learn how to connect your ROS 2 code to the robot to create a closed-loop control system.
+ان ٹولز کو یکجا کر کے، آپ اپنے سمیولیٹڈ سینسرز کے ساتھ تقریباً کسی بھی مسئلے کی منظم طریقے سے تشخیص اور اسے ٹھیک کر سکتے ہیں۔ یہ باب 11 کا اختتام کرتا ہے۔ اب آپ ایک روبوٹ بنا سکتے ہیں اور اسے احساسات دے سکتے ہیں۔ اگلے باب میں، آپ اپنے ROS 2 کوڈ کو روبوٹ سے جوڑنا سیکھیں گے تاکہ ایک کلوزڈ-لوپ کنٹرول سسٹم بنایا جا سکے۔

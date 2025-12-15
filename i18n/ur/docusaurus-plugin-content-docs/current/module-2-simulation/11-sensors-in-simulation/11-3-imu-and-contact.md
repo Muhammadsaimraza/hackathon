@@ -1,14 +1,14 @@
-# Lesson 11.3: IMU & Contact Sensors
+# سبق 11.3: IMU اور کانٹیکٹ سینسرز
 
-Let's round out our sensor suite with two more important types: an IMU for balance and orientation, and a contact sensor to detect collisions.
+آئیے اپنے سینسر سوٹ کو دو مزید اہم اقسام کے ساتھ مکمل کرتے ہیں: توازن اور واقفیت کے لیے ایک IMU، اور تصادم کا پتہ لگانے کے لیے ایک کانٹیکٹ سینسر۔
 
-## 1. IMU Sensor
+## 1. IMU سینسر
 
-An Inertial Measurement Unit (IMU) measures orientation, angular velocity, and linear acceleration. It's the robot's inner ear, providing its sense of balance.
+ایک Inertial Measurement Unit (IMU) واقفیت، کونیی رفتار، اور لکیری سرعت کی پیمائش کرتا ہے۔ یہ روبوٹ کا اندرونی کان ہے، جو اسے توازن کا احساس فراہم کرتا ہے۔
 
-We will attach the IMU to the `chassis` link.
+ہم IMU کو `chassis` لنک سے منسلک کریں گے۔
 ```xml
-<!-- Add this INSIDE the <gazebo reference="chassis"> tag in your URDF -->
+<!-- اپنی URDF میں <gazebo reference="chassis"> ٹیگ کے اندر یہ شامل کریں -->
 
 <sensor name="imu_sensor" type="imu">
   <update_rate>50</update_rate>
@@ -18,27 +18,27 @@ We will attach the IMU to the `chassis` link.
   </plugin>
 </sensor>
 ```
-### Breakdown
-*   **`<sensor type="imu">`**: Defines the sensor type.
+### وضاحت
+*   **`<sensor type="imu">`**: سینسر کی قسم کی وضاحت کرتا ہے۔
 *   **`<plugin>`**:
-    *   `filename="libgz-sim-ros2-imu-system.so"`: The plugin that simulates an IMU and publishes `sensor_msgs/msg/Imu` messages.
-    *   `<topic_name>`: The ROS 2 topic to publish on, `/imu`.
-    *   `<frame_id>`: The TF frame of the data.
+    *   `filename="libgz-sim-ros2-imu-system.so"`: وہ پلگ ان جو IMU کی نقالی کرتا ہے اور `sensor_msgs/msg/Imu` پیغامات شائع کرتا ہے۔
+    *   `<topic_name>`: شائع کرنے کے لیے ROS 2 ٹاپک، `/imu`۔
+    *   `<frame_id>`: ڈیٹا کا TF فریم۔
 
-After rebuilding and launching, you can echo the topic to see the raw data:
+دوبارہ بنانے اور لانچ کرنے کے بعد، آپ خام ڈیٹا دیکھنے کے لیے ٹاپک کو echo کر سکتے ہیں:
 ```bash
 ros2 topic echo /imu
 ```
-You will see a stream of messages containing orientation (as a quaternion), angular velocity, and linear acceleration.
+آپ کو واقفیت (ایک کوارٹرنیون کے طور پر)، کونیی رفتار، اور لکیری سرعت پر مشتمل پیغامات کا ایک سلسلہ نظر آئے گا۔
 
-## 2. Contact/Bumper Sensor
+## 2. کانٹیکٹ/بمپر سینسر
 
-Sometimes you need to know if your robot has physically run into something. A contact or bumper sensor detects collisions.
+کبھی کبھی آپ کو یہ جاننے کی ضرورت ہوتی ہے کہ آیا آپ کا روبوٹ کسی چیز سے طبعی طور پر ٹکرا گیا ہے۔ ایک کانٹیکٹ یا بمپر سینسر تصادم کا پتہ لگاتا ہے۔
 
-Let's add a "bumper" to the front of our chassis. We'll attach it to the same `camera_link` at the front.
+آئیے اپنے چیسس کے سامنے ایک "بمپر" شامل کرتے ہیں۔ ہم اسے سامنے والے `camera_link` سے منسلک کریں گے۔
 
 ```xml
-<!-- Add this INSIDE the <gazebo reference="camera_link"> tag in your URDF -->
+<!-- اپنی URDF میں <gazebo reference="camera_link"> ٹیگ کے اندر یہ شامل کریں -->
 
 <sensor name="bumper_sensor" type="contact">
   <contact>
@@ -51,17 +51,17 @@ Let's add a "bumper" to the front of our chassis. We'll attach it to the same `c
   </plugin>
 </sensor>
 ```
-### Breakdown
-*   **`<sensor type="contact">`**: Defines the sensor type.
-*   **`<contact><collision>`**: This is important. It specifies which **collision geometry** this sensor is attached to. The name `camera_link_collision` refers to the `<collision>` element of the `camera_link` link. This means the sensor will only trigger if that specific collision shape hits something.
+### وضاحت
+*   **`<sensor type="contact">`**: سینسر کی قسم کی وضاحت کرتا ہے۔
+*   **`<contact><collision>`**: یہ اہم ہے۔ یہ بتاتا ہے کہ یہ سینسر کس **تصادم جیومیٹری** سے منسلک ہے۔ `camera_link_collision` نام `camera_link` کے `<collision>` عنصر سے مراد ہے۔ اس کا مطلب ہے کہ سینسر صرف اس وقت ٹرگر ہوگا جب وہ مخصوص تصادم شکل کسی چیز سے ٹکرائے گی۔
 *   **`<plugin>`**:
-    *   `filename="libgz-sim-ros2-bumper-system.so"`: The plugin that publishes `gz_ros2_interfaces/msg/Contact` messages when a collision is detected.
-    *   `<topic_name>`: The topic to publish on, `/bumper_state`.
+    *   `filename="libgz-sim-ros2-bumper-system.so"`: وہ پلگ ان جو تصادم کا پتہ چلنے پر `gz_ros2_interfaces/msg/Contact` پیغامات شائع کرتا ہے۔
+    *   `<topic_name>`: شائع کرنے کے لیے ٹاپک، `/bumper_state`۔
 
-After rebuilding and launching, you can echo the topic:
+دوبارہ بنانے اور لانچ کرنے کے بعد، آپ ٹاپک کو echo کر سکتے ہیں:
 ```bash
 ros2 topic echo /bumper_state
 ```
-Initially, it will be empty. Now, drive your robot forward until it hits the construction cone or a wall. As soon as the `camera_link`'s collision geometry makes contact, you will see messages appear on the topic, describing the collision.
+ابتدائی طور پر، یہ خالی ہوگا۔ اب، اپنے روبوٹ کو آگے بڑھائیں جب تک کہ وہ کنسٹرکشن کون یا دیوار سے نہ ٹکرائے۔ جیسے ہی `camera_link` کی تصادم جیومیٹری رابطہ کرتی ہے، آپ کو ٹاپک پر پیغامات نظر آئیں گے، جو تصادم کو بیان کریں گے۔
 
-Your robot is now equipped with a comprehensive suite of sensors, allowing it to perceive the world through sight, lasers, and touch, and to understand its own orientation in space. In the final lesson of this chapter, we'll review the tools we use to make sure all this data is correct.
+آپ کا روبوٹ اب سینسرز کے ایک جامع سوٹ سے لیس ہے، جو اسے بصارت، لیزرز، اور ٹچ کے ذریعے دنیا کو سمجھنے، اور خلا میں اپنی واقفیت کو سمجھنے کی اجازت دیتا ہے۔ اس باب کے آخری سبق میں، ہم ان ٹولز کا جائزہ لیں گے جو ہمیں یہ یقینی بنانے کے لیے استعمال کرتے ہیں کہ یہ تمام ڈیٹا درست ہے۔

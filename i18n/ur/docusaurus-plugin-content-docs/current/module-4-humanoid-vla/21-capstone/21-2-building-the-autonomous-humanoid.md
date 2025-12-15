@@ -1,79 +1,79 @@
-# Lesson 21.2: Building the Autonomous Humanoid (High-Level Integration)
+# سبق 21.2: خود مختار ہیومنائڈ کی تعمیر (اعلیٰ سطحی انٹیگریشن)
 
-Building the full autonomous humanoid outlined in the specification involves integrating a large number of complex components. This lesson focuses on how you would connect these pieces at a high level.
+تفصیلات میں بیان کردہ مکمل خود مختار ہیومنائڈ کی تعمیر میں بڑی تعداد میں پیچیدہ اجزاء کو مربوط کرنا شامل ہے۔ یہ سبق اس بات پر توجہ مرکوز کرتا ہے کہ آپ ان ٹکڑوں کو اعلیٰ سطح پر کیسے جوڑیں گے۔
 
-## 1. Simulated Humanoid in Isaac Sim
+## 1. Isaac Sim میں سمیولیٹڈ ہیومنائڈ
 
-*   **Model:** Use a pre-existing humanoid model from Isaac Sim's assets (e.g., Carter, Franka Emika Panda with an integrated mobile base, or a more complex bipedal humanoid if available).
-*   **Sensors:** Configure the model in Isaac Sim to include:
-    *   **RGB-D Camera:** For perception (object detection, VSLAM).
-    *   **IMU:** For localization and balance.
-    *   **Joint State Publishers:** To provide joint angles for kinematics.
-*   **Actuators:** Configure the robot's joints to be controllable via ROS 2 topics (e.g., `JointState` messages or directly to `JointController` action servers if using `ros_control`).
+*   **ماڈل:** Isaac Sim کے اثاثوں سے پہلے سے موجود ہیومنائڈ ماڈل استعمال کریں (مثلاً، کارٹر، فرینکا ایمیکا پانڈا ایک مربوط موبائل بیس کے ساتھ، یا اگر دستیاب ہو تو زیادہ پیچیدہ بائی پیڈل ہیومنائڈ)۔
+*   **سینسرز:** Isaac Sim میں ماڈل کو ترتیب دیں تاکہ اس میں شامل ہوں:
+    *   **RGB-D کیمرہ:** پرسیپشن کے لیے (آبجیکٹ ڈیٹیکشن، VSLAM)۔
+    *   **IMU:** لوکلائزیشن اور توازن کے لیے۔
+    *   **جوائنٹ اسٹیٹ پبلشرز:** کائیمیٹکس کے لیے جوائنٹ زاویے فراہم کرنے کے لیے۔
+*   **ایکچوایٹرز:** روبوٹ کے جوڑوں کو ROS 2 ٹاپکس کے ذریعے کنٹرول کرنے کے لیے ترتیب دیں (مثلاً، `JointState` پیغامات یا اگر `ros_control` استعمال کر رہے ہوں تو براہ راست `JointController` ایکشن سرورز کو)۔
 
-## 2. Setting Up the VLA Pipeline (Voice-to-Action)
+## 2. VLA پائپ لائن سیٹ اپ کرنا (وائس-ٹو-ایکشن)
 
-### a. Speech-to-Text Node (`voice_command_node`)
-*   **Input:** Microphone audio stream.
-*   **Process:** Use a Python node with a library like `SpeechRecognition` to send audio to a cloud-based STT service (e.g., Google Speech-to-Text, OpenAI Whisper API).
-*   **Output:** Publishes `std_msgs/msg/String` to `/voice_command_text`.
+### a. اسپیچ-ٹو-ٹیکسٹ نوڈ (`voice_command_node`)
+*   **ان پٹ:** مائیکروفون آڈیو اسٹریم۔
+*   **عمل:** آڈیو کو کلاؤڈ پر مبنی STT سروس (مثلاً، Google Speech-to-Text، OpenAI Whisper API) کو بھیجنے کے لیے `SpeechRecognition` جیسی لائبریری کے ساتھ ایک پائتھن نوڈ استعمال کریں۔
+*   **آؤٹ پٹ:** `/voice_command_text` پر `std_msgs/msg/String` شائع کرتا ہے۔
 
-### b. LLM Planner Node (`llm_planner_node`)
-*   **Input:** Subscribes to `/voice_command_text`.
-*   **Process:** Formulates a prompt incorporating the available robot actions and current environment context. Sends the prompt to an LLM API (e.g., OpenAI, Gemini). Parses the JSON response.
-*   **Output:** Publishes `std_msgs/msg/String` (JSON plan) to `/robot_plan`.
+### b. LLM پلانر نوڈ (`llm_planner_node`)
+*   **ان پٹ:** `/voice_command_text` کو سبسکرائب کرتا ہے۔
+*   **عمل:** دستیاب روبوٹ اعمال اور موجودہ ماحولیاتی سیاق و سباق کو شامل کرتے ہوئے ایک پرامپٹ تشکیل دیتا ہے۔ پرامپٹ کو ایک LLM API (مثلاً، OpenAI، Gemini) کو بھیجتا ہے۔ JSON جواب کو پارس کرتا ہے۔
+*   **آؤٹ پٹ:** `/robot_plan` پر `std_msgs/msg/String` (JSON پلان پر مشتمل) شائع کرتا ہے۔
 
-### c. Action Executor Node (`action_executor_node`)
-*   **Input:** Subscribes to `/robot_plan`.
-*   **Process:**
-    *   **GOTO:** Creates a `NavigateToPose` goal and sends it to the Nav2 Action Server (`/navigate_to_pose`).
-    *   **FIND:** Calls a custom service `/find_object` from the Perception Stack, passing the object name.
-    *   **PICKUP/DELIVER:** Creates a `MoveGroupGoal` for MoveIt2 (target pose for gripper) and sends it to the `/move_group` Action Server.
-*   **Output:** Orchestrates calls to various ROS 2 action/service servers.
+### c. ایکشن ایگزیکیوٹر نوڈ (`action_executor_node`)
+*   **ان پٹ:** `/robot_plan` کو سبسکرائب کرتا ہے۔
+*   **عمل:**
+    *   **GOTO:** ایک `NavigateToPose` گول بناتا ہے اور اسے Nav2 ایکشن سرور (`/navigate_to_pose`) کو بھیجتا ہے۔
+    *   **FIND:** آبجیکٹ کے نام کو پاس کرتے ہوئے پرسیپشن اسٹیک سے ایک کسٹم سروس `/find_object` کو کال کرتا ہے۔
+    *   **PICKUP/DELIVER:** MoveIt2 کے لیے ایک `MoveGroupGoal` بناتا ہے (گریپر کے لیے ہدف پوز) اور اسے `/move_group` ایکشن سرور کو بھیجتا ہے۔
+*   **آؤٹ پٹ:** مختلف ROS 2 ایکشن/سروس سرورز کو کالز کو منظم کرتا ہے۔
 
-## 3. Navigation Stack
+## 3. نیویگیشن اسٹیک
 
-*   **Isaac ROS VSLAM Node:** Subscribes to stereo camera and IMU data from Isaac Sim (bridged to ROS 2). Publishes `/tf` (odom to base_link) and `/map` (point cloud).
-*   **Nav2 Stack:** Launches the `amcl`, `global_planner`, `local_planner`, and `controller_server` nodes. Configured to use the VSLAM outputs for localization and mapping. Subscribes to goals from `action_executor_node`. Publishes `/cmd_vel` to the robot's base controller.
+*   **Isaac ROS VSLAM نوڈ:** Isaac Sim سے سٹیریو کیمرہ اور IMU ڈیٹا کو سبسکرائب کرتا ہے (ROS 2 سے برج کیا گیا)۔ `/tf` (odom سے base_link) اور `/map` (پوائنٹ کلاؤڈ) شائع کرتا ہے۔
+*   **Nav2 اسٹیک:** `amcl`، `global_planner`، `local_planner`، اور `controller_server` نوڈس لانچ کرتا ہے۔ لوکلائزیشن اور میپنگ کے لیے VSLAM آؤٹ پٹ استعمال کرنے کے لیے ترتیب دیا گیا ہے۔ `action_executor_node` سے گولز کو سبسکرائب کرتا ہے۔ روبوٹ کے بیس کنٹرولر کو `/cmd_vel` شائع کرتا ہے۔
 
-## 4. Perception Stack
+## 4. پرسیپشن اسٹیک
 
-*   **Object Detection Node:** Subscribes to camera images from Isaac Sim. Runs a pre-trained object detection model (e.g., YOLO, EfficientDet) on the GPU (potentially using Isaac ROS `detectnet_v2`).
-*   **`find_object` Service:** Provides a service interface to query for the location of a detected object. When called, it uses the results of the object detection model to find the 3D pose of the requested object.
+*   **آبجیکٹ ڈیٹیکشن نوڈ:** Isaac Sim سے کیمرہ امیجز کو سبسکرائب کرتا ہے۔ GPU پر ایک پہلے سے تربیت یافتہ آبجیکٹ ڈیٹیکشن ماڈل (مثلاً، YOLO، EfficientDet) چلاتا ہے (ممکنہ طور پر Isaac ROS `detectnet_v2` کا استعمال کرتے ہوئے)۔
+*   **`find_object` سروس:** پتہ لگائے گئے آبجیکٹ کے مقام کو استفسار کرنے کے لیے ایک سروس انٹرفیس فراہم کرتا ہے۔ جب کال کیا جاتا ہے، تو یہ مطلوبہ آبجیکٹ کے 3D پوز کو تلاش کرنے کے لیے آبجیکٹ ڈیٹیکشن ماڈل کے نتائج کا استعمال کرتا ہے۔
 
-## 5. Manipulation Stack (MoveIt2)
+## 5. مینیپولیشن اسٹیک (MoveIt2)
 
-*   **MoveIt2 Nodes:** The MoveIt Setup Assistant (from Chapter 19) is used to generate the configuration for your humanoid arm. This launches `move_group`, `rviz`, and other necessary nodes.
-*   **`pickup_object` Service:** This custom service is integrated with MoveIt2. When called, it:
-    1.  Calculates a pre-grasp, grasp, and post-grasp pose for the target object.
-    2.  Sends these poses as goals to the `/move_group` action server.
-    3.  Commands the gripper to open/close.
+*   **MoveIt2 نوڈس:** MoveIt سیٹ اپ اسسٹنٹ (باب 19 سے) آپ کے ہیومنائڈ بازو کے لیے کنفیگریشن تیار کرنے کے لیے استعمال ہوتا ہے۔ یہ `move_group`، `rviz`، اور دیگر ضروری نوڈس لانچ کرتا ہے۔
+*   **`pickup_object` سروس:** یہ کسٹم سروس MoveIt2 کے ساتھ مربوط ہے۔ جب کال کیا جاتا ہے، تو یہ:
+    1.  ہدف آبجیکٹ کے لیے ایک پری-گراس، گراس، اور پوسٹ-گراس پوز کا حساب لگاتا ہے۔
+    2.  ان پوز کو `/move_group` ایکشن سرور کو گولز کے طور پر بھیجتا ہے۔
+    3.  گریپر کو کھولنے/بند کرنے کا حکم دیتا ہے۔
 
-## Orchestration with a Master Launch File
+## ماسٹر لانچ فائل کے ساتھ آرکیسٹریشن
 
-The entire system needs to be launched with a single command. This involves a complex Python launch file (similar to your Module 2 capstone, but much larger).
+پورا نظام ایک ہی کمانڈ سے لانچ ہونا چاہیے۔ اس میں ایک پیچیدہ پائتھن لانچ فائل شامل ہے (آپ کے ماڈیول 2 کیپسٹون کی طرح، لیکن بہت بڑی)۔
 
 ```python
 # humanoid_vla_capstone.launch.py
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, ExecuteProcess
 from launch_ros.actions import Node
-# ... other imports for Isaac Sim, Nav2, MoveIt2 ...
+# ... Isaac Sim، Nav2، MoveIt2 کے لیے دیگر امپورٹس ...
 
 def generate_launch_description():
-    # 1. Launch Isaac Sim (as a separate process or include an Isaac Sim launch file)
-    isaac_sim_launch = ExecuteProcess(...) # Or IncludeLaunchDescription for Isaac Sim
+    # 1. Isaac Sim لانچ کریں (ایک الگ پروسیس کے طور پر یا ایک Isaac Sim لانچ فائل شامل کریں)
+    isaac_sim_launch = ExecuteProcess(...) # یا Isaac Sim کے لیے IncludeLaunchDescription
 
-    # 2. Launch Navigation (Nav2 with Isaac ROS VSLAM)
-    nav2_launch = IncludeLaunchDescription(...) # Use a pre-configured Nav2 launch file
+    # 2. نیویگیشن لانچ کریں (Nav2 Isaac ROS VSLAM کے ساتھ)
+    nav2_launch = IncludeLaunchDescription(...) # ایک پہلے سے ترتیب شدہ Nav2 لانچ فائل استعمال کریں
 
-    # 3. Launch Perception (Object Detection node, find_object service)
-    perception_launch = Node(...) # Your object detection node
+    # 3. پرسیپشن لانچ کریں (آبجیکٹ ڈیٹیکشن نوڈ، find_object سروس)
+    perception_launch = Node(...) # آپ کا آبجیکٹ ڈیٹیکشن نوڈ
 
-    # 4. Launch Manipulation (MoveIt2)
-    moveit_launch = IncludeLaunchDescription(...) # Your robot's MoveIt2 launch file
+    # 4. مینیپولیشن لانچ کریں (MoveIt2)
+    moveit_launch = IncludeLaunchDescription(...) # آپ کے روبوٹ کی MoveIt2 لانچ فائل
 
-    # 5. Launch VLA Pipeline nodes
+    # 5. VLA پائپ لائن نوڈس لانچ کریں
     voice_command_node = Node(...)
     llm_planner_node = Node(...)
     action_executor_node = Node(...)
@@ -88,4 +88,5 @@ def generate_launch_description():
         action_executor_node,
     ])
 ```
-This is a high-level overview. Each component itself is a complex system. The goal of this capstone is to understand the full system architecture and how these pieces fit together. In the final lesson, we will discuss how to test such a complex system.
+یہ ایک اعلیٰ سطحی جائزہ ہے۔ ہر جزو بذات خود ایک پیچیدہ نظام ہے۔ اس کیپسٹون کا مقصد مکمل سسٹم فن تعمیر کو سمجھنا اور یہ سمجھنا ہے کہ یہ ٹکڑے ایک ساتھ کیسے فٹ ہوتے ہیں۔ آخری سبق میں، ہم ایسے پیچیدہ نظام کو جانچنے کا طریقہ پر تبادلہ خیال کریں گے۔
+

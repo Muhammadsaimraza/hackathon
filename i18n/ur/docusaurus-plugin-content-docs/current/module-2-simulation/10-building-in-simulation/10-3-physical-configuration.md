@@ -1,19 +1,19 @@
-# Lesson 10.3: Physical Configuration (Gazebo-Specific Tags)
+# سبق 10.3: طبعی ترتیب (Gazebo-مخصوص ٹیگز)
 
-URDF is a general-purpose format, but simulators often need more information than it can provide. To solve this, we can add Gazebo-specific tags to our URDF file inside a `<gazebo>` block. The simulator will read these tags, but other ROS tools will simply ignore them.
+URDF ایک عمومی مقصد کا فارمیٹ ہے، لیکن سمیلیٹرز کو اکثر اس سے زیادہ معلومات کی ضرورت ہوتی ہے جو یہ فراہم کر سکتا ہے۔ اسے حل کرنے کے لیے، ہم اپنی URDF فائل میں `<gazebo>` بلاک کے اندر Gazebo-مخصوص ٹیگز شامل کر سکتے ہیں۔ سمیلیٹر ان ٹیگز کو پڑھے گا، لیکن دوسرے ROS ٹولز انہیں نظر انداز کر دیں گے۔
 
-These tags allow us to define friction, damping, material properties, and to connect our URDF to Gazebo plugins.
+یہ ٹیگز ہمیں رگڑ، ڈیمپنگ، مادی خصوصیات کی وضاحت کرنے، اور اپنی URDF کو Gazebo پلگ انز سے جوڑنے کی اجازت دیتے ہیں۔
 
-## The `<gazebo>` Tag
+## `<gazebo>` ٹیگ
 
-You can add a `<gazebo>` tag inside a `<link>` or a `<joint>` tag. If you are defining properties for a link, the tag is `<gazebo reference="link_name">`.
+آپ `<link>` یا `<joint>` ٹیگ کے اندر ایک `<gazebo>` ٹیگ شامل کر سکتے ہیں۔ اگر آپ ایک لنک کے لیے خصوصیات کی وضاحت کر رہے ہیں، تو ٹیگ `<gazebo reference="link_name">` ہے۔
 
-## Adding Friction
+## رگڑ شامل کرنا
 
-Let's add friction properties to our wheels and caster so they don't slide around like they're on ice. We will define friction coefficients for the collision geometry.
+آئیے اپنے پہیوں اور کاسٹر میں رگڑ کی خصوصیات شامل کرتے ہیں تاکہ وہ برف پر پھسلنے کی طرح پھسلیں نہ۔ ہم تصادم جیومیٹری کے لیے رگڑ کے گتانک کی وضاحت کریں گے۔
 
 ```xml
-<!-- Inside two_wheeled_robot.urdf -->
+<!-- two_wheeled_robot.urdf کے اندر -->
 
 <gazebo reference="left_wheel">
   <mu1>0.9</mu1>
@@ -33,17 +33,17 @@ Let's add friction properties to our wheels and caster so they don't slide aroun
   <material>Gazebo/Grey</material>
 </gazebo>
 ```
-*   **`reference="link_name"`**: This attribute tells Gazebo which link these properties apply to.
-*   **`<mu1>` and `<mu2>`**: These are the coefficients of friction for the primary and secondary friction directions. For a wheel, we want high friction. For our simple caster, we'll set it to zero to make it slippery.
-*   **`<material>`**: This tells Gazebo to use one of its built-in material scripts for rendering. This will make the robot look much nicer in the simulator than the simple colors we defined in the `<visual>` tag.
+*   **`reference="link_name"`**: یہ وصف Gazebo کو بتاتا ہے کہ یہ خصوصیات کس لنک پر لاگو ہوتی ہیں۔
+*   **`<mu1>` اور `<mu2>`**: یہ پرائمری اور سیکنڈری رگڑ کی سمتوں کے لیے رگڑ کے گتانک ہیں۔ ایک پہیے کے لیے، ہم زیادہ رگڑ چاہتے ہیں۔ ہمارے سادہ کاسٹر کے لیے، ہم اسے پھسلنے والا بنانے کے لیے صفر پر سیٹ کریں گے۔
+*   **`<material>`**: یہ Gazebo کو اس کے بلٹ ان مٹیریل سکرپٹس میں سے ایک کو رینڈرنگ کے لیے استعمال کرنے کے لیے کہتا ہے۔ یہ روبوٹ کو سمیلیٹر میں ان سادہ رنگوں کے مقابلے میں بہت بہتر دکھائے گا جن کی ہم نے `<visual>` ٹیگ میں وضاحت کی تھی۔
 
-## Adding a Gazebo Plugin
+## Gazebo پلگ ان شامل کرنا
 
-The most powerful use of the `<gazebo>` tag is to attach plugins. A plugin is a piece of code that runs inside the simulation and can interact with your robot and the ROS 2 network.
+`<gazebo>` ٹیگ کا سب سے طاقتور استعمال پلگ انز کو منسلک کرنا ہے۔ ایک پلگ ان کوڈ کا ایک ٹکڑا ہے جو سیمولیشن کے اندر چلتا ہے اور آپ کے روبوٹ اور ROS 2 نیٹ ورک کے ساتھ تعامل کر سکتا ہے۔
 
-We need a plugin to control our differential drive robot. The `ros_gz_bridge` package provides one called `gz::sim::systems::DiffDrive`.
+ہمیں اپنے ڈیفرینشل ڈرائیو روبوٹ کو کنٹرول کرنے کے لیے ایک پلگ ان کی ضرورت ہے۔ `ros_gz_bridge` پیکیج ایک پلگ ان فراہم کرتا ہے جسے `gz::sim::systems::DiffDrive` کہا جاتا ہے۔
 
-We add this plugin to our URDF, associated with the `chassis` link.
+ہم اس پلگ ان کو اپنی URDF میں، `chassis` لنک کے ساتھ منسلک کرتے ہیں۔
 ```xml
 <gazebo>
   <plugin
@@ -58,22 +58,22 @@ We add this plugin to our URDF, associated with the `chassis` link.
   </plugin>
 </gazebo>
 ```
-*   **`<plugin>`**: Defines the plugin to load.
-*   **`<left_joint>` and `<right_joint>`**: The names of the wheel joints.
-*   **`<wheel_separation>`**: The distance between the two wheels (in meters). This must match the `y` value in your joint origins.
-*   **`<wheel_radius>`**: The radius of the wheels. This must match the radius in your link geometry.
-*   **`<topic>`**: This is the crucial part. The plugin will subscribe to this ROS 2 topic for `geometry_msgs/msg/Twist` messages. This is how we will control our robot. We've set it to `/cmd_vel`.
+*   **`<plugin>`**: لوڈ کرنے کے لیے پلگ ان کی وضاحت کرتا ہے۔
+*   **`<left_joint>` اور `<right_joint>`**: وہیل جوائنٹس کے نام۔
+*   **`<wheel_separation>`**: دونوں پہیوں کے درمیان فاصلہ (میٹرز میں)۔ یہ آپ کے جوائنٹ اوریجنز میں `y` ویلیو سے ملنا چاہیے۔
+*   **`<wheel_radius>`**: پہیوں کا رداس۔ یہ آپ کے لنک جیومیٹری میں رداس سے ملنا چاہیے۔
+*   **`<topic>`**: یہ اہم حصہ ہے۔ پلگ ان `geometry_msgs/msg/Twist` پیغامات کے لیے اس ROS 2 ٹاپک کو سبسکرائب کرے گا۔ اس طرح ہم اپنے روبوٹ کو کنٹرول کریں گے۔ ہم نے اسے `/cmd_vel` پر سیٹ کیا ہے۔
 
-## The Full URDF
+## مکمل URDF
 
-Putting it all together, your URDF file is now a hybrid file containing both standard URDF tags and Gazebo-specific extensions. This is a very common pattern in ROS development.
+ان سب کو ایک ساتھ ملا کر، آپ کی URDF فائل اب ایک ہائبرڈ فائل ہے جس میں معیاری URDF ٹیگز اور Gazebo-مخصوص ایکسٹینشنز دونوں شامل ہیں۔ یہ ROS ڈویلپمنٹ میں ایک بہت عام پیٹرن ہے۔
 
-When you launch your `gazebo.launch.py` file now, your robot should spawn and sit correctly on the ground. It is now a physically realistic model.
+اب جب آپ اپنی `gazebo.launch.py` فائل لانچ کریں گے، تو آپ کا روبوٹ اسپان ہونا چاہیے اور زمین پر صحیح طریقے سے بیٹھنا چاہیے۔ یہ اب ایک طبعی طور پر حقیقت پسندانہ ماڈل ہے۔
 
-Even better, it is now controllable. While the simulation is running, open a new terminal and use `ros2 topic pub` to send a `Twist` message to the `/cmd_vel` topic.
+اس سے بھی بہتر، یہ اب قابل کنٹرول ہے۔ جب سیمولیشن چل رہی ہو، ایک نیا ٹرمینل کھولیں اور `/cmd_vel` ٹاپک پر `Twist` پیغام بھیجنے کے لیے `ros2 topic pub` استعمال کریں۔
 ```bash
 ros2 topic pub --rate 1 /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}}"
 ```
-Your simulated robot will start to move forward! The `DiffDrive` plugin is receiving the ROS 2 message and converting it into forces that it applies to the wheel joints inside the physics simulation.
+آپ کا سمیولیٹڈ روبوٹ آگے بڑھنا شروع کر دے گا! `DiffDrive` پلگ ان ROS 2 پیغام وصول کر رہا ہے اور اسے فورسز میں تبدیل کر رہا ہے جو یہ فزکس سیمولیشن کے اندر وہیل جوائنٹس پر لاگو کرتا ہے۔
 
-You have now created a complete digital twin. In the next chapters, we will explore how to add simulated sensors and build more complex, closed-loop controllers.
+اب آپ نے ایک مکمل ڈیجیٹل ٹوئن بنایا ہے۔ اگلے ابواب میں، ہم سمیولیٹڈ سینسرز کو شامل کرنے اور زیادہ پیچیدہ، کلوزڈ-لوپ کنٹرولرز بنانے کا طریقہ دریافت کریں گے۔

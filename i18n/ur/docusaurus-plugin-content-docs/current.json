@@ -4,107 +4,107 @@
     "description": "The label for version current"
   },
   "sidebar.textbookSidebar.category.MODULE 1: ROS": {
-    "message": "MODULE 1: ROS",
+    "message": "ماڈیول 1: ROS",
     "description": "The label for category 'MODULE 1: ROS' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.1. PHYSICAL AI": {
-    "message": "1. PHYSICAL AI",
+    "message": "1. فزیکل اے آئی",
     "description": "The label for category '1. PHYSICAL AI' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.2. ROBOT SYSTEM": {
-    "message": "2. ROBOT SYSTEM",
+    "message": "2. روبوٹ سسٹم",
     "description": "The label for category '2. ROBOT SYSTEM' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.3. MEET ROS2": {
-    "message": "3. MEET ROS2",
+    "message": "3. ROS 2 سے ملیں",
     "description": "The label for category '3. MEET ROS2' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.4. FIRST CODE": {
-    "message": "4. FIRST CODE",
+    "message": "4. پہلا کوڈ",
     "description": "The label for category '4. FIRST CODE' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.5. COMMUNICATION": {
-    "message": "5. COMMUNICATION",
+    "message": "5. کمیونیکیشن",
     "description": "The label for category '5. COMMUNICATION' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.6. BUILDING SYSTEMS": {
-    "message": "6. BUILDING SYSTEMS",
+    "message": "6. سسٹم بنانا",
     "description": "The label for category '6. BUILDING SYSTEMS' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.7. CAPSTONE": {
-    "message": "7. CAPSTONE",
+    "message": "7. کیپسٹون",
     "description": "The label for category '7. CAPSTONE' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.MODULE 2: SIMULATION": {
-    "message": "MODULE 2: SIMULATION",
+    "message": "ماڈیول 2: سیمولیشن",
     "description": "The label for category 'MODULE 2: SIMULATION' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.8. WHY SIMULATE": {
-    "message": "8. WHY SIMULATE",
+    "message": "8. سیمولیشن کیوں؟",
     "description": "The label for category '8. WHY SIMULATE' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.9. ROBOT DESCRIPTION FORMATS": {
-    "message": "9. ROBOT DESCRIPTION FORMATS",
+    "message": "9. روبوٹ کی تفصیل کے فارمیٹس",
     "description": "The label for category '9. ROBOT DESCRIPTION FORMATS' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.10. BUILDING IN SIMULATION": {
-    "message": "10. BUILDING IN SIMULATION",
+    "message": "10. سیمولیشن میں تعمیر",
     "description": "The label for category '10. BUILDING IN SIMULATION' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.11. SENSORS IN SIMULATION": {
-    "message": "11. SENSORS IN SIMULATION",
+    "message": "11. سیمولیشن میں سینسرز",
     "description": "The label for category '11. SENSORS IN SIMULATION' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.12. ROS2 + GAZEBO INTEGRATION": {
-    "message": "12. ROS2 + GAZEBO INTEGRATION",
+    "message": "12. ROS2 + GAZEBO انٹیگریشن",
     "description": "The label for category '12. ROS2 + GAZEBO INTEGRATION' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.13. MODULE 2 CAPSTONE": {
-    "message": "13. MODULE 2 CAPSTONE",
+    "message": "13. ماڈیول 2 کیپسٹون",
     "description": "The label for category '13. MODULE 2 CAPSTONE' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.3. NVIDIA Isaac Platform": {
-    "message": "3. NVIDIA Isaac Platform",
+    "message": "3. این ویڈیا آئزک پلیٹ فارم",
     "description": "The label for category '3. NVIDIA Isaac Platform' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 14: Introduction to NVIDIA Isaac": {
-    "message": "Chapter 14: Introduction to NVIDIA Isaac",
+    "message": "باب 14: این ویڈیا آئزک کا تعارف",
     "description": "The label for category 'Chapter 14: Introduction to NVIDIA Isaac' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 15: Isaac Sim & Synthetic Data": {
-    "message": "Chapter 15: Isaac Sim & Synthetic Data",
+    "message": "باب 15: آئزک سم اور مصنوعی ڈیٹا",
     "description": "The label for category 'Chapter 15: Isaac Sim & Synthetic Data' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 16: Isaac ROS & GPU-Accelerated Perception": {
-    "message": "Chapter 16: Isaac ROS & GPU-Accelerated Perception",
+    "message": "باب 16: آئزک ROS اور GPU-ایکسلریٹڈ پرسیپشن",
     "description": "The label for category 'Chapter 16: Isaac ROS & GPU-Accelerated Perception' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 17: Sim-to-Real": {
-    "message": "Chapter 17: Sim-to-Real",
+    "message": "باب 17: سم-ٹو-ریئل",
     "description": "The label for category 'Chapter 17: Sim-to-Real' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.4. Humanoid VLA Systems": {
-    "message": "4. Humanoid VLA Systems",
+    "message": "4. ہیومنائڈ VLA سسٹمز",
     "description": "The label for category '4. Humanoid VLA Systems' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 18: Humanoid Kinematics & Dynamics": {
-    "message": "Chapter 18: Humanoid Kinematics & Dynamics",
+    "message": "باب 18: ہیومنائڈ کائیمیٹکس اور ڈائنامکس",
     "description": "The label for category 'Chapter 18: Humanoid Kinematics & Dynamics' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 19: Motion Planning for Manipulation": {
-    "message": "Chapter 19: Motion Planning for Manipulation",
+    "message": "باب 19: مینیپولیشن کے لیے موشن پلاننگ",
     "description": "The label for category 'Chapter 19: Motion Planning for Manipulation' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 20: Conversational Robotics & VLAs": {
-    "message": "Chapter 20: Conversational Robotics & VLAs",
+    "message": "باب 20: بات چیت والی روبوٹکس اور VLAs",
     "description": "The label for category 'Chapter 20: Conversational Robotics & VLAs' in sidebar 'textbookSidebar'"
   },
   "sidebar.textbookSidebar.category.Chapter 21: Module 4 Capstone": {
-    "message": "Chapter 21: Module 4 Capstone",
+    "message": "باب 21: ماڈیول 4 کیپسٹون",
     "description": "The label for category 'Chapter 21: Module 4 Capstone' in sidebar 'textbookSidebar'"
   },
-  "sidebar.textbookSidebar.category.Intrroduction": {
-    "message": "Intrroduction",
-    "description": "The label for category 'Intrroduction' in sidebar 'textbookSidebar'"
+  "sidebar.textbookSidebar.category.Introduction": {
+    "message": "تعارف",
+    "description": "The label for category 'Introduction' in sidebar 'textbookSidebar'"
   }
 }

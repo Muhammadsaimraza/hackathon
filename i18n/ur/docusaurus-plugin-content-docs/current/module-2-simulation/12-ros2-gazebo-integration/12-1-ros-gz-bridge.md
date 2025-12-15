@@ -1,52 +1,44 @@
-# Lesson 12.1: The `ros_gz_bridge`
+# سبق 12.1: `ros_gz_bridge`
 
-Gazebo and ROS are two separate, independent systems. Gazebo has its own internal publish/subscribe system called "Gazebo Transport." ROS has its own publish/subscribe system (DDS). They do not speak the same language.
+Gazebo اور ROS دو الگ، آزاد نظام ہیں۔ Gazebo کا اپنا اندرونی پبلش/سبسکرائب سسٹم ہے جسے "Gazebo Transport" کہا جاتا ہے۔ ROS کا اپنا پبلش/سبسکرائب سسٹم (DDS) ہے۔ وہ ایک ہی زبان نہیں بولتے۔
 
-The `ros_gz_bridge` is a special ROS 2 node that translates between these two worlds.
+`ros_gz_bridge` ایک خاص ROS 2 نوڈ ہے جو ان دو دنیاؤں کے درمیان ترجمہ کرتا ہے۔
 
-## How it Works
+## یہ کیسے کام کرتا ہے۔
 
-The bridge node subscribes to a Gazebo topic, converts the message to its ROS 2 equivalent, and then publishes it on a ROS 2 topic. It can also do the reverse.
+برج نوڈ ایک Gazebo ٹاپک کو سبسکرائب کرتا ہے، پیغام کو اس کے ROS 2 مساوی میں تبدیل کرتا ہے، اور پھر اسے ایک ROS 2 ٹاپک پر شائع کرتا ہے۔ یہ اس کے برعکس بھی کر سکتا ہے۔
 
-For example, when you use the `gz-sim-ros2-camera-system` plugin:
-1.  The Gazebo camera simulation publishes a Gazebo `Image` message on an internal Gazebo topic.
-2.  The plugin, which has an embedded bridge, receives this message.
-3.  It converts the Gazebo `Image` message into a ROS 2 `sensor_msgs/msg/Image` message.
-4.  It publishes the ROS 2 message on the topic you specified (e.g., `/image_raw`).
+مثال کے طور پر، جب آپ `gz-sim-ros2-camera-system` پلگ ان استعمال کرتے ہیں:
+1.  Gazebo کیمرہ سیمولیشن ایک Gazebo `Image` پیغام کو اندرونی Gazebo ٹاپک پر شائع کرتا ہے۔
+2.  پلگ ان، جس میں ایک ایمبیڈڈ برج ہے، اس پیغام کو وصول کرتا ہے۔
+3.  یہ Gazebo `Image` پیغام کو ROS 2 `sensor_msgs/msg/Image` پیغام میں تبدیل کرتا ہے۔
+4.  یہ ROS 2 پیغام کو اس ٹاپک پر شائع کرتا ہے جسے آپ نے مخصوص کیا تھا (مثلاً، `/image_raw`)۔
 
-## Using the Bridge Manually
+## برج کو دستی طور پر استعمال کرنا
 
-While the sensor and controller plugins are convenient because they have a pre-configured bridge built-in, you can also run the bridge as a standalone node to pass any message type between the two systems.
+جب کہ سینسر اور کنٹرولر پلگ انز آسان ہیں کیونکہ ان میں پہلے سے ترتیب شدہ برج بلٹ ان ہوتا ہے، آپ برج کو ایک اسٹینڈ لون نوڈ کے طور پر بھی چلا سکتے ہیں تاکہ دونوں سسٹمز کے درمیان کسی بھی پیغام کی قسم کو منتقل کیا جا سکے۔
 
-This is done with the `ros_gz_bridge` executable.
+یہ `ros_gz_bridge` ایگزیکیوٹیبل کے ساتھ کیا جاتا ہے۔
 
-**Example:**
-Let's say you want to get the pose of your robot model, `my_robot`, from Gazebo and publish it to a ROS 2 topic.
+**مثال:**
+فرض کریں آپ اپنے روبوٹ ماڈل، `my_robot`، کا پوز Gazebo سے حاصل کرنا چاہتے ہیں اور اسے ROS 2 ٹاپک پر شائع کرنا چاہتے ہیں۔
 
-You can run the bridge node like this:
+آپ برج نوڈ کو اس طرح چلا سکتے ہیں:
 ```bash
 ros2 run ros_gz_bridge parameter_bridge /model/my_robot/pose@geometry_msgs/msg/PoseStamped@gz.msgs.Pose
 ```
 
-### Breakdown
-*   `ros2 run ros_gz_bridge parameter_bridge`: Runs the bridge node.
-*   **`/model/my_robot/pose`**: The name of the Gazebo topic to subscribe to. (Gazebo automatically publishes the pose of every model on a topic with this naming convention).
-*   **`@geometry_msgs/msg/PoseStamped`**: The ROS 2 message type to convert to. This is specified after the first `@`.
-*   **`@gz.msgs.Pose`**: The Gazebo message type to convert from. This is specified after the second `@`.
+### وضاحت
+*   `ros2 run ros_gz_bridge parameter_bridge`: برج نوڈ چلاتا ہے۔
+*   **`/model/my_robot/pose`**: Gazebo ٹاپک کا نام جس کو سبسکرائب کرنا ہے۔ (Gazebo خود بخود ہر ماڈل کے پوز کو اس نامی کنونشن کے ساتھ ایک ٹاپک پر شائع کرتا ہے)۔
+*   **`@geometry_msgs/msg/PoseStamped`**: ROS 2 پیغام کی قسم جس میں تبدیل کرنا ہے۔ یہ پہلے `@` کے بعد مخصوص کیا جاتا ہے۔
+*   **`@gz.msgs.Pose`**: Gazebo پیغام کی قسم جس سے تبدیل کرنا ہے۔ یہ دوسرے `@` کے بعد مخصوص کیا جاتا ہے۔
 
-This command will create a ROS 2 topic named `/model/my_robot/pose` and publish the robot's pose to it. Your ROS 2 nodes can then subscribe to this topic to know where the robot is.
+یہ کمانڈ `/model/my_robot/pose` نامی ایک ROS 2 ٹاپک بنائے گا اور روبوٹ کے پوز کو اس پر شائع کرے گا۔ آپ کے ROS 2 نوڈس پھر اس ٹاپک کو سبسکرائب کر سکتے ہیں تاکہ روبوٹ کی پوزیشن معلوم ہو سکے۔
 
-## Finding Gazebo Topics
+پلگ انز جو ہم نے اب تک استعمال کیے ہیں وہ خود بخود اس برجنگ کو ہمارے لیے سنبھال لیتے ہیں۔
+*   `DiffDrive` پلگ ان ROS 2 `/cmd_vel` ٹاپک کو Gazebo فزکس انجن سے جوڑتا ہے۔
+*   `Camera` پلگ ان اندرونی Gazebo کیمرہ ڈیٹا کو ROS 2 `/image_raw` ٹاپک سے جوڑتا ہے۔
+*   `Lidar` پلگ ان اندرونی Gazebo لیزر ڈیٹا کو ROS 2 `/scan` ٹاپک سے جوڑتا ہے۔
 
-How do you know what Gazebo topics are available? You can use the `gz` command line tool.
-```bash
-gz topic -l
-```
-This will list all the topics currently being published inside the Gazebo simulation. You can use this list to find the topics you want to bridge to ROS 2.
-
-The plugins we have used so far handle this bridging for us automatically.
-*   The `DiffDrive` plugin bridges the ROS 2 `/cmd_vel` topic to the Gazebo physics engine.
-*   The `Camera` plugin bridges the internal Gazebo camera data to the ROS 2 `/image_raw` topic.
-*   The `Lidar` plugin bridges the internal Gazebo laser data to the ROS 2 `/scan` topic.
-
-Understanding that this bridge is the underlying mechanism is key to debugging and to creating more complex integrations between the two systems. In the next lessons, we will leverage these bridged topics to create a closed-loop controller.
+یہ سمجھنا کہ یہ برج بنیادی میکانزم ہے ڈیبگنگ اور دونوں سسٹمز کے درمیان زیادہ پیچیدہ انٹیگریشنز بنانے کی کلید ہے۔ اگلے اسباق میں، ہم ان برجڈ ٹاپکس کا فائدہ اٹھائیں گے تاکہ ایک کلوزڈ-لوپ کنٹرولر بنا سکیں۔

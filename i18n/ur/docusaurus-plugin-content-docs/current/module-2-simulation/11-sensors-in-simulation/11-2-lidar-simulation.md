@@ -1,15 +1,15 @@
-# Lesson 11.2: LiDAR Simulation
+# سبق 11.2: LiDAR سیمولیشن
 
-LiDAR (Light Detection and Ranging) is a critical sensor for navigation and obstacle avoidance. It provides a precise 2D or 3D scan of the environment by measuring the distance to objects with laser beams.
+LiDAR (Light Detection and Ranging) نیویگیشن اور رکاوٹوں سے بچنے کے لیے ایک اہم سینسر ہے۔ یہ لیزر بیم کے ساتھ اشیاء تک فاصلے کی پیمائش کرکے ماحول کا ایک درست 2D یا 3D سکین فراہم کرتا ہے۔
 
-Let's add a LiDAR sensor to our robot. We'll attach it to the `camera_link` we created in the last lesson.
+آئیے اپنے روبوٹ میں ایک LiDAR سینسر شامل کرتے ہیں۔ ہم اسے `camera_link` سے منسلک کریں گے جسے ہم نے پچھلے سبق میں بنایا تھا۔
 
-## Add the Gazebo LiDAR Plugin
+## Gazebo LiDAR پلگ ان شامل کریں
 
-Just like the camera, a LiDAR sensor is a plugin that we attach to a link. We will add a second `<sensor>` block inside the `<gazebo reference="camera_link">` tag. It's perfectly fine to have multiple sensors attached to the same link.
+کیمرے کی طرح، LiDAR سینسر ایک پلگ ان ہے جسے ہم ایک لنک سے منسلک کرتے ہیں۔ ہم `<gazebo reference="camera_link">` ٹیگ کے اندر ایک دوسرا `<sensor>` بلاک شامل کریں گے۔ ایک ہی لنک سے متعدد سینسر منسلک کرنا بالکل ٹھیک ہے۔
 
 ```xml
-<!-- Add this INSIDE the <gazebo reference="camera_link"> tag in your URDF -->
+<!-- اپنی URDF میں <gazebo reference="camera_link"> ٹیگ کے اندر یہ شامل کریں -->
 
 <sensor name="lidar_sensor" type="gpu_lidar">
   <topic>scan</topic>
@@ -34,33 +34,33 @@ Just like the camera, a LiDAR sensor is a plugin that we attach to a link. We wi
   </plugin>
 </sensor>
 ```
-### Breakdown
+### وضاحت
 
-*   **`<sensor type="gpu_lidar">`**: Defines the sensor. `gpu_lidar` is a hardware-accelerated version that is much more performant than the standard `lidar` type.
-*   **`<topic>` (optional):** This is an internal Gazebo topic. We can ignore it as the ROS 2 plugin will handle publishing.
-*   **`<update_rate>`**: 10 scans per second.
-*   **`<ray>` block**: Defines the properties of the laser.
-    *   `<scan><horizontal>`: We are defining a 2D horizontal scan.
-        *   `<samples>`: 360 points in the scan.
-        *   `<min_angle>` & `<max_angle>`: A full 360-degree (-π to +π) scan.
-    *   `<range>`: The sensor can detect objects between 0.1m and 20.0m away.
+*   **`<sensor type="gpu_lidar">`**: سینسر کی قسم کی وضاحت کرتا ہے۔ `gpu_lidar` ایک ہارڈ ویئر-ایکسلریٹڈ ورژن ہے جو معیاری `lidar` قسم سے کہیں زیادہ کارکردگی کا حامل ہے۔
+*   **`<topic>` (اختیاری):** یہ ایک اندرونی Gazebo ٹاپک ہے۔ ہم اسے نظر انداز کر سکتے ہیں کیونکہ ROS 2 پلگ ان پبلشنگ کو سنبھال لے گا۔
+*   **`<update_rate>`**: 10 سکین فی سیکنڈ۔
+*   **`<ray>` بلاک**: لیزر کی خصوصیات کی وضاحت کرتا ہے۔
+    *   `<scan><horizontal>`: ہم ایک 2D افقی سکین کی وضاحت کر رہے ہیں۔
+        *   `<samples>`: سکین میں 360 پوائنٹس۔
+        *   `<min_angle>` اور `<max_angle>`: ایک مکمل 360 ڈگری (-π سے +π) سکین۔
+    *   `<range>`: سینسر 0.1m اور 20.0m کے درمیان اشیاء کا پتہ لگا سکتا ہے۔
 *   **`<plugin>`**:
-    *   `filename="libgz-sim-ros2-lidar-system.so"`: The plugin that simulates a LiDAR and publishes `sensor_msgs/msg/LaserScan` messages to ROS 2.
-    *   `<topic_name>`: The ROS 2 topic to publish on. We'll use `/scan`.
-    *   `<frame_name>`: The TF frame of the scan, which is the link the sensor is attached to.
+    *   `filename="libgz-sim-ros2-lidar-system.so"`: وہ پلگ ان جو LiDAR کی نقالی کرتا ہے اور `sensor_msgs/msg/LaserScan` پیغامات ROS 2 پر شائع کرتا ہے۔
+    *   `<topic_name>`: شائع کرنے کے لیے ROS 2 ٹاپک۔ ہم `/scan` استعمال کریں گے۔
+    *   `<frame_name>`: سکین کا TF فریم، جو اس لنک کا نام ہے جس سے سینسر منسلک ہے۔
 
-## 2. Visualizing the LiDAR Data
+## 2. LiDAR ڈیٹا کو دیکھنا
 
-Now, rebuild and launch your `gazebo.launch.py`. Your robot is now "seeing" the world with its new laser scanner.
+اب، اپنی `gazebo.launch.py` کو دوبارہ بنائیں اور لانچ کریں۔ آپ کا روبوٹ اب اپنے نئے لیزر سکینر کے ساتھ دنیا کو "دیکھ" رہا ہے۔
 
-The best tool to visualize a `LaserScan` message is **RViz**.
+`LaserScan` پیغام کو دیکھنے کے لیے بہترین ٹول **RViz** ہے۔
 
-1.  **Launch RViz:** In a new terminal, run `rviz2`.
-2.  **Set Fixed Frame:** In the "Displays" panel, set the "Fixed Frame" to `chassis`.
-3.  **Add TF Display:** Click "Add" and add a "TF" display. This will show you the coordinate frames of your robot model. You should see `chassis`, `left_wheel`, `right_wheel`, and `camera_link`.
-4.  **Add LaserScan Display:** Click "Add" and add a "LaserScan" display.
-5.  **Configure LaserScan:** In the settings for the LaserScan display, change the "Topic" to `/scan`.
+1.  **RViz لانچ کریں:** ایک نئے ٹرمینل میں، `rviz2` چلائیں۔
+2.  **فکسڈ فریم سیٹ کریں:** "Displays" پینل میں، "Fixed Frame" کو `chassis` پر سیٹ کریں۔
+3.  **TF ڈسپلے شامل کریں:** "Add" پر کلک کریں اور ایک "TF" ڈسپلے شامل کریں۔ یہ آپ کے روبوٹ ماڈل کے کوآرڈینیٹ فریم دکھائے گا۔ آپ کو `chassis`، `left_wheel`، `right_wheel`، اور `camera_link` نظر آنا چاہیے۔
+4.  **LaserScan ڈسپلے شامل کریں:** "Add" پر کلک کریں اور ایک "LaserScan" ڈسپلے شامل کریں۔
+5.  **LaserScan کو ترتیب دیں:** LaserScan ڈسپلے کی سیٹنگز میں، "Topic" کو `/scan` پر تبدیل کریں۔
 
-You should now see red dots appear in RViz, representing the points where the laser beams are hitting objects in the Gazebo world (like the construction cone or the walls). As you drive the robot around using `/cmd_vel`, you will see the scan update in real-time.
+اب آپ کو RViz میں سرخ نقطے نظر آنے چاہئیں، جو ان پوائنٹس کی نمائندگی کرتے ہیں جہاں لیزر بیم Gazebo دنیا میں اشیاء (جیسے کنسٹرکشن کون یا دیواریں) سے ٹکرا رہے ہیں۔ جب آپ `/cmd_vel` کا استعمال کرتے ہوئے روبوٹ کو ادھر ادھر چلاتے ہیں، تو آپ کو سکین ریئل ٹائم میں اپ ڈیٹ ہوتا نظر آئے گا۔
 
-This is the data that a navigation algorithm like SLAM (Simultaneous Localization and Mapping) would use to build a map of the environment. You have now equipped your robot with two of the most important senses for autonomous navigation.
+یہ وہ ڈیٹا ہے جو SLAM (Simultaneous Localization and Mapping) جیسا نیویگیشن الگورتھم ماحول کا نقشہ بنانے کے لیے استعمال کرے گا۔ اب آپ نے اپنے روبوٹ کو خود مختار نیویگیشن کے لیے دو سب سے اہم احساسات سے لیس کر دیا ہے۔
