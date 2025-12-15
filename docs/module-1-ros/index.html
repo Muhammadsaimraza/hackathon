@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en-US" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-module-1-ros/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Module 1: The Robotic Nervous System (ROS 2) | Physical AI &amp; Humanoid Robotics Textbook</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://muhammadsaimraza.github.io/hackathon/img/download.jpg"><meta data-rh="true" name="twitter:image" content="https://muhammadsaimraza.github.io/hackathon/img/download.jpg"><meta data-rh="true" property="og:url" content="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/"><meta data-rh="true" property="og:locale" content="en_US"><meta data-rh="true" property="og:locale:alternate" content="ur_PK"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Module 1: The Robotic Nervous System (ROS 2) | Physical AI &amp; Humanoid Robotics Textbook"><meta data-rh="true" name="description" content="Welcome to the foundation of your Physical AI journey. Over the next 5 weeks, you&#x27;ll bridge the gap between software AI (like ChatGPT) and embodied intelligence (robots that move and act in the physical world). You&#x27;ll explore why robots are fundamentally different from software, understand the hardware and middleware that makes robotics possible, and gain hands-on experience with ROS 2—the middleware that powers professional robotics systems worldwide."><meta data-rh="true" property="og:description" content="Welcome to the foundation of your Physical AI journey. Over the next 5 weeks, you&#x27;ll bridge the gap between software AI (like ChatGPT) and embodied intelligence (robots that move and act in the physical world). You&#x27;ll explore why robots are fundamentally different from software, understand the hardware and middleware that makes robotics possible, and gain hands-on experience with ROS 2—the middleware that powers professional robotics systems worldwide."><link data-rh="true" rel="icon" href="/hackathon/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/" hreflang="en-US"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/ur/docs/module-1-ros/" hreflang="ur-PK"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MODULE 1: ROS","item":"https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Physical AI &amp; Humanoid Robotics Textbook" href="/hackathon/opensearch.xml"><link rel="stylesheet" href="/hackathon/assets/css/styles.3423d411.css">
+<script src="/hackathon/assets/js/runtime~main.98538876.js" defer="defer"></script>
+<script src="/hackathon/assets/js/main.32a0ea5b.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/hackathon/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/hackathon/"><div class="navbar__logo"><img src="/hackathon/img/logo.svg" alt="RoboLearn Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/hackathon/img/logo.svg" alt="RoboLearn Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">ROBOLEARN</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/hackathon/docs/module-1-ros/">Learn Free</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_nlXk"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>English</a><ul class="dropdown__menu"><li><a href="/hackathon/docs/module-1-ros/" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="en-US">English</a></li><li><a href="/hackathon/ur/docs/module-1-ros/" target="_self" rel="noopener noreferrer" class="dropdown__link" lang="ur-PK">اردو</a></li></ul></div><a href="https://github.com/Muhammadsaimraza" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbar__item"><button class="button button--primary button--sm">Log In</button></div><div class="toggle_vylO colorModeToggle_x44X"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_dCNk"><form class="searchContainer_SFql"><input type="search" placeholder="Search for used books..." class="searchInput_IDOb" value=""><button type="submit" class="searchButton_GwgL">Search</button></form></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible menu__list-item-collapsible--active"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" aria-current="page" href="/hackathon/docs/module-1-ros/"><span title="MODULE 1: ROS" class="categoryLinkLabel_W154">MODULE 1: ROS</span></a><button aria-label="Collapse sidebar category &#x27;MODULE 1: ROS&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/physical-ai/"><span title="1. PHYSICAL AI" class="categoryLinkLabel_W154">1. PHYSICAL AI</span></a><button aria-label="Expand sidebar category &#x27;1. PHYSICAL AI&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/robot-system/"><span title="2. ROBOT SYSTEM" class="categoryLinkLabel_W154">2. ROBOT SYSTEM</span></a><button aria-label="Expand sidebar category &#x27;2. ROBOT SYSTEM&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/meet-ros2/"><span title="3. MEET ROS2" class="categoryLinkLabel_W154">3. MEET ROS2</span></a><button aria-label="Expand sidebar category &#x27;3. MEET ROS2&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/first-code/"><span title="4. FIRST CODE" class="categoryLinkLabel_W154">4. FIRST CODE</span></a><button aria-label="Expand sidebar category &#x27;4. FIRST CODE&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/communication/"><span title="5. COMMUNICATION" class="categoryLinkLabel_W154">5. COMMUNICATION</span></a><button aria-label="Expand sidebar category &#x27;5. COMMUNICATION&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/building-systems/"><span title="6. BUILDING SYSTEMS" class="categoryLinkLabel_W154">6. BUILDING SYSTEMS</span></a><button aria-label="Expand sidebar category &#x27;6. BUILDING SYSTEMS&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/docs/module-1-ros/capstone/"><span title="7. CAPSTONE" class="categoryLinkLabel_W154">7. CAPSTONE</span></a><button aria-label="Expand sidebar category &#x27;7. CAPSTONE&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/docs/module-2-simulation/"><span title="MODULE 2: SIMULATION" class="categoryLinkLabel_W154">MODULE 2: SIMULATION</span></a><button aria-label="Expand sidebar category &#x27;MODULE 2: SIMULATION&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/docs/module-3-nvidia-isaac/"><span title="3. NVIDIA Isaac Platform" class="categoryLinkLabel_W154">3. NVIDIA Isaac Platform</span></a><button aria-label="Expand sidebar category &#x27;3. NVIDIA Isaac Platform&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/docs/module-4-humanoid-vla/"><span title="4. Humanoid VLA Systems" class="categoryLinkLabel_W154">4. Humanoid VLA Systems</span></a><button aria-label="Expand sidebar category &#x27;4. Humanoid VLA Systems&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/hackathon/docs/Introduction/"><span title="Welcome to RoboLearn" class="linkLabel_WmDU">Welcome to RoboLearn</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/hackathon/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">MODULE 1: ROS</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Module 1: The Robotic Nervous System (ROS 2)</h1></header>
+<p>Welcome to the foundation of your Physical AI journey. Over the next 5 weeks, you&#x27;ll bridge the gap between software AI (like ChatGPT) and embodied intelligence (robots that move and act in the physical world). You&#x27;ll explore why robots are fundamentally different from software, understand the hardware and middleware that makes robotics possible, and gain hands-on experience with ROS 2—the middleware that powers professional robotics systems worldwide.</p>
+<p>This module is designed for students with Python programming knowledge but no robotics background. Whether you have a laptop, a cloud environment, or access to expensive hardware, we&#x27;ve designed every lesson to be completable on Tier 1 (your laptop or a browser). You&#x27;ll progress from conceptual foundations through hands-on ROS 2 programming to a real capstone project that demonstrates multi-node system integration.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="learning-objectives">Learning Objectives<a href="#learning-objectives" class="hash-link" aria-label="Direct link to Learning Objectives" title="Direct link to Learning Objectives" translate="no">​</a></h2>
+<p>By completing Module 1, you will be able to:</p>
+<ul>
+<li class="">Distinguish embodied AI from software AI and explain why physical world constraints fundamentally change how we develop robots</li>
+<li class="">Understand robot architecture: sensors, actuators, control loops, and why middleware coordination is essential</li>
+<li class="">Master ROS 2 communication patterns: publish/subscribe messaging, service request/response, and custom interfaces</li>
+<li class="">Design and implement multi-node systems using Python, parameters, launch files, and systematic debugging</li>
+<li class="">Apply specification-driven development to robotics projects through the capstone system integration exercise</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="module-structure">Module Structure<a href="#module-structure" class="hash-link" aria-label="Direct link to Module Structure" title="Direct link to Module Structure" translate="no">​</a></h2>
+<p>This module contains 7 chapters organized around a progressive pedagogical arc:</p>
+<ul>
+<li class=""><strong>Chapters 1-2 (Week 1-2):</strong> Foundation concepts — no coding yet</li>
+<li class=""><strong>Chapter 3 (Week 2):</strong> ROS 2 exploration through command-line interface</li>
+<li class=""><strong>Chapters 4-5 (Week 3-4):</strong> Hands-on Python coding with ROS 2</li>
+<li class=""><strong>Chapter 6 (Week 4-5):</strong> System integration and debugging</li>
+<li class=""><strong>Chapter 7 (Week 5):</strong> Capstone project demonstrating full integration</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="chapters-at-a-glance">Chapters at a Glance<a href="#chapters-at-a-glance" class="hash-link" aria-label="Direct link to Chapters at a Glance" title="Direct link to Chapters at a Glance" translate="no">​</a></h3>
+<ul>
+<li class="">
+<p><strong>Chapter 1: What is Physical AI?</strong></p>
+<ul>
+<li class="">Week 1 | 3 Lessons | 2.25 hours | Tier 1 (Conceptual)</li>
+<li class="">Why are robots different from ChatGPT? Explore embodied intelligence, physical constraints (gravity, latency, safety), and the humanoid robotics ecosystem. No coding—just foundational thinking.</li>
+<li class="">→ Start Chapter 1</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 2: The Robot System</strong></p>
+<ul>
+<li class="">Week 1-2 | 4 Lessons | 3 hours | Tier 1 (Conceptual + Interactive)</li>
+<li class="">Learn how robots perceive (sensors), move (actuators), and coordinate (middleware). Understand your hardware tier and how it affects what you can build.</li>
+<li class="">→ Start Chapter 2</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 3: Meet ROS 2</strong></p>
+<ul>
+<li class="">Week 2 | 4 Lessons | 4 hours | Tier 1 (Cloud ROS 2)</li>
+<li class="">Set up your ROS 2 environment and explore it through command-line tools. Control a robot (turtlesim), list nodes and topics, call services, modify parameters. No Python coding yet—pure exploration.</li>
+<li class="">→ Start Chapter 3</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 4: Your First ROS 2 Code</strong></p>
+<ul>
+<li class="">Week 3 | 4 Lessons | 4 hours | Tier 1 (Cloud ROS 2)</li>
+<li class="">Write your first Python ROS 2 nodes. Create publisher and subscriber nodes, understand callbacks, build packages, and collaborate with AI to extend your work.</li>
+<li class="">→ Start Chapter 4</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 5: Communication Mastery</strong></p>
+<ul>
+<li class="">Week 3-4 | 4 Lessons | 4 hours | Tier 1 (Cloud ROS 2)</li>
+<li class="">Master ROS 2&#x27;s communication patterns: services, custom message types, and design trade-offs. Learn when to use topics vs services through practical design exercises.</li>
+<li class="">→ Start Chapter 5</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 6: Building Robot Systems</strong></p>
+<ul>
+<li class="">Week 4-5 | 3 Lessons | 3 hours | Tier 1 (Cloud ROS 2)</li>
+<li class="">Tie everything together: configurable parameters, launch files that start multiple nodes, and systematic debugging of multi-node systems.</li>
+<li class="">→ Start Chapter 6</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Chapter 7: Capstone - Robot Controller</strong></p>
+<ul>
+<li class="">Week 5 | 3 Lessons | 4.5 hours | Tier 1 (Turtlesim Simulation)</li>
+<li class="">Write a specification FIRST, then implement a complete multi-node robot controller system. Integrate pub/sub, services, parameters, and launch files. Validate against your specification.</li>
+<li class="">→ Start Chapter 7</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="teaching-approach-the-4-layer-method">Teaching Approach: The 4-Layer Method<a href="#teaching-approach-the-4-layer-method" class="hash-link" aria-label="Direct link to Teaching Approach: The 4-Layer Method" title="Direct link to Teaching Approach: The 4-Layer Method" translate="no">​</a></h2>
+<p>This module progressively introduces more complex reasoning:</p>
+<table><thead><tr><th style="text-align:left">Layer</th><th style="text-align:left">What Happens</th><th style="text-align:left">Your Role</th><th style="text-align:left">Chapters</th></tr></thead><tbody><tr><td style="text-align:left">L1: Manual Foundation</td><td style="text-align:left">Instructor teaches directly, you practice manually</td><td style="text-align:left">Learn mental models</td><td style="text-align:left">1-2</td></tr><tr><td style="text-align:left">L2: AI Collaboration</td><td style="text-align:left">You collaborate with AI through dialogue and iteration</td><td style="text-align:left">Prompt, validate, iterate</td><td style="text-align:left">3-5</td></tr><tr><td style="text-align:left">L3: Intelligence Design</td><td style="text-align:left">Pattern recognition, creating reusable skills</td><td style="text-align:left">Generalize knowledge</td><td style="text-align:left">5-6</td></tr><tr><td style="text-align:left">L4: Spec-Driven Integration</td><td style="text-align:left">Design systems through specifications, orchestrate components</td><td style="text-align:left">Architect solutions</td><td style="text-align:left">7</td></tr></tbody></table>
+<p>You experience these layers through action, not through studying them. The framework remains invisible—you&#x27;ll discover it through doing.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="hardware-tiers--your-learning-path">Hardware Tiers &amp; Your Learning Path<a href="#hardware-tiers--your-learning-path" class="hash-link" aria-label="Direct link to Hardware Tiers &amp; Your Learning Path" title="Direct link to Hardware Tiers &amp; Your Learning Path" translate="no">​</a></h2>
+<p>All Module 1 content is accessible to Tier 1 students (laptop/cloud only). Here&#x27;s what each tier enables:</p>
+<table><thead><tr><th style="text-align:left">Tier</th><th style="text-align:left">Equipment</th><th style="text-align:left">Module 1 Path</th><th style="text-align:left">Future Capability</th></tr></thead><tbody><tr><td style="text-align:left">Tier 1</td><td style="text-align:left">Laptop + Browser</td><td style="text-align:left">Cloud ROS 2 (TheConstruct), Pyodide Python, MockROS simulation</td><td style="text-align:left">Master ROS 2 concepts (100% of Module 1)</td></tr><tr><td style="text-align:left">Tier 2</td><td style="text-align:left">RTX GPU Workstation</td><td style="text-align:left">Local ROS 2 + Gazebo, faster execution</td><td style="text-align:left">Module 2-3 locally with simulation</td></tr><tr><td style="text-align:left">Tier 3</td><td style="text-align:left">Jetson Orin Kit</td><td style="text-align:left">Edge deployment, real sensors</td><td style="text-align:left">Module 4 edge AI, real perception</td></tr><tr><td style="text-align:left">Tier 4</td><td style="text-align:left">Physical Robot (Unitree Go2/G1)</td><td style="text-align:left">Everything above + real-world testing</td><td style="text-align:left">Full embodied AI, sim-to-real transfer</td></tr></tbody></table>
+<p>No matter your tier, you can complete all of Module 1. Higher tiers just execute faster and enable future modules.</p>
+<p>Identify your tier in Chapter 2, Lesson 4, and the system will personalize content recommendations.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-create">What You&#x27;ll Create<a href="#what-youll-create" class="hash-link" aria-label="Direct link to What You&#x27;ll Create" title="Direct link to What You&#x27;ll Create" translate="no">​</a></h2>
+<p>By the end of Module 1, you&#x27;ll have:</p>
+<ul>
+<li class=""><strong>Conceptual Foundation:</strong> Understand embodied intelligence and why robots require different thinking than software</li>
+<li class=""><strong>ROS 2 Proficiency:</strong> Master publish/subscribe, services, custom interfaces, parameters, and launch systems</li>
+<li class=""><strong>4 Reusable Skills:</strong> Components you can apply to future projects<!-- -->
+<ul>
+<li class=""><code>ros2-publisher-subscriber</code></li>
+<li class=""><code>ros2-service-pattern</code></li>
+<li class=""><code>ros2-custom-interfaces</code></li>
+<li class=""><code>ros2-launch-system</code></li>
+</ul>
+</li>
+<li class=""><strong>Capstone System:</strong> A working multi-node robot controller system controlled through specifications</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="time-commitment">Time Commitment<a href="#time-commitment" class="hash-link" aria-label="Direct link to Time Commitment" title="Direct link to Time Commitment" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Total Duration:</strong> 5 weeks</li>
+<li class=""><strong>Lessons Per Week:</strong> 5 lessons (Week 1: 3, Weeks 2-5: 4 each)</li>
+<li class=""><strong>Per Lesson:</strong> 45-60 minutes</li>
+<li class=""><strong>Per Chapter:</strong> 3-4.5 hours</li>
+<li class=""><strong>Total Module Time:</strong> 25-30 hours of active learning</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="prerequisites">Prerequisites<a href="#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Python programming:</strong> Functions, classes, loops (you should be comfortable writing Python code)</li>
+<li class=""><strong>Linux/Terminal basics:</strong> <code>ls</code>, <code>cd</code>, <code>pwd</code>, text editing (you should be comfortable with command-line tools)</li>
+<li class=""><strong>Patience and curiosity:</strong> Robotics involves system thinking; you&#x27;ll debug issues across multiple nodes</li>
+</ul>
+<p>You do <strong>NOT</strong> need:</p>
+<ul>
+<li class="">Robotics background</li>
+<li class="">C++ knowledge</li>
+<li class="">Expensive hardware</li>
+<li class="">Previous ROS experience</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-use-this-module">How to Use This Module<a href="#how-to-use-this-module" class="hash-link" aria-label="Direct link to How to Use This Module" title="Direct link to How to Use This Module" translate="no">​</a></h2>
+<p><strong>For Students:</strong></p>
+<ol>
+<li class="">Start with Chapter 1, Lesson 1 (it takes ~1 hour)</li>
+<li class="">Proceed sequentially—each chapter builds on prior learning</li>
+<li class="">Complete the mastery gate at the end of each chapter before proceeding</li>
+<li class="">Collaborate with AI in Chapters 4+ using the prompts provided</li>
+<li class="">Finish with the Chapter 7 capstone to demonstrate full integration</li>
+</ol>
+<p><strong>For Instructors:</strong></p>
+<ol>
+<li class="">Review all 7 chapter READMEs for learning objectives and time commitment</li>
+<li class="">Map chapters to your teaching calendar (5-week structure is suggested, adjustable)</li>
+<li class="">Use chapter mastery gates as assessment checkpoints</li>
+<li class="">The capstone project is graded with clear specification-based rubrics</li>
+</ol>
+<p><strong>For Authors:</strong></p>
+<ol>
+<li class="">Study this module&#x27;s chapter architecture as a template for Module 2</li>
+<li class="">The 4-layer progression (L1→L2→L3→L4) applies to all technical modules</li>
+<li class="">The &quot;Tier 1 fallback&quot; principle ensures accessibility across hardware constraints</li>
+<li class="">The reusable skills approach compounds intelligence across books</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mastery-gates-between-chapters">Mastery Gates Between Chapters<a href="#mastery-gates-between-chapters" class="hash-link" aria-label="Direct link to Mastery Gates Between Chapters" title="Direct link to Mastery Gates Between Chapters" translate="no">​</a></h2>
+<p>Before progressing to the next chapter, confirm you can:</p>
+<ul>
+<li class=""><strong>After Chapter 1:</strong> Distinguish software AI from embodied AI, name 3 physical constraints</li>
+<li class=""><strong>After Chapter 2:</strong> Categorize sensor types, explain middleware role, identify your hardware tier</li>
+<li class=""><strong>After Chapter 3:</strong> Launch turtlesim, list nodes/topics, call services, modify parameters (via CLI)</li>
+<li class=""><strong>After Chapter 4:</strong> Write publisher/subscriber nodes, verify data flow, extend with AI assistance</li>
+<li class=""><strong>After Chapter 5:</strong> Design service interfaces, create custom messages, justify design trade-offs</li>
+<li class=""><strong>After Chapter 6:</strong> Create launch files, start multi-node systems, debug with <code>ros2doctor</code> and <code>rqt</code></li>
+<li class=""><strong>After Chapter 7:</strong> Write specifications, implement from specs, validate completeness</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="technical-stack">Technical Stack<a href="#technical-stack" class="hash-link" aria-label="Direct link to Technical Stack" title="Direct link to Technical Stack" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>ROS 2 Distribution:</strong> Humble (Long-term support, current industry standard)</li>
+<li class=""><strong>Language:</strong> Python 3.10+ with <code>rclpy</code> (ROS 2 Python client library)</li>
+<li class=""><strong>Simulation:</strong> Turtlesim (Chapters 3-7), MockROS (browser simulation for Tier 1)</li>
+<li class=""><strong>Cloud Option:</strong> The Construct ROS (cloud ROS 2 environment, free tier available)</li>
+<li class=""><strong>Tools:</strong> <code>ros2</code> CLI, <code>rqt</code> (visualization), <code>colcon</code> (build system), Docusaurus (this platform)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="module-progression">Module Progression<a href="#module-progression" class="hash-link" aria-label="Direct link to Module Progression" title="Direct link to Module Progression" translate="no">​</a></h2>
+<p><strong>Chapter Flow:</strong></p>
+<ol>
+<li class=""><strong>Ch1-2 (Foundation):</strong> Physical AI concepts → Robot system anatomy</li>
+<li class=""><strong>Ch3 (Bridge):</strong> Meet ROS 2 through CLI exploration</li>
+<li class=""><strong>Ch4-5 (Hands-On):</strong> First code (pub/sub) → Communication (services + interfaces)</li>
+<li class=""><strong>Ch6 (Integration):</strong> Building systems with launch files and debugging</li>
+<li class=""><strong>Ch7 (Capstone):</strong> Multi-node spec-driven project</li>
+</ol>
+<p><strong>L1 Manual Foundation:</strong> Ch1-2 (conceptual understanding)
+<strong>L1→L2 Transition:</strong> Ch3 (CLI exploration with AI assistance)
+<strong>L2 AI Collaboration:</strong> Ch4-5 (hands-on coding with AI)
+<strong>L3 Intelligence Design:</strong> Ch6 (system patterns)
+<strong>L4 Spec-Driven:</strong> Ch7 (capstone project)</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="support--community">Support &amp; Community<a href="#support--community" class="hash-link" aria-label="Direct link to Support &amp; Community" title="Direct link to Support &amp; Community" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Questions about content?</strong> Use the RAG chat on any lesson (bottom right corner)</li>
+<li class=""><strong>Hardware setup help?</strong> Chapter 2, Lesson 4 helps identify your tier</li>
+<li class=""><strong>Stuck on a coding problem?</strong> Leverage the AI collaboration prompts in Chapters 4-7</li>
+<li class=""><strong>Capstone project guidance?</strong> Chapter 7 provides specification templates and iteration frameworks</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-comes-next">What Comes Next?<a href="#what-comes-next" class="hash-link" aria-label="Direct link to What Comes Next?" title="Direct link to What Comes Next?" translate="no">​</a></h2>
+<p>After completing Module 1, you&#x27;ll be ready for <strong>Module 2: Simulation Mastery</strong>, where you&#x27;ll:</p>
+<ul>
+<li class="">Model robots using URDF (robot description format)</li>
+<li class="">Simulate complex systems in Gazebo</li>
+<li class="">Add perception (LIDAR, cameras) to your ROS 2 nodes</li>
+<li class="">Implement autonomous navigation algorithms</li>
+</ul>
+<p>But first—master Module 1. The foundation you build here determines what&#x27;s possible in Modules 2-4.</p>
+<p>Ready to begin? Start Chapter 1: What is Physical AI?</p>
+<p>Prefer to explore differently? Jump to any chapter&#x27;s README above to see what&#x27;s inside before committing.</p>
+<p>Questions about this module? Review the learning objectives, time commitment, and prerequisites above.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/Muhammadsaimraza/docs/module-1-ros/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--next" href="/hackathon/docs/module-1-ros/physical-ai/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Chapter 1: What is Physical AI?</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#learning-objectives" class="table-of-contents__link toc-highlight">Learning Objectives</a></li><li><a href="#module-structure" class="table-of-contents__link toc-highlight">Module Structure</a><ul><li><a href="#chapters-at-a-glance" class="table-of-contents__link toc-highlight">Chapters at a Glance</a></li></ul></li><li><a href="#teaching-approach-the-4-layer-method" class="table-of-contents__link toc-highlight">Teaching Approach: The 4-Layer Method</a></li><li><a href="#hardware-tiers--your-learning-path" class="table-of-contents__link toc-highlight">Hardware Tiers &amp; Your Learning Path</a></li><li><a href="#what-youll-create" class="table-of-contents__link toc-highlight">What You&#39;ll Create</a></li><li><a href="#time-commitment" class="table-of-contents__link toc-highlight">Time Commitment</a></li><li><a href="#prerequisites" class="table-of-contents__link toc-highlight">Prerequisites</a></li><li><a href="#how-to-use-this-module" class="table-of-contents__link toc-highlight">How to Use This Module</a></li><li><a href="#mastery-gates-between-chapters" class="table-of-contents__link toc-highlight">Mastery Gates Between Chapters</a></li><li><a href="#technical-stack" class="table-of-contents__link toc-highlight">Technical Stack</a></li><li><a href="#module-progression" class="table-of-contents__link toc-highlight">Module Progression</a></li><li><a href="#support--community" class="table-of-contents__link toc-highlight">Support &amp; Community</a></li><li><a href="#what-comes-next" class="table-of-contents__link toc-highlight">What Comes Next?</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Course</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/hackathon/docs/Introduction/">Textbook</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/Panaversity" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Panaversity. Built with Saim.</div></div></div></footer></div>
+</body>
+</html>

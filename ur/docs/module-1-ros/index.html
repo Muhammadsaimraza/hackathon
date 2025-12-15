@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ur-PK" dir="rtl" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-module-1-ros/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">ماڈیول 1: روبوٹک نروس سسٹم (ROS 2) | Physical AI &amp; Humanoid Robotics Textbook</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://muhammadsaimraza.github.io/hackathon/ur/img/download.jpg"><meta data-rh="true" name="twitter:image" content="https://muhammadsaimraza.github.io/hackathon/ur/img/download.jpg"><meta data-rh="true" property="og:url" content="https://muhammadsaimraza.github.io/hackathon/ur/docs/module-1-ros/"><meta data-rh="true" property="og:locale" content="ur_PK"><meta data-rh="true" property="og:locale:alternate" content="en_US"><meta data-rh="true" name="docusaurus_locale" content="ur"><meta data-rh="true" name="docsearch:language" content="ur"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="ماڈیول 1: روبوٹک نروس سسٹم (ROS 2) | Physical AI &amp; Humanoid Robotics Textbook"><meta data-rh="true" name="description" content="فزیکل اے آئی کے سفر کی بنیاد میں خوش آمدید۔ اگلے 5 ہفتوں میں، آپ سافٹ ویئر اے آئی (جیسے چیٹ جی پی ٹی) اور مجسم ذہانت (روبوٹس جو طبعی دنیا میں حرکت کرتے اور عمل کرتے ہیں) کے درمیان فرق کو ختم کریں گے۔ آپ دریافت کریں گے کہ روبوٹس سافٹ ویئر سے بنیادی طور پر کیوں مختلف ہیں، ہارڈ ویئر اور مڈل ویئر کو سمجھیں گے جو روبوٹکس کو ممکن بناتا ہے، اور ROS 2 کے ساتھ عملی تجربہ حاصل کریں گے—وہ مڈل ویئر جو دنیا بھر میں پیشہ ورانہ روبوٹکس سسٹمز کو طاقت دیتا ہے۔"><meta data-rh="true" property="og:description" content="فزیکل اے آئی کے سفر کی بنیاد میں خوش آمدید۔ اگلے 5 ہفتوں میں، آپ سافٹ ویئر اے آئی (جیسے چیٹ جی پی ٹی) اور مجسم ذہانت (روبوٹس جو طبعی دنیا میں حرکت کرتے اور عمل کرتے ہیں) کے درمیان فرق کو ختم کریں گے۔ آپ دریافت کریں گے کہ روبوٹس سافٹ ویئر سے بنیادی طور پر کیوں مختلف ہیں، ہارڈ ویئر اور مڈل ویئر کو سمجھیں گے جو روبوٹکس کو ممکن بناتا ہے، اور ROS 2 کے ساتھ عملی تجربہ حاصل کریں گے—وہ مڈل ویئر جو دنیا بھر میں پیشہ ورانہ روبوٹکس سسٹمز کو طاقت دیتا ہے۔"><link data-rh="true" rel="icon" href="/hackathon/ur/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://muhammadsaimraza.github.io/hackathon/ur/docs/module-1-ros/"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/" hreflang="en-US"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/ur/docs/module-1-ros/" hreflang="ur-PK"><link data-rh="true" rel="alternate" href="https://muhammadsaimraza.github.io/hackathon/docs/module-1-ros/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ماڈیول 1: ROS","item":"https://muhammadsaimraza.github.io/hackathon/ur/docs/module-1-ros/"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Physical AI &amp; Humanoid Robotics Textbook" href="/hackathon/ur/opensearch.xml"><link rel="stylesheet" href="/hackathon/ur/assets/css/styles.1dfb484e.css">
+<script src="/hackathon/ur/assets/js/runtime~main.64e893e1.js" defer="defer"></script>
+<script src="/hackathon/ur/assets/js/main.1393d622.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/hackathon/ur/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="مین" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/hackathon/ur/"><div class="navbar__logo"><img src="/hackathon/ur/img/logo.svg" alt="روبولرن لوگو" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/hackathon/ur/img/logo.svg" alt="روبولرن لوگو" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">ROBOLEARN</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/hackathon/ur/docs/module-1-ros/">مفت سیکھیں</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_nlXk"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>اردو</a><ul class="dropdown__menu"><li><a href="/hackathon/docs/module-1-ros/" target="_self" rel="noopener noreferrer" class="dropdown__link" lang="en-US">English</a></li><li><a href="/hackathon/ur/docs/module-1-ros/" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="ur-PK">اردو</a></li></ul></div><a href="https://github.com/Muhammadsaimraza" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">گٹ ہب<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbar__item"><button class="button button--primary button--sm">Log In</button></div><div class="toggle_vylO colorModeToggle_x44X"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="ڈارک اور لائٹ موڈ کے درمیان سوئچ کریں (فی الحال system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_dCNk"><form class="searchContainer_SFql"><input type="search" placeholder="Search for used books..." class="searchInput_IDOb" value=""><button type="submit" class="searchButton_GwgL">Search</button></form></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="واپس اوپر جائیں" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible menu__list-item-collapsible--active"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" aria-current="page" href="/hackathon/ur/docs/module-1-ros/"><span title="ماڈیول 1: ROS" class="categoryLinkLabel_W154">ماڈیول 1: ROS</span></a><button aria-label="Collapse sidebar category &#x27;ماڈیول 1: ROS&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/physical-ai/"><span title="1. فزیکل اے آئی" class="categoryLinkLabel_W154">1. فزیکل اے آئی</span></a><button aria-label="Expand sidebar category &#x27;1. فزیکل اے آئی&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/robot-system/"><span title="2. روبوٹ سسٹم" class="categoryLinkLabel_W154">2. روبوٹ سسٹم</span></a><button aria-label="Expand sidebar category &#x27;2. روبوٹ سسٹم&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/meet-ros2/"><span title="3. ROS 2 سے ملیں" class="categoryLinkLabel_W154">3. ROS 2 سے ملیں</span></a><button aria-label="Expand sidebar category &#x27;3. ROS 2 سے ملیں&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/first-code/"><span title="4. پہلا کوڈ" class="categoryLinkLabel_W154">4. پہلا کوڈ</span></a><button aria-label="Expand sidebar category &#x27;4. پہلا کوڈ&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/communication/"><span title="5. کمیونیکیشن" class="categoryLinkLabel_W154">5. کمیونیکیشن</span></a><button aria-label="Expand sidebar category &#x27;5. کمیونیکیشن&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/building-systems/"><span title="6. سسٹم بنانا" class="categoryLinkLabel_W154">6. سسٹم بنانا</span></a><button aria-label="Expand sidebar category &#x27;6. سسٹم بنانا&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex="0" href="/hackathon/ur/docs/module-1-ros/capstone/"><span title="7. کیپسٹون" class="categoryLinkLabel_W154">7. کیپسٹون</span></a><button aria-label="Expand sidebar category &#x27;7. کیپسٹون&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/ur/docs/module-2-simulation/"><span title="ماڈیول 2: سیمولیشن" class="categoryLinkLabel_W154">ماڈیول 2: سیمولیشن</span></a><button aria-label="Expand sidebar category &#x27;ماڈیول 2: سیمولیشن&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/ur/docs/module-3-nvidia-isaac/"><span title="3. این ویڈیا آئزک پلیٹ فارم" class="categoryLinkLabel_W154">3. این ویڈیا آئزک پلیٹ فارم</span></a><button aria-label="Expand sidebar category &#x27;3. این ویڈیا آئزک پلیٹ فارم&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/hackathon/ur/docs/module-4-humanoid-vla/"><span title="4. ہیومنائڈ VLA سسٹمز" class="categoryLinkLabel_W154">4. ہیومنائڈ VLA سسٹمز</span></a><button aria-label="Expand sidebar category &#x27;4. ہیومنائڈ VLA سسٹمز&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/hackathon/ur/docs/Introduction/"><span title="روبولرن میں خوش آمدید" class="linkLabel_WmDU">روبولرن میں خوش آمدید</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="بریڈ کرمبس"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="ہوم پیج" class="breadcrumbs__link" href="/hackathon/ur/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">ماڈیول 1: ROS</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">اس صفحے پر</button></div><div class="theme-doc-markdown markdown"><header><h1>ماڈیول 1: روبوٹک نروس سسٹم (ROS 2)</h1></header>
+<p>فزیکل اے آئی کے سفر کی بنیاد میں خوش آمدید۔ اگلے 5 ہفتوں میں، آپ سافٹ ویئر اے آئی (جیسے چیٹ جی پی ٹی) اور مجسم ذہانت (روبوٹس جو طبعی دنیا میں حرکت کرتے اور عمل کرتے ہیں) کے درمیان فرق کو ختم کریں گے۔ آپ دریافت کریں گے کہ روبوٹس سافٹ ویئر سے بنیادی طور پر کیوں مختلف ہیں، ہارڈ ویئر اور مڈل ویئر کو سمجھیں گے جو روبوٹکس کو ممکن بناتا ہے، اور ROS 2 کے ساتھ عملی تجربہ حاصل کریں گے—وہ مڈل ویئر جو دنیا بھر میں پیشہ ورانہ روبوٹکس سسٹمز کو طاقت دیتا ہے۔</p>
+<p>یہ ماڈیول ان طلباء کے لیے ڈیزائن کیا گیا ہے جن کے پاس پائتھن پروگرامنگ کا علم ہے لیکن روبوٹکس کا کوئی پس منظر نہیں ہے۔ چاہے آپ کے پاس لیپ ٹاپ ہو، کلاؤڈ ماحول ہو، یا مہنگے ہارڈ ویئر تک رسائی ہو، ہم نے ہر سبق کو ٹائر 1 (آپ کا لیپ ٹاپ یا براؤزر) پر مکمل کرنے کے قابل بنایا ہے۔ آپ تصوراتی بنیادوں سے لے کر ہینڈز آن ROS 2 پروگرامنگ تک اور ایک حقیقی کیپسٹون پروجیکٹ تک ترقی کریں گے جو ملٹی نوڈ سسٹم انضمام کو ظاہر کرتا ہے۔</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="سیکھنے-کے-مقاصد">سیکھنے کے مقاصد<a href="#سیکھنے-کے-مقاصد" class="hash-link" aria-label="براہ راست لنک برائے سیکھنے کے مقاصد" title="براہ راست لنک برائے سیکھنے کے مقاصد" translate="no">​</a></h2>
+<p>ماڈیول 1 کو مکمل کرنے سے، آپ اس قابل ہو جائیں گے:</p>
+<ul>
+<li class="">مجسم اے آئی کو سافٹ ویئر اے آئی سے ممتاز کریں اور وضاحت کریں کہ طبعی دنیا کی رکاوٹیں روبوٹس کو تیار کرنے کے طریقے کو بنیادی طور پر کیوں تبدیل کرتی ہیں۔</li>
+<li class="">روبوٹ فن تعمیر کو سمجھیں: سینسرز، ایکچوایٹرز، کنٹرول لوپس، اور مڈل ویئر کوآرڈینیشن کیوں ضروری ہے۔</li>
+<li class="">ROS 2 مواصلاتی نمونوں میں مہارت حاصل کریں: پبلش/سبسکرائب میسجنگ، سروس کی درخواست/جواب، اور کسٹم انٹرفیس۔</li>
+<li class="">پائتھن، پیرامیٹرز، لانچ فائلز، اور منظم ڈیبگنگ کا استعمال کرتے ہوئے ملٹی نوڈ سسٹمز کو ڈیزائن اور نافذ کریں۔</li>
+<li class="">کیپسٹون سسٹم انضمام کی مشق کے ذریعے روبوٹکس پروجیکٹس پر تفصیلات پر مبنی ترقی کا اطلاق کریں۔</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ماڈیول-کا-ڈھانچہ">ماڈیول کا ڈھانچہ<a href="#ماڈیول-کا-ڈھانچہ" class="hash-link" aria-label="براہ راست لنک برائے ماڈیول کا ڈھانچہ" title="براہ راست لنک برائے ماڈیول کا ڈھانچہ" translate="no">​</a></h2>
+<p>اس ماڈیول میں 7 ابواب ہیں جو ایک ترقی پسند تدریسی قوس کے گرد منظم ہیں:</p>
+<ul>
+<li class=""><strong>ابواب 1-2 (ہفتہ 1-2):</strong> بنیادی تصورات — ابھی کوئی کوڈنگ نہیں</li>
+<li class=""><strong>باب 3 (ہفتہ 2):</strong> کمانڈ لائن انٹرفیس کے ذریعے ROS 2 کی تلاش</li>
+<li class=""><strong>ابواب 4-5 (ہفتہ 3-4):</strong> ROS 2 کے ساتھ ہینڈز آن پائتھن کوڈنگ</li>
+<li class=""><strong>باب 6 (ہفتہ 4-5):</strong> سسٹم انضمام اور ڈیبگنگ</li>
+<li class=""><strong>باب 7 (ہفتہ 5):</strong> کیپسٹون پروجیکٹ جو مکمل انضمام کو ظاہر کرتا ہے</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ابواب-ایک-نظر-میں">ابواب ایک نظر میں<a href="#ابواب-ایک-نظر-میں" class="hash-link" aria-label="براہ راست لنک برائے ابواب ایک نظر میں" title="براہ راست لنک برائے ابواب ایک نظر میں" translate="no">​</a></h3>
+<ul>
+<li class="">
+<p><strong>باب 1: فزیکل اے آئی کیا ہے؟</strong></p>
+<ul>
+<li class="">ہفتہ 1 | 3 اسباق | 2.25 گھنٹے | ٹائر 1 (تصوراتی)</li>
+<li class="">روبوٹس چیٹ جی پی ٹی سے کیوں مختلف ہیں؟ مجسم ذہانت، طبعی رکاوٹوں (کشش ثقل، تاخیر، حفاظت)، اور ہیومنائڈ روبوٹکس ایکو سسٹم کو دریافت کریں۔ کوئی کوڈنگ نہیں — صرف بنیادی سوچ۔</li>
+<li class="">→ باب 1 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 2: روبوٹ سسٹم</strong></p>
+<ul>
+<li class="">ہفتہ 1-2 | 4 اسباق | 3 گھنٹے | ٹائر 1 (تصوراتی + انٹرایکٹو)</li>
+<li class="">جانیں کہ روبوٹ کیسے سمجھتے ہیں (سینسرز)، حرکت کرتے ہیں (ایکچوایٹرز)، اور ہم آہنگ کرتے ہیں (مڈل ویئر)۔ اپنے ہارڈ ویئر ٹائر کو سمجھیں اور یہ آپ کی تعمیر پر کیسے اثر انداز ہوتا ہے۔</li>
+<li class="">→ باب 2 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 3: ROS 2 سے ملو</strong></p>
+<ul>
+<li class="">ہفتہ 2 | 4 اسباق | 4 گھنٹے | ٹائر 1 (کلاؤڈ ROS 2)</li>
+<li class="">اپنا ROS 2 ماحول ترتیب دیں اور اسے کمانڈ لائن ٹولز کے ذریعے دریافت کریں۔ ایک روبوٹ (ٹورٹیلسیم) کو کنٹرول کریں، نوڈس اور ٹاپکس کی فہرست بنائیں، خدمات کو کال کریں، پیرامیٹرز میں ترمیم کریں۔ ابھی تک کوئی پائتھن کوڈنگ نہیں — خالص تلاش۔</li>
+<li class="">→ باب 3 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 4: آپ کا پہلا ROS 2 کوڈ</strong></p>
+<ul>
+<li class="">ہفتہ 3 | 4 اسباق | 4 گھنٹے | ٹائر 1 (کلاؤڈ ROS 2)</li>
+<li class="">اپنے پہلے پائتھن ROS 2 نوڈس لکھیں۔ پبلشر اور سبسکرائبر نوڈس بنائیں، کال بیکس کو سمجھیں، پیکجز بنائیں، اور اپنے کام کو بڑھانے کے لیے اے آئی کے ساتھ تعاون کریں۔</li>
+<li class="">→ باب 4 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 5: مواصلات میں مہارت</strong></p>
+<ul>
+<li class="">ہفتہ 3-4 | 4 اسباق | 4 گھنٹے | ٹائر 1 (کلاؤڈ ROS 2)</li>
+<li class="">ROS 2 کے مواصلاتی نمونوں میں مہارت حاصل کریں: خدمات، کسٹم پیغام کی اقسام، اور ڈیزائن ٹریڈ آف۔ عملی ڈیزائن مشقوں کے ذریعے جانیں کہ کب ٹاپکس بمقابلہ خدمات کا استعمال کرنا ہے۔</li>
+<li class="">→ باب 5 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 6: روبوٹ سسٹمز کی تعمیر</strong></p>
+<ul>
+<li class="">ہفتہ 4-5 | 3 اسباق | 3 گھنٹے | ٹائر 1 (کلاؤڈ ROS 2)</li>
+<li class="">سب کچھ ایک ساتھ باندھیں: قابل ترتیب پیرامیٹرز، لانچ فائلیں جو متعدد نوڈس شروع کرتی ہیں، اور ملٹی نوڈ سسٹمز کی منظم ڈیبگنگ۔</li>
+<li class="">→ باب 6 شروع کریں</li>
+</ul>
+</li>
+<li class="">
+<p><strong>باب 7: کیپسٹون - روبوٹ کنٹرولر</strong></p>
+<ul>
+<li class="">ہفتہ 5 | 3 اسباق | 4.5 گھنٹے | ٹائر 1 (ٹورٹیلسیم سمیولیشن)</li>
+<li class="">پہلے ایک تفصیلات لکھیں، پھر ایک مکمل ملٹی نوڈ روبوٹ کنٹرولر سسٹم نافذ کریں۔ پب/سب، خدمات، پیرامیٹرز، اور لانچ فائلوں کو مربوط کریں۔ اپنی تفصیلات کے خلاف توثیق کریں۔</li>
+<li class="">→ باب 7 شروع کریں</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="تدریسی-نقطہ-نظر-4-سطحی-طریقہ">تدریسی نقطہ نظر: 4-سطحی طریقہ<a href="#تدریسی-نقطہ-نظر-4-سطحی-طریقہ" class="hash-link" aria-label="براہ راست لنک برائے تدریسی نقطہ نظر: 4-سطحی طریقہ" title="براہ راست لنک برائے تدریسی نقطہ نظر: 4-سطحی طریقہ" translate="no">​</a></h2>
+<p>یہ ماڈیول ترقی پسندانہ طور پر مزید پیچیدہ استدلال متعارف کراتا ہے:</p>
+<table><thead><tr><th style="text-align:left">سطح</th><th style="text-align:left">کیا ہوتا ہے</th><th style="text-align:left">آپ کا کردار</th><th style="text-align:left">ابواب</th></tr></thead><tbody><tr><td style="text-align:left">L1: دستی بنیاد</td><td style="text-align:left">استاد براہ راست پڑھاتا ہے، آپ دستی طور پر مشق کرتے ہیں</td><td style="text-align:left">ذہنی ماڈل سیکھیں</td><td style="text-align:left">1-2</td></tr><tr><td style="text-align:left">L2: اے آئی تعاون</td><td style="text-align:left">آپ مکالمے اور تکرار کے ذریعے اے آئی کے ساتھ تعاون کرتے ہیں</td><td style="text-align:left">پرامپٹ، توثیق، تکرار</td><td style="text-align:left">3-5</td></tr><tr><td style="text-align:left">L3: انٹیلی جنس ڈیزائن</td><td style="text-align:left">پیٹرن کی شناخت، دوبارہ قابل استعمال مہارتیں بنانا</td><td style="text-align:left">علم کو عام کریں</td><td style="text-align:left">5-6</td></tr><tr><td style="text-align:left">L4: تفصیلات پر مبنی انضمام</td><td style="text-align:left">تفصیلات کے ذریعے نظام ڈیزائن کریں، اجزاء کو ترتیب دیں</td><td style="text-align:left">حل تیار کریں</td><td style="text-align:left">7</td></tr></tbody></table>
+<p>آپ ان سطحوں کا تجربہ عمل کے ذریعے کرتے ہیں، نہ کہ ان کا مطالعہ کرکے۔ فریم ورک پوشیدہ رہتا ہے—آپ اسے کرنے کے ذریعے دریافت کریں گے۔</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ہارڈ-ویئر-ٹائرز-اور-آپ-کا-سیکھنے-کا-راستہ">ہارڈ ویئر ٹائرز اور آپ کا سیکھنے کا راستہ<a href="#ہارڈ-ویئر-ٹائرز-اور-آپ-کا-سیکھنے-کا-راستہ" class="hash-link" aria-label="براہ راست لنک برائے ہارڈ ویئر ٹائرز اور آپ کا سیکھنے کا راستہ" title="براہ راست لنک برائے ہارڈ ویئر ٹائرز اور آپ کا سیکھنے کا راستہ" translate="no">​</a></h2>
+<p>تمام ماڈیول 1 مواد ٹائر 1 طلباء (صرف لیپ ٹاپ/کلاؤڈ) کے لیے قابل رسائی ہے۔ یہاں ہر ٹائر کیا قابل بناتا ہے:</p>
+<table><thead><tr><th style="text-align:left">ٹائر</th><th style="text-align:left">سامان</th><th style="text-align:left">ماڈیول 1 کا راستہ</th><th style="text-align:left">مستقبل کی صلاحیت</th></tr></thead><tbody><tr><td style="text-align:left">ٹائر 1</td><td style="text-align:left">لیپ ٹاپ + براؤزر</td><td style="text-align:left">کلاؤڈ ROS 2 (دی کنسٹرکٹ)، Pyodide پائتھن، MockROS سمیولیشن</td><td style="text-align:left">ROS 2 کے تصورات میں مہارت حاصل کریں (100% ماڈیول 1)</td></tr><tr><td style="text-align:left">ٹائر 2</td><td style="text-align:left">RTX GPU ورک سٹیشن</td><td style="text-align:left">مقامی ROS 2 + Gazebo، تیز عملدرآمد</td><td style="text-align:left">مقامی طور پر سمیولیشن کے ساتھ ماڈیول 2-3</td></tr><tr><td style="text-align:left">ٹائر 3</td><td style="text-align:left">جیٹسن اورین کٹ</td><td style="text-align:left">ایج تعیناتی، حقیقی سینسرز</td><td style="text-align:left">ماڈیول 4 ایج اے آئی، حقیقی پرسیپشن</td></tr><tr><td style="text-align:left">ٹائر 4</td><td style="text-align:left">فزیکل روبوٹ (یونٹری Go2/G1)</td><td style="text-align:left">مذکورہ بالا سب کچھ + حقیقی دنیا کی جانچ</td><td style="text-align:left">مکمل مجسم اے آئی، سم-ٹو-ریئل ٹرانسفر</td></tr></tbody></table>
+<p>چاہے آپ کا ٹائر کوئی بھی ہو، آپ تمام ماڈیول 1 مکمل کر سکتے ہیں۔ اعلی ٹائرز صرف تیزی سے عملدرآمد کرتے ہیں اور مستقبل کے ماڈیولز کو قابل بناتے ہیں۔</p>
+<p>باب 2، سبق 4 میں اپنے ٹائر کی شناخت کریں، اور نظام مواد کی سفارشات کو ذاتی نوعیت کا بنائے گا۔</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="آپ-کیا-بنائیں-گے">آپ کیا بنائیں گے<a href="#آپ-کیا-بنائیں-گے" class="hash-link" aria-label="براہ راست لنک برائے آپ کیا بنائیں گے" title="براہ راست لنک برائے آپ کیا بنائیں گے" translate="no">​</a></h2>
+<p>ماڈیول 1 کے اختتام تک، آپ کے پاس ہوگا:</p>
+<ul>
+<li class=""><strong>تصوراتی بنیاد:</strong> مجسم ذہانت کو سمجھیں اور روبوٹس کو سافٹ ویئر سے مختلف سوچ کی ضرورت کیوں ہے۔</li>
+<li class=""><strong>ROS 2 میں مہارت:</strong> پبلش/سبسکرائب، خدمات، کسٹم انٹرفیس، پیرامیٹرز، اور لانچ سسٹمز میں مہارت حاصل کریں۔</li>
+<li class=""><strong>4 دوبارہ قابل استعمال مہارتیں:</strong> اجزاء جو آپ مستقبل کے پروجیکٹس پر لاگو کر سکتے ہیں
+*<br>
+<!-- -->os2-publisher-subscriber
+*<br>
+<!-- -->os2-service-pattern
+*<br>
+<!-- -->os2-custom-interfaces
+*<br>
+<!-- -->os2-launch-system</li>
+<li class=""><strong>کیپسٹون سسٹم:</strong> ایک کام کرنے والا ملٹی نوڈ روبوٹ کنٹرولر سسٹم جو تفصیلات کے ذریعے کنٹرول کیا جاتا ہے۔</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="وقت-کا-عزم">وقت کا عزم<a href="#وقت-کا-عزم" class="hash-link" aria-label="براہ راست لنک برائے وقت کا عزم" title="براہ راست لنک برائے وقت کا عزم" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>کل دورانیہ:</strong> 5 ہفتے</li>
+<li class=""><strong>فی ہفتہ اسباق:</strong> 5 اسباق (ہفتہ 1: 3، ہفتے 2-5: ہر ایک 4)</li>
+<li class=""><strong>فی سبق:</strong> 45-60 منٹ</li>
+<li class=""><strong>فی باب:</strong> 3-4.5 گھنٹے</li>
+<li class=""><strong>کل ماڈیول کا وقت:</strong> 25-30 گھنٹے فعال سیکھنے کا۔</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="شرائط">شرائط<a href="#شرائط" class="hash-link" aria-label="براہ راست لنک برائے شرائط" title="براہ راست لنک برائے شرائط" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>پائتھن پروگرامنگ:</strong> فنکشنز، کلاسز، لوپس (آپ کو پائتھن کوڈ لکھنے میں آرام دہ ہونا چاہیے)</li>
+<li class=""><strong>لینکس/ٹرمینل کی بنیادی باتیں:</strong> ls, cd, pwd, ٹیکسٹ ایڈیٹنگ (آپ کو کمانڈ لائن ٹولز کے ساتھ آرام دہ ہونا چاہیے)</li>
+<li class=""><strong>صبر اور تجسس:</strong> روبوٹکس میں سسٹم کی سوچ شامل ہے؛ آپ متعدد نوڈس میں مسائل کو ڈیبگ کریں گے۔</li>
+</ul>
+<p>آپ کو <strong>نہیں</strong> ضرورت ہے:</p>
+<ul>
+<li class="">روبوٹکس کا پس منظر</li>
+<li class="">C++ کا علم</li>
+<li class="">مہنگا ہارڈ ویئر</li>
+<li class="">پچھلا ROS تجربہ</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="اس-ماڈیول-کا-استعمال-کیسے-کریں">اس ماڈیول کا استعمال کیسے کریں<a href="#اس-ماڈیول-کا-استعمال-کیسے-کریں" class="hash-link" aria-label="براہ راست لنک برائے اس ماڈیول کا استعمال کیسے کریں" title="براہ راست لنک برائے اس ماڈیول کا استعمال کیسے کریں" translate="no">​</a></h2>
+<p><strong>طلباء کے لیے:</strong></p>
+<ol>
+<li class="">باب 1، سبق 1 سے شروع کریں (اس میں ~1 گھنٹہ لگتا ہے)</li>
+<li class="">ترتیب وار آگے بڑھیں—ہر باب پچھلی تعلیم پر استوار ہوتا ہے۔</li>
+<li class="">آگے بڑھنے سے پہلے ہر باب کے آخر میں مہارت کے گیٹ کو مکمل کریں۔</li>
+<li class="">فراہم کردہ پرامپٹس کا استعمال کرتے ہوئے ابواب 4+ میں اے آئی کے ساتھ تعاون کریں۔</li>
+<li class="">مکمل انضمام کو ظاہر کرنے کے لیے باب 7 کیپسٹون کے ساتھ ختم کریں۔</li>
+</ol>
+<p><strong>اساتذہ کے لیے:</strong></p>
+<ol>
+<li class="">سیکھنے کے مقاصد اور وقت کے عزم کے لیے تمام 7 باب کے READMEs کا جائزہ لیں۔</li>
+<li class="">اپنے تدریسی کیلنڈر میں ابواب کو نقشہ بنائیں (5 ہفتوں کا ڈھانچہ تجویز کیا گیا ہے، قابل ترتیب)</li>
+<li class="">باب کی مہارت کے گیٹس کو تشخیصی چوکیوں کے طور پر استعمال کریں۔</li>
+<li class="">کیپسٹون پروجیکٹ کو واضح تفصیلات پر مبنی روبرکس کے ساتھ گریڈ کیا جاتا ہے۔</li>
+</ol>
+<p><strong>مصنفین کے لیے:</strong></p>
+<ol>
+<li class="">اس ماڈیول کے باب کے فن تعمیر کو ماڈیول 2 کے لیے ایک ٹیمپلیٹ کے طور پر مطالعہ کریں۔</li>
+<li class="">4-سطحی ترقی (L1→L2→L3→L4) تمام تکنیکی ماڈیولز پر لاگو ہوتی ہے۔</li>
+<li class="">&quot;ٹائر 1 فال بیک&quot; کا اصول ہارڈ ویئر کی رکاوٹوں کے پار رسائی کو یقینی بناتا ہے۔</li>
+<li class="">دوبارہ قابل استعمال مہارتوں کا نقطہ نظر کتابوں میں ذہانت کو مرکب کرتا ہے۔</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ابواب-کے-درمیان-مہارت-کے-گیٹس">ابواب کے درمیان مہارت کے گیٹس<a href="#ابواب-کے-درمیان-مہارت-کے-گیٹس" class="hash-link" aria-label="براہ راست لنک برائے ابواب کے درمیان مہارت کے گیٹس" title="براہ راست لنک برائے ابواب کے درمیان مہارت کے گیٹس" translate="no">​</a></h2>
+<p>اگلے باب میں ترقی کرنے سے پہلے، تصدیق کریں کہ آپ کر سکتے ہیں:</p>
+<ul>
+<li class=""><strong>باب 1 کے بعد:</strong> سافٹ ویئر اے آئی کو مجسم اے آئی سے ممتاز کریں، 3 طبعی رکاوٹوں کا نام دیں۔</li>
+<li class=""><strong>باب 2 کے بعد:</strong> سینسر کی اقسام کی درجہ بندی کریں، مڈل ویئر کے کردار کی وضاحت کریں، اپنے ہارڈ ویئر کے ٹائر کی شناخت کریں۔</li>
+<li class=""><strong>باب 3 کے بعد:</strong> ٹورٹیلسیم لانچ کریں، نوڈس/ٹاپکس کی فہرست بنائیں، خدمات کو کال کریں، پیرامیٹرز میں ترمیم کریں (CLI کے ذریعے)</li>
+<li class=""><strong>باب 4 کے بعد:</strong> پبلشر/سبسکرائبر نوڈس لکھیں، ڈیٹا کے بہاؤ کی تصدیق کریں، اے آئی کی مدد سے توسیع کریں۔</li>
+<li class=""><strong>باب 5 کے بعد:</strong> سروس انٹرفیس ڈیزائن کریں، کسٹم پیغامات بنائیں، ڈیزائن ٹریڈ آف کا جواز پیش کریں۔</li>
+<li class=""><strong>باب 6 کے بعد:</strong> لانچ فائلیں بنائیں، ملٹی نوڈ سسٹم شروع کریں،os2doctor اورqt کے ساتھ ڈیبگ کریں۔</li>
+<li class=""><strong>باب 7 کے بعد:</strong> تفصیلات لکھیں، تفصیلات سے نافذ کریں، مکملیت کی توثیق کریں۔</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="تکنیکی-اسٹیک">تکنیکی اسٹیک<a href="#تکنیکی-اسٹیک" class="hash-link" aria-label="براہ راست لنک برائے تکنیکی اسٹیک" title="براہ راست لنک برائے تکنیکی اسٹیک" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>ROS 2 تقسیم:</strong> Humble (طویل مدتی معاونت، موجودہ صنعتی معیار)</li>
+<li class=""><strong>زبان:</strong> Python 3.10+ معclpy (ROS 2 پائتھن کلائنٹ لائبریری)</li>
+<li class=""><strong>سمیولیشن:</strong> Turtlesim (ابواب 3-7)، MockROS (ٹائر 1 کے لیے براؤزر سمیولیشن)</li>
+<li class=""><strong>کلاؤڈ آپشن:</strong> The Construct ROS (کلاؤڈ ROS 2 ماحول، مفت ٹائر دستیاب ہے)</li>
+<li class=""><strong>ٹولز:</strong>os2 CLI,qt (ویژولائزیشن), colcon (بلڈ سسٹم), Docusaurus (یہ پلیٹ فارم)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ماڈیول-کی-ترقی">ماڈیول کی ترقی<a href="#ماڈیول-کی-ترقی" class="hash-link" aria-label="براہ راست لنک برائے ماڈیول کی ترقی" title="براہ راست لنک برائے ماڈیول کی ترقی" translate="no">​</a></h2>
+<p><strong>باب کا بہاؤ:</strong></p>
+<ol>
+<li class=""><strong>باب 1-2 (بنیاد):</strong> فزیکل اے آئی کے تصورات → روبوٹ سسٹم کی اناٹومی</li>
+<li class=""><strong>باب 3 (پل):</strong> CLI کی تلاش کے ذریعے ROS 2 سے ملو</li>
+<li class=""><strong>ابواب 4-5 (ہینڈز آن):</strong> پہلا کوڈ (پب/سب) → مواصلات (خدمات + انٹرفیس)</li>
+<li class=""><strong>باب 6 (انضمام):</strong> لانچ فائلوں کے ساتھ سسٹمز کی تعمیر اور ڈیبگنگ</li>
+<li class=""><strong>باب 7 (کیپسٹون):</strong> ملٹی نوڈ تفصیلات پر مبنی پروجیکٹ</li>
+</ol>
+<p><strong>L1 دستی بنیاد:</strong> باب 1-2 (تصوراتی تفہیم)
+<strong>L1→L2 منتقلی:</strong> باب 3 (اے آئی کی مدد سے CLI کی تلاش)
+<strong>L2 اے آئی تعاون:</strong> ابواب 4-5 (اے آئی کے ساتھ ہینڈز آن کوڈنگ)
+<strong>L3 انٹیلی جنس ڈیزائن:</strong> باب 6 (سسٹم پیٹرنز)
+<strong>L4 تفصیلات پر مبنی:</strong> باب 7 (کیپسٹون پروجیکٹ)</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="سپورٹ-اور-کمیونٹی">سپورٹ اور کمیونٹی<a href="#سپورٹ-اور-کمیونٹی" class="hash-link" aria-label="براہ راست لنک برائے سپورٹ اور کمیونٹی" title="براہ راست لنک برائے سپورٹ اور کمیونٹی" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>مواد کے بارے میں سوالات؟</strong> کسی بھی سبق پر RAG چیٹ کا استعمال کریں (نیچے دائیں کونے میں)</li>
+<li class=""><strong>ہارڈ ویئر سیٹ اپ میں مدد؟</strong> باب 2، سبق 4 آپ کے ٹائر کی شناخت میں مدد کرتا ہے۔</li>
+<li class=""><strong>کوڈنگ کے مسئلے پر پھنس گئے؟</strong> ابواب 4-7 میں فراہم کردہ اے آئی تعاون پرامپٹس کا فائدہ اٹھائیں۔</li>
+<li class=""><strong>کیپسٹون پروجیکٹ کی رہنمائی؟</strong> باب 7 تفصیلات کے سانچے اور تکرار کے فریم ورک فراہم کرتا ہے۔</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="آگے-کیا-ہے">آگے کیا ہے؟<a href="#آگے-کیا-ہے" class="hash-link" aria-label="براہ راست لنک برائے آگے کیا ہے؟" title="براہ راست لنک برائے آگے کیا ہے؟" translate="no">​</a></h2>
+<p>ماڈیول 1 مکمل کرنے کے بعد، آپ <strong>ماڈیول 2: سمیولیشن میں مہارت</strong> کے لیے تیار ہوں گے، جہاں آپ:</p>
+<ul>
+<li class="">URDF (روبوٹ ڈسکرپشن فارمیٹ) کا استعمال کرتے ہوئے روبوٹس کو ماڈل کریں گے۔</li>
+<li class="">Gazebo میں پیچیدہ نظاموں کو سمیولیٹ کریں گے۔</li>
+<li class="">اپنے ROS 2 نوڈس میں پرسیپشن (LIDAR, کیمرے) شامل کریں گے۔</li>
+<li class="">خود مختار نیویگیشن الگورتھم نافذ کریں گے۔</li>
+</ul>
+<p>لیکن پہلے — ماڈیول 1 میں مہارت حاصل کریں۔ یہاں آپ جو بنیاد بناتے ہیں وہ اس بات کا تعین کرتی ہے کہ ماڈیول 2-4 میں کیا ممکن ہے۔</p>
+<p>شروع کرنے کے لیے تیار ہیں؟ باب 1 شروع کریں: فزیکل اے آئی کیا ہے؟</p>
+<p>مختلف طریقے سے دریافت کرنا پسند کرتے ہیں؟ ارتکاب کرنے سے پہلے یہ دیکھنے کے لیے کہ اندر کیا ہے، مذکورہ بالا کسی بھی باب کے README پر جائیں۔</p>
+<p>اس ماڈیول کے بارے میں سوالات؟ مذکورہ بالا سیکھنے کے مقاصد، وقت کے عزم، اور شرائط کا جائزہ لیں۔</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/Muhammadsaimraza/docs/module-1-ros/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>اس صفحے میں ترمیم کریں</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="ڈاکس صفحات"><a class="pagination-nav__link pagination-nav__link--next" href="/hackathon/ur/docs/module-1-ros/physical-ai/"><div class="pagination-nav__sublabel">اگلا</div><div class="pagination-nav__label">باب 1: فزیکل اے آئی کیا ہے؟</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#سیکھنے-کے-مقاصد" class="table-of-contents__link toc-highlight">سیکھنے کے مقاصد</a></li><li><a href="#ماڈیول-کا-ڈھانچہ" class="table-of-contents__link toc-highlight">ماڈیول کا ڈھانچہ</a><ul><li><a href="#ابواب-ایک-نظر-میں" class="table-of-contents__link toc-highlight">ابواب ایک نظر میں</a></li></ul></li><li><a href="#تدریسی-نقطہ-نظر-4-سطحی-طریقہ" class="table-of-contents__link toc-highlight">تدریسی نقطہ نظر: 4-سطحی طریقہ</a></li><li><a href="#ہارڈ-ویئر-ٹائرز-اور-آپ-کا-سیکھنے-کا-راستہ" class="table-of-contents__link toc-highlight">ہارڈ ویئر ٹائرز اور آپ کا سیکھنے کا راستہ</a></li><li><a href="#آپ-کیا-بنائیں-گے" class="table-of-contents__link toc-highlight">آپ کیا بنائیں گے</a></li><li><a href="#وقت-کا-عزم" class="table-of-contents__link toc-highlight">وقت کا عزم</a></li><li><a href="#شرائط" class="table-of-contents__link toc-highlight">شرائط</a></li><li><a href="#اس-ماڈیول-کا-استعمال-کیسے-کریں" class="table-of-contents__link toc-highlight">اس ماڈیول کا استعمال کیسے کریں</a></li><li><a href="#ابواب-کے-درمیان-مہارت-کے-گیٹس" class="table-of-contents__link toc-highlight">ابواب کے درمیان مہارت کے گیٹس</a></li><li><a href="#تکنیکی-اسٹیک" class="table-of-contents__link toc-highlight">تکنیکی اسٹیک</a></li><li><a href="#ماڈیول-کی-ترقی" class="table-of-contents__link toc-highlight">ماڈیول کی ترقی</a></li><li><a href="#سپورٹ-اور-کمیونٹی" class="table-of-contents__link toc-highlight">سپورٹ اور کمیونٹی</a></li><li><a href="#آگے-کیا-ہے" class="table-of-contents__link toc-highlight">آگے کیا ہے؟</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">کورس</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/hackathon/ur/docs/Introduction/">نصابی کتاب</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">کمیونٹی</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">ڈسکارڈ<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">ٹویٹر<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">مزید</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/Panaversity" target="_blank" rel="noopener noreferrer" class="footer__link-item">گٹ ہب<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">کاپی رائٹ © 2025 پیناورسٹی۔ ڈوکوسورس کے ساتھ بنایا گیا۔</div></div></div></footer></div>
+</body>
+</html>
